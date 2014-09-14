@@ -88,7 +88,7 @@ export default Ember.Component.extend({
       .attr("cx", 0)
       .attr("cy", 0)
       .attr("r", innerRadius)
-      .style({ 'stroke': 'white', 'stroke-width': '3px'})
+      .style({ 'stroke': 'white', 'stroke-width': '4px'})
       .attr("fill", "#edebe0");
 
     svg.datum(data).selectAll("path")
