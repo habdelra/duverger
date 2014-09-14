@@ -15,6 +15,14 @@ export default Ember.Component.extend({
   attributeBindings: ['draggable'],
   draggable: not('isFirstPreference'),
   party: alias('model.party'),
+  votesDisplay: computed('votes', function(key, value) {
+    if (arguments.length > 1) {
+      var votesInteger = parseInt(value, 10);
+      set(this, 'votes', votesInteger);
+    } else {
+      return get(this, 'votes');
+    }
+  }),
 
   partyName: computed('party', function(){
     var party = get(this, 'party');

@@ -1,6 +1,6 @@
 export default function(){
   return [{
-    votePercentage: 6,
+    votes: 6,
     preferences: [{
       index: 0,
       party: 'socialDemocrat'
@@ -18,7 +18,7 @@ export default function(){
       party: 'liberal'
     }]
   },{
-    votePercentage: 15,
+    votes: 15,
     preferences: [{
       index: 0,
       party: 'liberal'
@@ -36,7 +36,7 @@ export default function(){
       party: 'nationalist'
     }]
   },{
-    votePercentage: 24,
+    votes: 24,
     preferences: [{
       index: 0,
       party: 'nationalist'
@@ -54,7 +54,7 @@ export default function(){
       party: 'green'
     }]
   },{
-    votePercentage:23,
+    votes:23,
     preferences: [{
       index: 0,
       party: 'green'
@@ -72,7 +72,7 @@ export default function(){
       party: 'conservative'
     }]
   },{
-    votePercentage: 2,
+    votes: 2,
     preferences: [{
       index: 0,
       party: 'conservative'
