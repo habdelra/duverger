@@ -3,6 +3,7 @@ import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
 var set = Ember.set;
+var empty = Ember.empty;
 var computed = Ember.computed;
 var not = computed.not;
 var alias = computed.alias;
@@ -17,6 +18,7 @@ export default Ember.Component.extend({
   party: alias('model.party'),
   votesDisplay: computed('votes', function(key, value) {
     if (arguments.length > 1) {
+      value = empty(value) ? 0 : value;
       var votesInteger = parseInt(value, 10);
       set(this, 'votes', votesInteger);
     } else {
