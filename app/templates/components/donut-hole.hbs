@@ -1,7 +1,8 @@
  <div {{bind-attr class=":election-outcome electionOutcome" style=outcomeFontColorStyle}}>
-   {{#if hasDefinitiveOutcome}}
-     {{outcomeName}} ({{outcomeAbbreviation}})
+   {{#if requiresRunoff}}
+     {{! do any run off stuff here in the donut hole }}
+     {{outcomeMessage}}
    {{else}}
-     {{outcomeName}}
+     {{outcomeMessage}}
    {{/if}}
  </div>

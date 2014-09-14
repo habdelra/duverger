@@ -6,7 +6,7 @@ export default Ember.Route.extend({
   model: function() {
     var data = districtOneFixture();
     return {
-      formula: 'proportional',
+      formula: 'plurality',
       districtNumber: data.districtNumber,
       districtName: data.districtName,
       preferenceGroups: data.preferenceGroups,

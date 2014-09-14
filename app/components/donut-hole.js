@@ -29,9 +29,9 @@ export default Ember.Component.extend({
     return value;
   },
 
-  hasDefinitiveOutcome: computed('electionOutcome', function() {
+  requiresRunoff: computed('electionOutcome', function() {
     var electionOutcome = get(this, 'electionOutcome');
-    return !!partyLookup(electionOutcome, 'name');
+    return !partyLookup(electionOutcome, 'name');
   }),
 
   outcomeName: computed('electionOutcome', function() {
@@ -40,6 +40,13 @@ export default Ember.Component.extend({
 
   outcomeAbbreviation: computed('electionOutcome', function() {
     return this._outcomeField('abbreviation');
+  }),
+
+  outcomeMessage: computed('outcomeName','outcomeAbbreviation', 'requiresRunoff', function(){
+    var outcomeName = get(this, 'outcomeName');
+    var outcomeAbbreviation = get(this, 'outcomeAbbreviation');
+    var requiresRunoff = get(this, 'requiresRunoff');
+    return requiresRunoff ? outcomeName : outcomeName + ' (' + outcomeAbbreviation + ')';
   }),
 
   outcomeColor: computed('electionOutcome', function() {
@@ -63,5 +70,4 @@ export default Ember.Component.extend({
       'px; height:' + innerDiameter +
       'px; left:' + margin + 'px; top:' + margin + 'px;';
   })
-
 });
