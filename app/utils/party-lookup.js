@@ -21,7 +21,7 @@ var partyMap = {
   },
   liberal: {
     abbreviation: 'L',
-    name: 'liberal',
+    name: 'Liberal',
     color: '#F8DB3B',
   }
 };
