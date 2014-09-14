@@ -6,12 +6,18 @@ var computed = Ember.computed;
 var alias = computed.alias;
 
 export default Ember.Component.extend({
-  classNames: ['preference-group'],
+  classNameBindings: [':preference-group', 'primaryPreferenceParty'],
+
   preferences: alias('preferenceParties.preferences'),
 
   primaryPreference: computed('preferences', function() {
     var primaryPreference = get(this, 'preferences.firstObject');
     return primaryPreference;
+  }),
+
+  primaryPreferenceParty: computed('primaryPreference.party', function(){
+    var party = get(this, 'primaryPreference.party');
+    return party;
   }),
 
   _reindexChildren: function() {

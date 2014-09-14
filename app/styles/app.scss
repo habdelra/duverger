@@ -6,7 +6,7 @@ $nationalist-color: #46C8B3;
 $conservative-color: #777777;
 $text-color: #333333;
 $light-text-color: #FFFFFF;
-$text-feild-color: #333333;
+$text-feild-color: rgba(51,51,51,.2);
 
 $font-size-small: 24px;
 $font-size-medium: 30px;
@@ -20,72 +20,183 @@ $font-size-largest: 200px;
   transition: $property .1s ease-in-out;
 }
 
+@mixin grid-width($units){
+  $column-width: 95px;
+  $gutter-width: 33px;
+  @if $units > 1 {
+      $gutter-amount: $units - 1;
+      width: $column-width * $units + $gutter-amount * $gutter-width;
+    } @else {
+      width: $column-width;
+    }
+}
+
+@mixin grid-height($units){
+  height: $units*20px;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 html, body {
   margin: 20px;
   background-color: $background-color;
   font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  font-weight: 600;
   font-size: $font-size-small;
   color: $text-color;
+  *{
+    box-sizing: border-box;
+  }
 }
 
 $preference-width: 80px;
 $preference-height: 80px;
 
-.drop-zone {
-  display:block;
-  min-height: 200px;
-  width: 400px;
-  &.accepts-drag {
-    background: lightgreen;
-  }
-}
-
-.party-preference {
-  vertical-align: top;
-  text-align: center;
-  display: inline-block;
-  height: $preference-height;
-  width: $preference-width;
-  background: lightblue;
-  border: 1px solid gray;
-  &.first-preference {
-    text-align: inherit;
-    background: white;
-    width: 250px;
-  }
-  &.dragging {
-    opacity: .4;
-  }
-}
-
 .preference-group {
   margin-bottom: 20px;
-  font-size: 0;
-
+  font-size: 0; //hack to remove inline block spaces
+  white-space: nowrap; //make sure inline preference items never break to a new line
   > * {
-    font-size: $font-size-small;
+    font-size: $font-size-medium; //undo the hack so font displays ;(
+  }
+
+  .party-preference {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    text-align: center;
+    background: $light-text-color;
+    padding: 20px;
+    @include grid-width(1);
+    @include grid-height(5);
+
+    &:hover {
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+      cursor: grab;
+      bottom: 4px;
+      @include transition-property(bottom);
+    }
+
+    .secondary-party-name {
+      display: block;
+      font-size: $font-size-large;
+      @include vertical-align;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        border: 10px solid black;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    &.Conservative:after {
+      border-top-color: $conservative-color;
+      border-right-color: $conservative-color;
+    }
+    &.Green:after {
+      border-top-color: $green-color;
+      border-right-color: $green-color;
+    }
+    &.Nationalist:after {
+      border-top-color: $nationalist-color;
+      border-right-color: $nationalist-color;
+    }
+    &.Liberal:after {
+      border-top-color: $liberal-color;
+      border-right-color: $liberal-color;
+    }
+    &.Social.Democrat:after {
+      border-top-color: $social-democrat-color;
+      border-right-color: $social-democrat-color;
+    }
+
+    &.first-preference {
+      color: $light-text-color;
+      text-align: left;
+      white-space: normal;
+      @include grid-width(3);
+      @include grid-height(5);
+
+      .party-name {
+        display: inline-block;
+        padding-right: 100px;
+        @include vertical-align;     
+      }
+
+      .vote-input-container {
+        background: $text-feild-color;
+        padding: 10px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        input {
+          background: none;
+          border: none;
+          padding: 0;
+          margin: 0;
+          display: inline-block;
+          text-align: right;
+          width: 38px;
+          height: auto;
+          font-size: $font-size-medium;
+          font-weight: 600;
+          color: $light-text-color;
+          text-align: center;
+        }
+
+        input:focus {
+          outline: none;
+        }
+      }
+
+      &:after { display: none; }
+      &:hover { 
+        cursor: auto;
+        bottom: 0;
+      }
+    }
+
+    &.dragging {
+      opacity: .4;
+    }
+  }
+
+  &.socialDemocrat .first-preference{ background: $social-democrat-color; }
+  &.liberal .first-preference{ background: $liberal-color; }
+  &.nationalist .first-preference{ background: $nationalist-color; }
+  &.green .first-preference{ background: $green-color; }
+  &.conservative .first-preference{ background: $conservative-color; }
+
+  .preference-drop-zone {
+    display: inline-block;
+    width: 1px;
+    @include grid-height(5);
+    @include transition-property(width);
+
+    &.can-accept-drop {
+      width: 10px;
+    }
+
+    &.accepts-drag {
+      background: $text-feild-color;
+      width: 40px;
+    }
   }
 }
 
-.preference-drop-zone {
-  display: inline-block;
-  height: 82px;
-  width: 0;
-  @include transition-property(width);
 
-  &.can-accept-drop {
-    width: 10px;
-  }
-
-  &.accepts-drag {
-    background: lightgreen;
-    width: 40px;
-  }
-}
-
-.vote-input {
-  width: 40px;
-}
 
 .donut-hole {
   position: absolute;
