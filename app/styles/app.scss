@@ -153,14 +153,13 @@ $preference-height: 80px;
         top: 20px;
         right: 20px;
 
-        input {
+        .vote-input {
           background: none;
           border: none;
           padding: 0;
           margin: 0;
           display: inline-block;
-          text-align: right;
-          width: 38px;
+          width: 60px;
           height: auto;
           font-size: $font-size-medium;
           font-weight: 600;
@@ -168,7 +167,7 @@ $preference-height: 80px;
           text-align: center;
         }
 
-        input:focus {
+        .vote-input:focus {
           outline: none;
         }
       }
