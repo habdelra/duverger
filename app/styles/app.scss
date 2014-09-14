@@ -2,3 +2,60 @@ html, body {
   margin: 20px;
   background-color: #EBEDE0;
 }
+
+.drop-zone {
+  display:block;
+  background: pink;
+  min-height: 200px;
+  width: 400px;
+  &.accepts-drag {
+    background: lightgreen;
+  }
+}
+
+.party-preference {
+  vertical-align: top;
+  text-align: center;
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  background: lightblue;
+  border: 1px solid gray;
+  &.first-preference {
+    text-align: inherit;
+    background: white;
+    width: 250px;
+  }
+  &.dragging {
+    border: 1px dashed gray;
+    opacity: .5;
+  }
+}
+
+.preference-group {
+  margin-bottom: 20px;
+}
+
+.preference-drop-zone {
+  display: inline-block;
+  background: pink;
+  height: 82px;
+  width: 10px;
+  -webkit-transition: width .4s ease-in-out;
+  -moz-transition: width .4s ease-in-out;
+  -o-transition: width .4s ease-in-out;
+  transition: width .4s ease-in-out;
+
+  &.accepts-drag {
+    background: lightgreen;
+  }
+  &.can-accept-drop {
+    width: 40px;
+  }
+}
+
+.vote-input {
+  width: 40px;
+}
+
+

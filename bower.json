@@ -3,7 +3,7 @@
   "dependencies": {
     "handlebars": "~1.3.0",
     "jquery": "^1.11.1",
-    "ember": "1.7.0",
+    "ember": "components/ember#canary",
     "ember-resolver": "~0.1.7",
     "loader": "stefanpenner/loader.js#1.0.1",
     "ember-cli-shims": "stefanpenner/ember-cli-shims#0.0.3",
@@ -13,5 +13,11 @@
     "ember-qunit-notifications": "0.0.4",
     "ember-console-utils": "git://github.com/ebryn/ember-console-utils",
     "qunit": "~1.15.0"
+  },
+  "resolutions": {
+    "ember": "canary"
+  },
+  "devDependencies": {
+    "ic-droppable": "~0.1.1"
   }
 }

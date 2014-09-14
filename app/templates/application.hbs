@@ -1,6 +1,8 @@
-<h2 id='title'>Welcome to Ember.js</h2>
+{{donut-chart width="760" height="500" data=testData}}
 
-{{donut-chart width="760" height="500" data=content}}
+{{#each preferenceParties in model.partyPreferenceGroups}}
+    {{preference-group parties=preferenceParties}}
+{{/each}}
 
 {{outlet}}
 
