@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function() {
-    return [223,45,78,43];
+    return [
+      { liberal: 3 },
+      { socialDemocrat: 4 },
+      { conservative: 16 },
+      { green: 15 },
+      { nationalist: 9 }
+    ];
   }
 });

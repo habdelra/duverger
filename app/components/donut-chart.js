@@ -5,9 +5,20 @@ import Ember from 'ember';
 var get = Ember.get;
 var observer = Ember.observer;
 var computed = Ember.computed;
+var colors = {
+  liberal: '#ffff00',
+  conservative: '#000000',
+  socialDemocrat: '#ff0000',
+  green: '#008000',
+  nationalist: '#0000ff'
+};
 
 export default Ember.Component.extend({
-  pie: d3.layout.pie().sort(null),
+  pie: d3.layout.pie()
+    .value(function(d) {
+      return d[Ember.keys(d)];
+    })
+    .sort(null),
 
   arc: computed('height', 'width', function() {
     var width = get(this, 'width');
@@ -34,8 +45,6 @@ export default Ember.Component.extend({
     var arc = get(this, 'arc');
     var pie = this.pie;
 
-    var color = d3.scale.category20();
-
     var svg = d3.select(get(this, 'element')).append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -45,7 +54,9 @@ export default Ember.Component.extend({
     svg.datum(data).selectAll("path")
       .data(pie)
       .enter().append("path")
-      .attr("fill", function(d, i) { return color(i); })
+      .attr("fill", function(d, i) {
+        return colors[Ember.keys(d.data)];
+      })
       .attr("d", arc)
       .each(function(d) { this._current = d; }); // store the initial angles
 
