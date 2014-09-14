@@ -3,16 +3,6 @@ html, body {
   background-color: #EBEDE0;
 }
 
-.drop-zone {
-  display:block;
-  background: pink;
-  min-height: 200px;
-  width: 400px;
-  &.accepts-drag {
-    background: lightgreen;
-  }
-}
-
 .party-preference {
   vertical-align: top;
   text-align: center;
@@ -40,7 +30,7 @@ html, body {
   display: inline-block;
   background: pink;
   height: 82px;
-  width: 10px;
+  width: 0px;
   -webkit-transition: width .4s ease-in-out;
   -moz-transition: width .4s ease-in-out;
   -o-transition: width .4s ease-in-out;
