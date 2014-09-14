@@ -1,6 +1,31 @@
+$background-color: #EDEBE0;
+$social-democrat-color: #FB5258;
+$liberal-color: #F8DB3B;
+$green-color: #BBDF2A;
+$nationalist-color: #46C8B3;
+$conservative-color: #777777;
+$text-color: #333333;
+$light-text-color: #FFFFFF;
+$text-feild-color: #333333;
+
+$font-size-small: 24px;
+$font-size-medium: 30px;
+$font-size-large: 42px;
+$font-size-largest: 200px;
+
+@mixin transition-property($property) {
+  -webkit-transition: $property .1s ease-in-out;
+  -moz-transition: $property .1s ease-in-out;
+  -o-transition: $property .1s ease-in-out;
+  transition: $property .1s ease-in-out;
+}
+
 html, body {
   margin: 20px;
-  background-color: #EBEDE0;
+  background-color: $background-color;
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  font-size: $font-size-small;
+  color: $text-color;
 }
 
 $preference-width: 80px;
@@ -38,7 +63,7 @@ $preference-height: 80px;
   font-size: 0;
 
   > * {
-    font-size: 12px;
+    font-size: $font-size-small;
   }
 }
 
@@ -46,10 +71,7 @@ $preference-height: 80px;
   display: inline-block;
   height: 82px;
   width: 0;
-  -webkit-transition: width .1s ease-in-out;
-  -moz-transition: width .1s ease-in-out;
-  -o-transition: width .1s ease-in-out;
-  transition: width .1s ease-in-out;
+  @include transition-property(width);
 
   &.can-accept-drop {
     width: 10px;
