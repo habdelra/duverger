@@ -1,0 +1,6 @@
+{{#if isFirstPreference}}
+  <span>{{model.name}} ({{model.abbreviation}})</span>
+  {{input type='text' class="vote-input"}}%
+{{else}}
+  <span>{{model.abbreviation}}</span>
+{{/if}}
