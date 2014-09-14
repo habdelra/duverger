@@ -7,7 +7,7 @@ var alias = computed.alias;
 
 export default Ember.Component.extend({
   classNames: ['preference-group'],
-  preferences: alias('parties.preferences'),
+  preferences: alias('preferenceParties.preferences'),
 
   primaryPreference: computed('preferences', function() {
     var primaryPreference = get(this, 'preferences.firstObject');

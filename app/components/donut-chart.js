@@ -1,17 +1,11 @@
 /* globals d3 */
 
 import Ember from 'ember';
+import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
 var observer = Ember.observer;
 var computed = Ember.computed;
-var colors = {
-  liberal: '#F8DB3B',
-  conservative: '#777777',
-  socialDemocrat: '#FB5258',
-  green: '#BBDF2A',
-  nationalist: '#46C8B3'
-};
 
 export default Ember.Component.extend({
   pie: d3.layout.pie()
@@ -20,13 +14,38 @@ export default Ember.Component.extend({
     })
     .sort(null),
 
-  arc: computed('height', 'width', function() {
+  radius: computed('height', 'width', function() {
     var width = get(this, 'width');
     var height = get(this, 'height');
-    var radius = Math.min(width, height) / 2;
+    return Math.min(width, height) / 2;
+  }),
+
+  outerRadius: computed('radius', function() {
+    var radius = get(this, 'radius');
+    return radius - 20;
+  }),
+
+  innerRadius: computed('radius', function() {
+    var radius = get(this, 'radius');
+    return radius - 100;
+  }),
+
+  arc: computed('height', 'width', function() {
+    var innerRadius = get(this, 'innerRadius');
+    var outerRadius = get(this, 'outerRadius');
     return d3.svg.arc()
-        .innerRadius(radius - 100)
-        .outerRadius(radius - 20);
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius);
+  }),
+
+  voteData: computed('data.@each.votePercentage', function() {
+    var preferenceGroups = get(this, 'data');
+    return preferenceGroups.map(function(preferenceGroup) {
+      var primaryPreferenceParty = preferenceGroup.preferences[0].party;
+      var result = {};
+      result[primaryPreferenceParty] = preferenceGroup.votePercentage;
+      return result;
+    });
   }),
 
   arcTween: function(a) {
@@ -41,7 +60,8 @@ export default Ember.Component.extend({
   draw: function() {
     var width = get(this, 'width');
     var height = get(this, 'height');
-    var data = get(this, 'data');
+    var innerRadius = get(this, 'innerRadius');
+    var data = get(this, 'voteData');
     var arc = get(this, 'arc');
     var pie = this.pie;
 
@@ -51,21 +71,27 @@ export default Ember.Component.extend({
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+    svg.append("circle")
+      .attr("cx", 0)
+      .attr("cy", 0)
+      .attr("r", innerRadius)
+      .attr("fill", "#ffffff");
+
     svg.datum(data).selectAll("path")
       .data(pie)
       .enter().append("path")
-      .attr("fill", function(d, i) {
-        return colors[Ember.keys(d.data)];
+      .attr("fill", function(d) {
+        return partyLookup(Ember.keys(d.data), 'color');
       })
       .attr("d", arc)
       .each(function(d) { this._current = d; }); // store the initial angles
 
   }.on('didInsertElement'),
 
-  dataChanged: observer('data.@each', function() {
+  dataChanged: observer('voteData.@each', function() {
     var _this = this;
     var pie = this.pie;
-    var data = get(this, 'data');
+    var data = get(this, 'voteData');
     var svg = d3.select(get(this, 'element')).select('g');
     var path = svg.selectAll('path');
     var arcTween = function(a) {
