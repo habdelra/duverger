@@ -16,13 +16,13 @@ export default Ember.Component.extend({
   attributeBindings: ['draggable'],
   draggable: not('isFirstPreference'),
   party: alias('model.party'),
-  votesDisplay: computed('votes', function(key, value) {
+  votersDisplay: computed('voters', function(key, value) {
     if (arguments.length > 1) {
       value = empty(value) ? 0 : value;
-      var votesInteger = parseInt(value, 10);
-      set(this, 'votes', votesInteger);
+      var votersInteger = parseInt(value, 10);
+      set(this, 'voters', votersInteger);
     } else {
-      return get(this, 'votes');
+      return get(this, 'voters');
     }
   }),
 

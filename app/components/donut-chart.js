@@ -20,8 +20,8 @@ var textOffset = chartConstants().textOffset;
 export default Ember.Component.extend({
   classNames: 'donut-chart',
 
-  votesArray: mapBy('data', 'votes'),
-  overallVoteTotal: sum('votesArray'),
+  votersArray: mapBy('data', 'voters'),
+  overallVoteTotal: sum('votersArray'),
 
   pie: d3.layout.pie()
     .value(function(d) {
@@ -52,12 +52,12 @@ export default Ember.Component.extend({
         .outerRadius(outerRadius);
   }),
 
-  voteData: computed('data.@each.votes', function() {
+  voteData: computed('data.@each.voters', function() {
     var preferenceGroups = get(this, 'data');
     return preferenceGroups.map(function(preferenceGroup) {
       var primaryPreferenceParty = preferenceGroup.preferences[0].party;
       var result = {};
-      result[primaryPreferenceParty] = preferenceGroup.votes;
+      result[primaryPreferenceParty] = preferenceGroup.voters;
       return result;
     });
   }),
