@@ -14,13 +14,28 @@ export default Ember.Component.extend({
     })
     .sort(null),
 
-  arc: computed('height', 'width', function() {
+  radius: computed('height', 'width', function() {
     var width = get(this, 'width');
     var height = get(this, 'height');
-    var radius = Math.min(width, height) / 2;
+    return Math.min(width, height) / 2;
+  }),
+
+  outerRadius: computed('radius', function() {
+    var radius = get(this, 'radius');
+    return radius - 20;
+  }),
+
+  innerRadius: computed('radius', function() {
+    var radius = get(this, 'radius');
+    return radius - 100;
+  }),
+
+  arc: computed('height', 'width', function() {
+    var innerRadius = get(this, 'innerRadius');
+    var outerRadius = get(this, 'outerRadius');
     return d3.svg.arc()
-        .innerRadius(radius - 100)
-        .outerRadius(radius - 20);
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius);
   }),
 
   voteData: computed('data.@each.votePercentage', function() {
@@ -45,6 +60,7 @@ export default Ember.Component.extend({
   draw: function() {
     var width = get(this, 'width');
     var height = get(this, 'height');
+    var innerRadius = get(this, 'innerRadius');
     var data = get(this, 'voteData');
     var arc = get(this, 'arc');
     var pie = this.pie;
@@ -54,6 +70,12 @@ export default Ember.Component.extend({
       .attr("height", height)
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    svg.append("circle")
+      .attr("cx", 0)
+      .attr("cy", 0)
+      .attr("r", innerRadius)
+      .attr("fill", "#ffffff");
 
     svg.datum(data).selectAll("path")
       .data(pie)
