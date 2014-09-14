@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var computed = Ember.computed;
+var donutMargin = 60;
+var donutThickness = 118;
 
 export default Ember.Component.extend({
   classNames: ['donut-hole'],
@@ -12,11 +14,16 @@ export default Ember.Component.extend({
     return diameter / 2;
   }),
 
-  style: computed('radius', function() {
+  innerRadius: computed('radius', function() {
     var radius = get(this, 'radius');
-    var margin = radius/2 + 40;
-    return 'width:' + radius +
-      'px; height:' + radius +
+    return radius - donutThickness - donutMargin;
+  }),
+
+  style: computed('radius', function() {
+    var innerDiameter = get(this, 'innerRadius') * 2;
+    var margin = donutMargin + donutThickness;
+    return 'width:' + innerDiameter +
+      'px; height:' + innerDiameter +
       'px; left:' + margin + 'px; top:' + margin + 'px;';
   })
 

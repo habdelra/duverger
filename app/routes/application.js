@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   model: function() {
     return {
       preferenceParties: districtOneFixture(),
-      diameter: 495
+      diameter: 555
     };
   }
 });
