@@ -67,8 +67,10 @@ html, body {
   }
 }
 
-$preference-width: 80px;
-$preference-height: 80px;
+
+.donut-chart {
+  float: left;
+}
 
 .preference-group {
   margin-bottom: 20px;
