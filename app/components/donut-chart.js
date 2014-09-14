@@ -1,27 +1,10 @@
+/* globals d3 */
+
 import Ember from 'ember';
 
-var clickHandler = Ember.K;
 var get = Ember.get;
 var observer = Ember.observer;
 var computed = Ember.computed;
-
-  var timeout = setTimeout(function() {
-    // d3.select("input[value=\"oranges\"]").property("checked", true).each(change);
-  }, 2000);
-
-  // function change() {
-  // }
-
-
-// function type(d) {
-  // d.apples = +d.apples;
-  // d.oranges = +d.oranges;
-  // return d;
-// }
-
-// Store the displayed angles in _current.
-// Then, interpolate from _current to the new angles.
-// During the transition, _current is updated in-place by d3.interpolate.
 
 export default Ember.Component.extend({
   pie: d3.layout.pie().sort(null),
@@ -47,7 +30,6 @@ export default Ember.Component.extend({
   draw: function() {
     var width = get(this, 'width');
     var height = get(this, 'height');
-    var radius = Math.min(width, height) / 2;
     var data = get(this, 'data');
     var arc = get(this, 'arc');
     var pie = this.pie;
@@ -55,23 +37,18 @@ export default Ember.Component.extend({
     var color = d3.scale.category20();
 
     var svg = d3.select(get(this, 'element')).append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+    svg.datum(data).selectAll("path")
+      .data(pie)
+      .enter().append("path")
+      .attr("fill", function(d, i) { return color(i); })
+      .attr("d", arc)
+      .each(function(d) { this._current = d; }); // store the initial angles
 
-    var path = svg.datum(data).selectAll("path")
-          .data(pie)
-          .enter().append("path")
-          .attr("fill", function(d, i) { return color(i); })
-          .attr("d", arc)
-          .each(function(d) { this._current = d; }); // store the initial angles
-
-      // d3.selectAll("input")
-          // .on("change", change);
-
-    var el = get(this, 'element');
   }.on('didInsertElement'),
 
   dataChanged: observer('data.@each', function() {
