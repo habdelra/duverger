@@ -3,9 +3,11 @@ html, body {
   background-color: #EBEDE0;
 }
 
+$preference-width: 80px;
+$preference-height: 80px;
+
 .drop-zone {
   display:block;
-  background: pink;
   min-height: 200px;
   width: 400px;
   &.accepts-drag {
@@ -17,8 +19,8 @@ html, body {
   vertical-align: top;
   text-align: center;
   display: inline-block;
-  height: 80px;
-  width: 80px;
+  height: $preference-height;
+  width: $preference-width;
   background: lightblue;
   border: 1px solid gray;
   &.first-preference {
@@ -27,29 +29,34 @@ html, body {
     width: 250px;
   }
   &.dragging {
-    border: 1px dashed gray;
-    opacity: .5;
+    opacity: .4;
   }
 }
 
 .preference-group {
   margin-bottom: 20px;
+  font-size: 0;
+
+  > * {
+    font-size: 12px;
+  }
 }
 
 .preference-drop-zone {
   display: inline-block;
-  background: pink;
   height: 82px;
-  width: 10px;
+  width: 0;
   -webkit-transition: width .4s ease-in-out;
   -moz-transition: width .4s ease-in-out;
   -o-transition: width .4s ease-in-out;
-  transition: width .4s ease-in-out;
+  transition: width .1s ease-in-out;
+
+  &.can-accept-drop {
+    width: 10px;
+  }
 
   &.accepts-drag {
     background: lightgreen;
-  }
-  &.can-accept-drop {
     width: 40px;
   }
 }
