@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import chartConstants from '../utils/chart-constants';
 
 var get = Ember.get;
 var computed = Ember.computed;
-var donutMargin = 60;
-var donutThickness = 118;
+var donutMargin = chartConstants().donutMargin;
+var donutThickness = chartConstants().donutThickness;
 
 export default Ember.Component.extend({
   classNames: ['donut-hole'],

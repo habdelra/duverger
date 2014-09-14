@@ -2,6 +2,7 @@
 
 import Ember from 'ember';
 import partyLookup from '../utils/party-lookup';
+import chartConstants from '../utils/chart-constants';
 
 var get = Ember.get;
 var set = Ember.set;
@@ -11,10 +12,10 @@ var mapBy = computed.mapBy;
 var sum = computed.sum;
 var later = Ember.run.later;
 
-var donutMargin = 60;
-var transitionDurationMs = 750;
-var donutThickness = 118;
-var textOffset = 14;
+var donutMargin = chartConstants().donutMargin;
+var transitionDurationMs = chartConstants().transitionDurationMs;
+var donutThickness = chartConstants().donutThickness;
+var textOffset = chartConstants().textOffset;
 
 export default Ember.Component.extend({
   classNames: 'donut-chart',
@@ -159,6 +160,7 @@ export default Ember.Component.extend({
     var defs = svg.selectAll("defs")
       .data(pie(data));
     defs.enter().append("defs");
+    defs.exit().remove();
 
     var marker = defs.select("marker#circ");
     if (marker.empty() ) {
@@ -196,7 +198,7 @@ export default Ember.Component.extend({
       });
 
     valueLabels.enter().append("svg:text")
-      .attr("class", "vote-percentages")
+      .attr("class", "value vote-percentage")
       .attr("transform", function(d) {
         return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (outerRadius+textOffset) +
           "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (outerRadius+textOffset) + ")";
@@ -249,6 +251,5 @@ export default Ember.Component.extend({
     later(function() {
       _this.updateLines();
     });
-  }),
-
+  })
 });
