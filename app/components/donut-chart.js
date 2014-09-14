@@ -6,11 +6,11 @@ var get = Ember.get;
 var observer = Ember.observer;
 var computed = Ember.computed;
 var colors = {
-  liberal: '#ffff00',
-  conservative: '#000000',
-  socialDemocrat: '#ff0000',
-  green: '#008000',
-  nationalist: '#0000ff'
+  liberal: '#F8DB3B',
+  conservative: '#777777',
+  socialDemocrat: '#FB5258',
+  green: '#BBDF2A',
+  nationalist: '#46C8B3'
 };
 
 export default Ember.Component.extend({
