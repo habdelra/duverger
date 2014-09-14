@@ -1,9 +1,11 @@
 import Ember from 'ember';
+import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
 var set = Ember.set;
 var computed = Ember.computed;
 var not = computed.not;
+var alias = computed.alias;
 
 export default Ember.Component.extend({
   dragStarted: 'dragStarted',
@@ -12,6 +14,17 @@ export default Ember.Component.extend({
   classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', ':party-preference'],
   attributeBindings: ['draggable'],
   draggable: not('isFirstPreference'),
+  party: alias('model.party'),
+
+  partyName: computed('party', function(){
+    var party = get(this, 'party');
+    return partyLookup(party, 'name');
+  }),
+
+  partyAbbreviation: computed('party', function(){
+    var party = get(this, 'party');
+    return partyLookup(party, 'abbreviation');
+  }),
 
   isFirstPreference: computed('model.index', function() {
     var index = get(this, 'model.index');

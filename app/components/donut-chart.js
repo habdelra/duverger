@@ -1,17 +1,11 @@
 /* globals d3 */
 
 import Ember from 'ember';
+import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
 var observer = Ember.observer;
 var computed = Ember.computed;
-var colors = {
-  liberal: '#F8DB3B',
-  conservative: '#777777',
-  socialDemocrat: '#FB5258',
-  green: '#BBDF2A',
-  nationalist: '#46C8B3'
-};
 
 export default Ember.Component.extend({
   pie: d3.layout.pie()
@@ -29,6 +23,16 @@ export default Ember.Component.extend({
         .outerRadius(radius - 20);
   }),
 
+  voteData: computed('data.@each.votePercentage', function() {
+    var preferenceGroups = get(this, 'data');
+    return preferenceGroups.map(function(preferenceGroup) {
+      var primaryPreferenceParty = preferenceGroup.preferences[0].party;
+      var result = {};
+      result[primaryPreferenceParty] = preferenceGroup.votePercentage;
+      return result;
+    });
+  }),
+
   arcTween: function(a) {
     var i = d3.interpolate(this._current, a);
     var arc = get(this, 'arc');
@@ -41,7 +45,7 @@ export default Ember.Component.extend({
   draw: function() {
     var width = get(this, 'width');
     var height = get(this, 'height');
-    var data = get(this, 'data');
+    var data = get(this, 'voteData');
     var arc = get(this, 'arc');
     var pie = this.pie;
 
@@ -54,18 +58,18 @@ export default Ember.Component.extend({
     svg.datum(data).selectAll("path")
       .data(pie)
       .enter().append("path")
-      .attr("fill", function(d, i) {
-        return colors[Ember.keys(d.data)];
+      .attr("fill", function(d) {
+        return partyLookup(Ember.keys(d.data), 'color');
       })
       .attr("d", arc)
       .each(function(d) { this._current = d; }); // store the initial angles
 
   }.on('didInsertElement'),
 
-  dataChanged: observer('data.@each', function() {
+  dataChanged: observer('voteData.@each', function() {
     var _this = this;
     var pie = this.pie;
-    var data = get(this, 'data');
+    var data = get(this, 'voteData');
     var svg = d3.select(get(this, 'element')).select('g');
     var path = svg.selectAll('path');
     var arcTween = function(a) {

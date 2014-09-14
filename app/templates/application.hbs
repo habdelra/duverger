@@ -1,7 +1,7 @@
-{{donut-chart width="760" height="500" data=testData}}
+{{donut-chart width="760" height="500" data=model}}
 
-{{#each preferenceParties in model.partyPreferenceGroups}}
-    {{preference-group parties=preferenceParties}}
+{{#each preferenceParties in model}}
+    {{preference-group preferenceParties=preferenceParties}}
 {{/each}}
 
 {{outlet}}
