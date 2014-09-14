@@ -1,4 +1,4 @@
-{{#each party in preferenceParties.preferences}}
-  {{party-preference model=party primaryPreference=primaryPreference voters=preferenceParties.voters}}
-  {{party-drop-zone model=party isDragging=isDragging primaryPreference=primaryPreference}}
+{{#each partyPreference in preferenceGroup.preferences}}
+  {{party-preference model=partyPreference primaryPreference=primaryPreference voters=preferenceGroup.voters}}
+  {{party-drop-zone model=partyPreference isDragging=isDragging primaryPreference=primaryPreference}}
 {{/each}}
