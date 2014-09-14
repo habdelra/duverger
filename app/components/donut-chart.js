@@ -14,20 +14,19 @@ export default Ember.Component.extend({
     })
     .sort(null),
 
-  radius: computed('height', 'width', function() {
-    var width = get(this, 'width');
-    var height = get(this, 'height');
-    return Math.min(width, height) / 2;
+  radius: computed('diameter', function() {
+    var diameter = get(this, 'diameter');
+    return diameter / 2;
   }),
 
   outerRadius: computed('radius', function() {
     var radius = get(this, 'radius');
-    return radius - 20;
+    return radius;
   }),
 
   innerRadius: computed('radius', function() {
     var radius = get(this, 'radius');
-    return radius - 100;
+    return radius - 118;
   }),
 
   arc: computed('height', 'width', function() {
@@ -58,18 +57,17 @@ export default Ember.Component.extend({
   },
 
   draw: function() {
-    var width = get(this, 'width');
-    var height = get(this, 'height');
+    var diameter = get(this, 'diameter');
     var innerRadius = get(this, 'innerRadius');
     var data = get(this, 'voteData');
     var arc = get(this, 'arc');
     var pie = this.pie;
 
     var svg = d3.select(get(this, 'element')).append("svg")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("width", diameter)
+      .attr("height", diameter)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
     svg.append("circle")
       .attr("cx", 0)

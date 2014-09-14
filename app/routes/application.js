@@ -3,6 +3,9 @@ import districtOneFixture from '../models/district-one-fixture';
 
 export default Ember.Route.extend({
   model: function() {
-    return districtOneFixture();
+    return {
+      preferenceParties: districtOneFixture(),
+      diameter: 495
+    };
   }
 });

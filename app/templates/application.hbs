@@ -1,6 +1,8 @@
-{{donut-chart width="760" height="500" data=model}}
+{{#donut-chart diameter=model.diameter data=model.preferenceParties}}
+  {{donut-hole data=model.preferenceParties diameter=model.diameter}}
+{{/donut-chart}}
 
-{{#each preferenceParties in model}}
+{{#each preferenceParties in model.preferenceParties}}
     {{preference-group preferenceParties=preferenceParties}}
 {{/each}}
 
