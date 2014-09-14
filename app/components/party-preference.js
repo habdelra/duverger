@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   }),
 
   mimeType: computed('primaryPreference.abbreviation', function() {
-    var primaryPreference = get(this, 'primaryPreference.abbreviation').toLowerCase();
+    var primaryPreference = get(this, 'primaryPreference.party').toLowerCase();
     return 'text/x-preference-' + primaryPreference;
   }),
 
