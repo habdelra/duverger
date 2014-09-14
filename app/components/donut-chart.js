@@ -88,7 +88,8 @@ export default Ember.Component.extend({
       .attr("cx", 0)
       .attr("cy", 0)
       .attr("r", innerRadius)
-      .attr("fill", "#ffffff");
+      .style({ 'stroke': 'white', 'stroke-width': '3px'})
+      .attr("fill", "#edebe0");
 
     svg.datum(data).selectAll("path")
       .data(pie)
@@ -97,7 +98,8 @@ export default Ember.Component.extend({
         return partyLookup(Ember.keys(d.data), 'color');
       })
       .attr("d", arc)
-      .each(function(d) { this._current = d; }); // store the initial angles
+      .style({ 'stroke': 'white', 'stroke-width': '1x'})
+      .each(function(d) { this._current = d; });
 
     this.updateLines();
 
