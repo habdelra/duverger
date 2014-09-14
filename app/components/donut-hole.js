@@ -1,14 +1,50 @@
 import Ember from 'ember';
 import chartConstants from '../utils/chart-constants';
+import formulaLookup from '../utils/formula-lookup';
+import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
 var computed = Ember.computed;
 var donutMargin = chartConstants().donutMargin;
 var donutThickness = chartConstants().donutThickness;
 
+
 export default Ember.Component.extend({
   classNames: ['donut-hole'],
   attributeBindings: ['style'],
+
+  electionOutcome: computed('formula', 'data.@each.voters', function() {
+    var data = get(this, 'data');
+    var container = get(this, 'container');
+    var formulaName = get(this, 'formula');
+    var formula = formulaLookup(formulaName, container);
+    return formula(data);
+  }),
+
+  _outcomeField: function(field){
+    var electionOutcome = get(this, 'electionOutcome');
+    var value = partyLookup(electionOutcome, field);
+    if (!value) { return electionOutcome; }
+
+    return value;
+  },
+
+  hasDefinitiveOutcome: computed('electionOutcome', function() {
+    var electionOutcome = get(this, 'electionOutcome');
+    return !!partyLookup(electionOutcome, 'name');
+  }),
+
+  outcomeName: computed('electionOutcome', function() {
+    return this._outcomeField('name');
+  }),
+
+  outcomeAbbreviation: computed('electionOutcome', function() {
+    return this._outcomeField('abbreviation');
+  }),
+
+  outcomeColor: computed('electionOutcome', function() {
+    return this._outcomeField('color');
+  }),
 
   radius: computed('diameter', function() {
     var diameter = get(this, 'diameter');

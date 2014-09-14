@@ -1,9 +1,18 @@
-{{#donut-chart diameter=model.diameter data=model.preferenceParties}}
-  {{donut-hole data=model.preferenceParties diameter=model.diameter}}
+{{!
+  The following variable is available too (replace []'s with {}'s):
+
+  District [[model.districtNumber]]
+}}
+
+<div>Formula: {{model.formula}}</div>
+<div>{{model.districtName}}</div>
+
+{{#donut-chart diameter=model.diameter data=model.preferenceGroups}}
+  {{donut-hole data=model.preferenceGroups diameter=model.diameter formula=model.formula}}
 {{/donut-chart}}
 
-{{#each preferenceParties in model.preferenceParties}}
-    {{preference-group preferenceParties=preferenceParties}}
+{{#each preferenceGroup in model.preferenceGroups}}
+    {{preference-group preferenceGroup=preferenceGroup}}
 {{/each}}
 
 {{outlet}}

@@ -4,8 +4,12 @@ import chartConstants from '../utils/chart-constants';
 
 export default Ember.Route.extend({
   model: function() {
+    var data = districtOneFixture();
     return {
-      preferenceParties: districtOneFixture(),
+      formula: 'proportional',
+      districtNumber: data.districtNumber,
+      districtName: data.districtName,
+      preferenceGroups: data.preferenceGroups,
       diameter: chartConstants().height
     };
   }
