@@ -195,8 +195,8 @@ export default Ember.Component.extend({
         }
       })
       .text(function(d){
-        var percentage = (d.value/overallVoteTotal)*100;
-        return percentage.toFixed(1) + "%";
+        var percentage = Math.round((d.value/overallVoteTotal)*100);
+        return percentage + "%";
       });
 
     valueLabels.enter().append("svg:text")
@@ -220,8 +220,8 @@ export default Ember.Component.extend({
         }
       })
       .text(function(d){
-        var percentage = (d.value/overallVoteTotal)*100;
-        return percentage.toFixed(1) + "%";
+        var percentage = Math.round((d.value/overallVoteTotal)*100);
+        return percentage + "%";
       });
 
     valueLabels
