@@ -3,25 +3,29 @@
 import Ember from 'ember';
 import partyLookup from '../utils/party-lookup';
 import chartConstants from '../utils/chart-constants';
+import ElectionOutcomeMixin from '../mixins/election-outcome';
 
 var get = Ember.get;
 var set = Ember.set;
 var observer = Ember.observer;
 var computed = Ember.computed;
-var mapBy = computed.mapBy;
-var sum = computed.sum;
-var later = Ember.run.later;
+var keys = Ember.keys;
+var next = Ember.run.next;
 
 var donutMargin = chartConstants().donutMargin;
 var transitionDurationMs = chartConstants().transitionDurationMs;
 var donutThickness = chartConstants().donutThickness;
 var textOffset = chartConstants().textOffset;
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ElectionOutcomeMixin, {
   classNames: 'donut-chart',
 
-  votersArray: mapBy('data', 'voters'),
-  overallVoteTotal: sum('votersArray'),
+  overallVoteTotal: computed('voterSummary', function() {
+    var voterSummary = get(this, 'voterSummary');
+    return voterSummary.reduce(function(sum, party) {
+      return sum + party[keys(party)];
+    }, 0);
+  }),
 
   pie: d3.layout.pie()
     .value(function(d) {
@@ -52,16 +56,6 @@ export default Ember.Component.extend({
         .outerRadius(outerRadius);
   }),
 
-  voteData: computed('data.@each.voters', function() {
-    var preferenceGroups = get(this, 'data');
-    return preferenceGroups.map(function(preferenceGroup) {
-      var primaryPreferenceParty = preferenceGroup.preferences[0].party;
-      var result = {};
-      result[primaryPreferenceParty] = preferenceGroup.voters;
-      return result;
-    });
-  }),
-
   arcTween: function(a) {
     var i = d3.interpolate(this._current, a);
     var arc = get(this, 'arc');
@@ -74,7 +68,7 @@ export default Ember.Component.extend({
   draw: function() {
     var diameter = get(this, 'diameter');
     var innerRadius = get(this, 'innerRadius');
-    var data = get(this, 'voteData');
+    var data = get(this, 'voterSummary');
     var arc = get(this, 'arc');
     var pie = this.pie;
 
@@ -108,7 +102,7 @@ export default Ember.Component.extend({
   updateLines: function() {
     var _this = this;
     var pie = this.pie;
-    var data = get(this, 'voteData');
+    var data = get(this, 'voterSummary');
     var outerRadius = get(this, 'outerRadius');
     var overallVoteTotal = get(this, 'overallVoteTotal');
     var svg = d3.select(get(this, 'element')).select('g');
@@ -136,7 +130,7 @@ export default Ember.Component.extend({
     };
 
     var afterTextTween = function(d, i) {
-      var preferenceGroupsAmount = get(_this, 'data.length');
+      var preferenceGroupsAmount = get(_this, 'voterSummary.length');
       if (i === preferenceGroupsAmount - 1) {
         set(_this, 'oldPieData', pie(data));
       }
@@ -232,10 +226,10 @@ export default Ember.Component.extend({
     valueLabels.exit().remove();
   },
 
-  dataChanged: observer('voteData.@each', function() {
+  dataChanged: observer('voterSummary.@each', function() {
     var _this = this;
     var pie = this.pie;
-    var data = get(this, 'voteData');
+    var data = get(this, 'voterSummary');
     var svg = d3.select(get(this, 'element')).select('g');
     var path = svg.selectAll('path');
     var arcTween = function(a) {
@@ -250,7 +244,7 @@ export default Ember.Component.extend({
     path = path.data(pie(data)); // compute the new angles
     path.transition().duration(transitionDurationMs).attrTween("d", arcTween); // redraw the arcs
 
-    later(function() {
+    next(function(){
       _this.updateLines();
     });
   })

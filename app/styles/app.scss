@@ -145,7 +145,7 @@ html, body {
       .party-name {
         display: inline-block;
         padding-right: 100px;
-        @include vertical-align;     
+        @include vertical-align;
       }
 
       .vote-input-container {
@@ -175,7 +175,7 @@ html, body {
       }
 
       &:after { display: none; }
-      &:hover { 
+      &:hover {
         cursor: auto;
         bottom: 0;
       }
@@ -217,6 +217,7 @@ html, body {
 }
 
 .donut-hole {
+  padding-top:87px;
   position: absolute;
   text-align: center;
 }

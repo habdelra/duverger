@@ -6,6 +6,8 @@ var computed = Ember.computed;
 var alias = computed.alias;
 
 export default Ember.Component.extend({
+  preferenceGroupUpdated: 'preferenceGroupUpdated',
+
   classNameBindings: [':preference-group', 'primaryPreferenceParty'],
 
   preferences: alias('preferenceGroup.preferences'),
@@ -39,11 +41,17 @@ export default Ember.Component.extend({
       set(this, 'isDragging', false);
       var preferences = get(this, 'preferences');
       var party = preferences.objectAt(ordering.partyIndex);
+
+      // "unplug" the observers while all the changes are made
+      preferences.beginPropertyChanges();
       preferences.removeAt(ordering.partyIndex);
       var newIndex = ordering.partyIndex < ordering.dropZoneIndex ? ordering.dropZoneIndex - 1: ordering.dropZoneIndex;
       preferences.insertAt(newIndex, party);
       set(this, 'preferences', preferences);
       this._reindexChildren();
+      preferences.endPropertyChanges();
+
+      this.sendAction('preferenceGroupUpdated');
     }
   }
 });

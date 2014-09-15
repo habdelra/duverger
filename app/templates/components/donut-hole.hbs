@@ -1,8 +1,20 @@
- <div {{bind-attr class=":election-outcome electionOutcome" style=outcomeFontColorStyle}}>
+ <div {{bind-attr class=":election-outcome winningParty" }}>
+
+   {{#if hasTie}}
+     Unresolveable Tie
+   {{/if}}
+
    {{#if requiresRunoff}}
-     {{! do any run off stuff here in the donut hole }}
-     {{outcomeMessage}}
-   {{else}}
-     {{outcomeMessage}}
+     {{#each party in displayParties}}
+       <div>{{party.name}} ({{party.abbreviation}})</div>
+     {{/each}}
+     <button {{action 'viewRunoffElection'}}>View Runoff Results</button>
+   {{/if}}
+
+   {{#if hasWinner}}
+     {{winnerName}} ({{winnerAbbreviation}})
+   {{/if}}
+   {{#if currentRunoff}}
+     <button {{action 'viewOriginalElection'}}>View Original Election Results</button>
    {{/if}}
  </div>
