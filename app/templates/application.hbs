@@ -4,16 +4,19 @@
   District [[model.districtNumber]]
 }}
 
-<div>Formula: {{model.formula}}</div>
+<div>Formula: {{model.formulaName}}</div>
 <div>{{model.districtName}}</div>
 
-{{#donut-chart diameter=model.diameter data=model.preferenceGroups}}
-  {{donut-hole data=model.preferenceGroups diameter=model.diameter formula=model.formula}}
+{{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+  {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
 {{/donut-chart}}
 
 {{#each preferenceGroup in model.preferenceGroups}}
     {{preference-group preferenceGroup=preferenceGroup}}
 {{/each}}
+
+<button {{action 'useFormula' 'plurality'}}>Pluarality Formula</button>
+<button {{action 'useFormula' 'majority'}}>Majority Formula</button>
 
 {{outlet}}
 

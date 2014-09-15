@@ -58,6 +58,9 @@ export default Ember.Component.extend({
     this.sendAction('dragStarted');
 
     // Cos HTML5 draggables are st000pidddd
+    // the HTML% drag n drop takes a picture of the original node to use as the
+    // draggable thing, but you need to wait a little bit so that it doesn't take a picture
+    // of placeholder element.
     Ember.run.later(function(){
       set(_this, 'isDragging', true);
     }, 100);

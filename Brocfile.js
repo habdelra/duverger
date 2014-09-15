@@ -18,6 +18,7 @@ var app = new EmberApp();
 // along with the exports of each module as its value.
 
 app.import('bower_components/ember-console-utils/ember-console-utils.js');
+app.import('bower_components/d3/d3.min.js');
 app.import('bower_components/ic-droppable/dist/named-amd/main.js', {
   exports: {
     'ic-droppable': ['default']
