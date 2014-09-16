@@ -4,8 +4,8 @@
   District [[model.districtNumber]]
 }}
 
-<div>Formula: {{model.formulaName}}</div>
-<div>{{model.districtName}}</div>
+<div class="formula">Formula: {{model.formulaName}}</div>
+<div class="district">{{model.districtName}}</div>
 
 {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
   {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}

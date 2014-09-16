@@ -6,13 +6,13 @@
 
    {{#if requiresRunoff}}
      {{#each party in displayParties}}
-       <div>{{party.name}} ({{party.abbreviation}})</div>
+       <div class="party-winner runoff">{{party.name}} ({{party.abbreviation}})</div>
      {{/each}}
      <button {{action 'viewRunoffElection'}}>View Runoff Results</button>
    {{/if}}
 
    {{#if hasWinner}}
-     {{winnerName}} ({{winnerAbbreviation}})
+     <div class="party-winner">{{winnerName}} ({{winnerAbbreviation}})</div>
    {{/if}}
    {{#if currentRunoff}}
      <button {{action 'viewOriginalElection'}}>View Original Election Results</button>
