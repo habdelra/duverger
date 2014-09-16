@@ -7,15 +7,33 @@ var computed = Ember.computed;
 var alias = computed.alias;
 var equal = computed.equal;
 var not = computed.not;
+var keys = Ember.keys;
 
 export default Ember.Mixin.create({
   parties: alias('electionOutcomeForCurrentRunoff.parties'),
-  voterSummary: alias('electionOutcomeForCurrentRunoff.voterSummary'),
+  // voterSummary: alias('electionOutcomeForCurrentRunoff.voterSummary'),
   runoffs: alias('electionOutcome.length'),
   currentRunoff: 0,
 
   hasTie: not('parties.length'),
   hasWinner: equal('parties.length', 1),
+
+  //D3 is really sensitive to the voterSummary order. Sort this by party for consistency
+  voterSummary: computed('electionOutcomeForCurrentRunoff.voterSummary', function() {
+    var voterSummary = get(this, 'electionOutcomeForCurrentRunoff.voterSummary');
+    return voterSummary.sort(function(a, b){
+      var partyA = keys(a)[0];
+      var partyB = keys(b)[0];
+
+      if (partyA > partyB) {
+        return 1;
+      }
+      if (partyA < partyB) {
+        return -1;
+      }
+      return 0;
+    });
+  }),
 
   displayParties: computed('parties', function(){
     var parties = get(this, 'parties');
