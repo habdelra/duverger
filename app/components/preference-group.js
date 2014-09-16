@@ -6,7 +6,7 @@ var computed = Ember.computed;
 var alias = computed.alias;
 
 export default Ember.Component.extend({
-  preferenceGroupUpdated: 'preferenceGroupUpdated',
+  recalculateElectionOutcome: 'recalculateElectionOutcome',
 
   classNameBindings: [':preference-group', 'primaryPreferenceParty'],
 
@@ -51,7 +51,7 @@ export default Ember.Component.extend({
       this._reindexChildren();
       preferences.endPropertyChanges();
 
-      this.sendAction('preferenceGroupUpdated');
+      this.sendAction('recalculateElectionOutcome');
     }
   }
 });

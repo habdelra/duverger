@@ -6,6 +6,7 @@ var get = Ember.get;
 var set = Ember.set;
 var computed = Ember.computed;
 var alias = computed.alias;
+var observer = Ember.observer;
 
 export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
   data: alias('content.preferenceGroups'),
@@ -22,8 +23,9 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
     return formulaLookup(formulaName, container);
   }),
 
-  electionOutcome: computed('formula', 'preferenceGroups.@each.voters', function(){
-    return this._calculateElectionOutcome();
+  whenElectionOutcomeNeedsToChange: observer('formula', 'preferenceGroups.@each.voters', function(){
+    var electionOutcome = this._calculateElectionOutcome();
+    set(this, 'electionOutcome', electionOutcome);
   }),
 
   actions: {
@@ -34,7 +36,7 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
       set(this, 'formulaName', formulaName);
     },
 
-    preferenceGroupUpdated: function() {
+    recalculateElectionOutcome: function() {
       var electionOutcome = this._calculateElectionOutcome();
       set(this, 'electionOutcome', electionOutcome);
     }
