@@ -114,23 +114,23 @@ html, body {
         top: 0;
         right: 0;
     }
-    &.Conservative:after {
+    &.conservative:after {
       border-top-color: $conservative-color;
       border-right-color: $conservative-color;
     }
-    &.Green:after {
+    &.green:after {
       border-top-color: $green-color;
       border-right-color: $green-color;
     }
-    &.Nationalist:after {
+    &.nationalist:after {
       border-top-color: $nationalist-color;
       border-right-color: $nationalist-color;
     }
-    &.Liberal:after {
+    &.liberal:after {
       border-top-color: $liberal-color;
       border-right-color: $liberal-color;
     }
-    &.Social.Democrat:after {
+    &.socialDemocrat:after {
       border-top-color: $social-democrat-color;
       border-right-color: $social-democrat-color;
     }

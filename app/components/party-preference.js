@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   dragStarted: 'dragStarted',
   dragEnded: 'dragEnded',
 
-  classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', ':party-preference', 'partyName'],
+  classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', ':party-preference', 'party'],
   attributeBindings: ['draggable'],
   draggable: not('isFirstPreference'),
   party: alias('model.party'),
