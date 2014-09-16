@@ -2,6 +2,7 @@ import Ember from 'ember';
 import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
+var set = Ember.set;
 var computed = Ember.computed;
 var alias = computed.alias;
 var equal = computed.equal;
@@ -30,6 +31,10 @@ export default Ember.Mixin.create({
   electionOutcomeForCurrentRunoff: computed('electionOutcome', 'currentRunoff', function() {
     var electionOutcome = get(this, 'electionOutcome');
     var currentRunoff = get(this, 'currentRunoff');
+    if (currentRunoff > get(electionOutcome, 'length') - 1) {
+      currentRunoff = 0;
+      set(this, 'currentRunoff', currentRunoff);
+    }
     return electionOutcome.objectAt(currentRunoff);
   }),
 
