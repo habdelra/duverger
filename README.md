@@ -1,4 +1,4 @@
-# Duverger
+# Duverger [![Build Status](https://travis-ci.org/habdelra/duverger.svg?branch=master)](https://travis-ci.org/habdelra/duverger)
 
 This README outlines the details of collaborating on this Ember application.
 
