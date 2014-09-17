@@ -15,8 +15,8 @@
     {{preference-group preferenceGroup=preferenceGroup}}
 {{/each}}
 
-<button {{action 'useFormula' 'plurality'}}>Pluarality Formula</button>
-<button {{action 'useFormula' 'majority'}}>Majority Formula</button>
+<button class="formula-btn plurality" {{action 'useFormula' 'plurality'}}>Pluarality Formula</button>
+<button class="formula-btn majority" {{action 'useFormula' 'majority'}}>Majority Formula</button>
 
 {{outlet}}
 

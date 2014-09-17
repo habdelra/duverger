@@ -27,9 +27,5 @@ var partyMap = {
 };
 
 export default function lookupType(key, type) {
-  if (!partyMap.hasOwnProperty(key)) {
-    return;
-  }
-
   return partyMap[key][type];
 }
