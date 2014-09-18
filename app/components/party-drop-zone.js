@@ -30,9 +30,6 @@ export default Ember.Component.extend(Droppable, {
     var party = JSON.parse(partyData);
     var index = get(this, 'index');
 
-    console.log('Drop zone# ' + index + ' received drop');
-    console.log(party);
-
     this.sendAction('reorder', {
       partyIndex: party.index,
       dropZoneIndex: index
