@@ -81,6 +81,16 @@ var chartDefinitions = {
     ],
     text: [ '50%', '0%', '0%', '0%', '50%' ]
   },
+  plurality: {
+    colors: [
+      '#777777',
+      '#BBDF2A',
+      '#F8DB3B',
+      '#46C8B3',
+      '#FB5258'
+    ],
+    text: [ '20%', '20%', '10%', '20%', '30%' ]
+  },
   pluralitySD60: {
     colors: [
       '#777777',
