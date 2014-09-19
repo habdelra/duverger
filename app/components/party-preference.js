@@ -16,6 +16,7 @@ export default Ember.Component.extend({
   attributeBindings: ['draggable'],
   draggable: not('isFirstPreference'),
   party: alias('model.party'),
+
   votersDisplay: computed('voters', function(key, value) {
     if (arguments.length > 1) {
       value = empty(value) ? 0 : value;
@@ -41,7 +42,7 @@ export default Ember.Component.extend({
     return index === 0;
   }),
 
-  mimeType: computed('primaryPreference.abbreviation', function() {
+  mimeType: computed('primaryPreference.party', function() {
     var primaryPreference = get(this, 'primaryPreference.party').toLowerCase();
     return 'text/x-preference-' + primaryPreference;
   }),

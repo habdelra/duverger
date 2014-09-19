@@ -3,14 +3,17 @@ import districtOneFixture from '../models/district-one-fixture';
 import chartConstants from '../utils/chart-constants';
 
 export default Ember.Route.extend({
-  model: function() {
+  _getFixtureData: function(){
+    return districtOneFixture();
+  },
 
+  model: function() {
     var formulaName = 'majority';
-    var data = districtOneFixture();
+    var data = this._getFixtureData();
 
     return {
       formulaName: formulaName,
-      districtNur: data.districtNumber,
+      districtNumber: data.districtNumber,
       districtName: data.districtName,
       preferenceGroups: data.preferenceGroups,
       diameter: chartConstants().height

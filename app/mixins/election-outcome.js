@@ -10,11 +10,9 @@ var not = computed.not;
 var keys = Ember.keys;
 
 export default Ember.Mixin.create({
-  parties: alias('electionOutcomeForCurrentRunoff.parties'),
-  // voterSummary: alias('electionOutcomeForCurrentRunoff.voterSummary'),
-  runoffs: alias('electionOutcome.length'),
   currentRunoff: 0,
-
+  parties: alias('electionOutcomeForCurrentRunoff.parties'),
+  runoffs: alias('electionOutcome.length'),
   hasTie: not('parties.length'),
   hasWinner: equal('parties.length', 1),
 
@@ -84,7 +82,7 @@ export default Ember.Mixin.create({
     return this._winningField('abbreviation');
   }),
 
-  winningColor: computed('winningParty', function() {
+  winnerColor: computed('winningParty', function() {
     return this._winningField('color');
   }),
 
