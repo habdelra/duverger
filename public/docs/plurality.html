@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>plurality.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="majority.html">
+                majority.js
+              </a>
+            
+              
+              <a class="source" href="plurality.html">
+                plurality.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>plurality.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>import Ember from <span class="hljs-string">'ember'</span>;
+
+<span class="hljs-keyword">var</span> get = Ember.get;
+<span class="hljs-keyword">var</span> emberA = Ember.A;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>preferenceGroups data is in the form of:
+an array of preference groups where inside each preference group is
+a voters fields for the amount of voters, and a preferences array which
+is an array of party preferences.</p>
+<p>  e.g.</p>
+<pre><code>   <span class="hljs-keyword">var</span> voterdata = [{
+     voters: <span class="hljs-number">20</span>,
+     preferences: [{
+       party: <span class="hljs-string">'socialdemocrat'</span>
+     },{
+       party: <span class="hljs-string">'green'</span>
+     }]
+   },{
+     voters: <span class="hljs-number">20</span>,
+     preferences: [{
+       party: <span class="hljs-string">'conservative'</span>
+     },{
+       party: <span class="hljs-string">'nationalist'</span>
+     }]
+   },{
+     voters: <span class="hljs-number">5</span>,
+     preferences: [{
+       party: <span class="hljs-string">'green'</span>
+     },{
+       party: <span class="hljs-string">'socialdemocrat'</span>
+     }]
+   }];
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+export <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(preferenceGroups)</span></span>{
+  <span class="hljs-keyword">var</span> result = {};
+  <span class="hljs-keyword">var</span> preferenceGroupsArray = emberA(preferenceGroups);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>create an array <code>sortedPartyTotals</code> based on the preferencesGroups array that is re-mapped
+to return the primary party for each preference group and the number of voters. This new array
+is then sorted in ascending order to the party with the most votes is the last item in the array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> sortedPartyTotals = preferenceGroupsArray.map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(preferenceGroup)</span> </span>{
+    <span class="hljs-keyword">var</span> primaryPartyPreference = preferenceGroup.preferences[<span class="hljs-number">0</span>].party;
+    <span class="hljs-keyword">return</span> {
+      party: primaryPartyPreference,
+      voters: preferenceGroup.voters
+    };
+  }).sortBy(<span class="hljs-string">'voters'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>create summary of the votes that is used throughout the application based on the <code>sortedPartyTotals</code> array</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  result.voterSummary = sortedPartyTotals.map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(partyTotal)</span> </span>{
+    <span class="hljs-keyword">var</span> summary = {};
+    summary[partyTotal.party] = partyTotal.voters;
+    <span class="hljs-keyword">return</span> summary;
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>the winning party in the election is the last item in the <code>sortedPartyTotals</code> array (since it is sorted by voters)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> potentialWinner = get(sortedPartyTotals, <span class="hljs-string">'lastObject'</span>);
+  <span class="hljs-keyword">var</span> numberOfParties = get(sortedPartyTotals, <span class="hljs-string">'length'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>in the case where the 2nd to last item in the <code>sortedPartyTotals</code> array has the same amount of voters as the
+last item in <code>sortedPArtyTotals</code>, then there has been a tie. Return an emtpty <code>parties</code> array in the
+result to indicate that a tie has occured.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span>(numberOfParties &gt; <span class="hljs-number">1</span> &amp;&amp; potentialWinner.voters === sortedPartyTotals.objectAt(numberOfParties - <span class="hljs-number">2</span>).voters) {
+    result.parties = [];<span class="hljs-comment">//for now an empty array means tied</span>
+    <span class="hljs-keyword">return</span> [result];
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Otherwise, if there is no tie, set the winning party in the <code>parties</code> array in the result</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  result.parties = [potentialWinner.party];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>the result is returned as an array, where each item in the array represents a separate round of elections.
+for the plurality formula, there is currently only round round of elections ever, so just return an array of one item.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> [result];
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

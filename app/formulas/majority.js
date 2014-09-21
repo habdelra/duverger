@@ -3,38 +3,38 @@ import Ember from 'ember';
 var get = Ember.get;
 var emberA = Ember.A;
 
-/*
-   preferenceGroups data is in the form of:
-   an array of preference groups where inside each preference group is
-   a voters fields for the amount of voters, and a preferences array which
-   is an array of party preferences.
 
-   e.g.
-   ```
-  var voterData = [{
-    voters: 20,
-    preferences: [{
-      party: 'socialDemocrat'
-    },{
-      party: 'green'
-    }]
-  },{
-    voters: 20,
-    preferences: [{
-      party: 'conservative'
-    },{
-      party: 'nationalist'
-    }]
-  },{
-    voters: 5,
-    preferences: [{
-      party: 'green'
-    },{
-      partu: 'socialDemocrat'
-    }]
-  }];
-  ```
- */
+// preferenceGroups data is in the form of:
+// an array of preference groups where inside each preference group is
+// a voters fields for the amount of voters, and a preferences array which
+// is an array of party preferences.
+//
+//   e.g.
+//   ```
+//    var voterdata = [{
+//      voters: 20,
+//      preferences: [{
+//        party: 'socialdemocrat'
+//      },{
+//        party: 'green'
+//      }]
+//    },{
+//      voters: 20,
+//      preferences: [{
+//        party: 'conservative'
+//      },{
+//        party: 'nationalist'
+//      }]
+//    },{
+//      voters: 5,
+//      preferences: [{
+//        party: 'green'
+//      },{
+//        party: 'socialdemocrat'
+//      }]
+//    }];
+//   ```
+
 export default function(preferenceGroups) {
   var runoffs = emberA([]);
   var majorityReached = false;

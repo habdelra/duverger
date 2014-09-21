@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>majority.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="majority.html">
+                majority.js
+              </a>
+            
+              
+              <a class="source" href="plurality.html">
+                plurality.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>majority.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>import Ember from <span class="hljs-string">'ember'</span>;
+
+<span class="hljs-keyword">var</span> get = Ember.get;
+<span class="hljs-keyword">var</span> emberA = Ember.A;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>preferenceGroups data is in the form of:
+an array of preference groups where inside each preference group is
+a voters fields for the amount of voters, and a preferences array which
+is an array of party preferences.</p>
+<p>  e.g.</p>
+<pre><code>   <span class="hljs-keyword">var</span> voterdata = [{
+     voters: <span class="hljs-number">20</span>,
+     preferences: [{
+       party: <span class="hljs-string">'socialdemocrat'</span>
+     },{
+       party: <span class="hljs-string">'green'</span>
+     }]
+   },{
+     voters: <span class="hljs-number">20</span>,
+     preferences: [{
+       party: <span class="hljs-string">'conservative'</span>
+     },{
+       party: <span class="hljs-string">'nationalist'</span>
+     }]
+   },{
+     voters: <span class="hljs-number">5</span>,
+     preferences: [{
+       party: <span class="hljs-string">'green'</span>
+     },{
+       party: <span class="hljs-string">'socialdemocrat'</span>
+     }]
+   }];
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+export <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(preferenceGroups)</span> </span>{
+  <span class="hljs-keyword">var</span> runoffs = emberA([]);
+  <span class="hljs-keyword">var</span> majorityReached = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">var</span> deadTieInRunoff = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">var</span> preferenceGroupsArray = emberA(preferenceGroups);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Calculate the total amount of voters</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> totalVoters = preferenceGroupsArray.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(sum, preferenceGroup)</span> </span>{
+    <span class="hljs-keyword">return</span> preferenceGroup.voters + sum;
+  }, <span class="hljs-number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Determine the majority of voters: one person more than half</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> majorityOfVotes = <span class="hljs-built_in">Math</span>.floor(totalVoters / <span class="hljs-number">2</span>) + <span class="hljs-number">1</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Summary function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> generateVoterSummary = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(partyTotal)</span> </span>{
+    <span class="hljs-keyword">var</span> summary = {};
+    summary[partyTotal.party] = partyTotal.voters;
+    <span class="hljs-keyword">return</span> summary;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>This function is used to generate the objects within an array of preferred parties for all the party groups</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> preferredPartyTotalsMapping = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(preferenceGroup)</span> </span>{
+    <span class="hljs-keyword">var</span> primaryPartyPreference = preferenceGroup.preferences[<span class="hljs-number">0</span>].party;
+    <span class="hljs-keyword">return</span> {
+      party: primaryPartyPreference,
+      voters: preferenceGroup.voters
+    };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>This function is used to process a runoff election</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> processPartyPreferencesForRunoff = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> sortedPartyTotals = emberA([]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>This is a list of all the primary parties</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> allPreferredParties = preferenceGroupsArray.map(preferredPartyTotalsMapping);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Initialize the runoffResults object which will hold the results of the runoff tally</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> runoffParties = get(runoffs, <span class="hljs-string">'lastObject.parties'</span>);
+    <span class="hljs-keyword">var</span> runoffResults = {};
+    allPreferredParties.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(partyInfo)</span> </span>{
+      runoffResults[partyInfo.party] = <span class="hljs-number">0</span>;
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>start marching down the party preference list until
+you reach a match with one of the runoff parties—then use those voters from the group
+in for the matched runoff party’s total vote</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Iterate through each of the preference groups</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    preferenceGroupsArray.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(preferenceGroup)</span> </span>{
+      <span class="hljs-keyword">var</span> preferences = preferenceGroup.preferences;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>iterate through all the party preferences in the preference group</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; preferences.length; i++) {
+        <span class="hljs-keyword">var</span> currentPreferredParty = preferences[i].party;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>check to see if the current party preference is one of the parties that has made it to the runoff election</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (runoffParties.contains(currentPreferredParty)) {
+          runoffResults[currentPreferredParty] += preferenceGroup.voters;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>stop iterating through the group’s party prefernces after adding the groups votes to the tally</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">break</span>; <span class="hljs-comment">//super important to the model that we stop processing the party preferences when we find a match</span>
+        }
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>create a sortedPartyTotals object so you can consistenly add to the runoffs array
+using the logic in the do loop below</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    allPreferredParties.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(partyInfo)</span> </span>{
+      sortedPartyTotals.push({
+        party: partyInfo.party,
+        voters: runoffResults[partyInfo.party]
+      });
+    });
+    <span class="hljs-keyword">return</span> sortedPartyTotals.sortBy(<span class="hljs-string">'voters'</span>);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>This is the main loop. This iterates over all the elections (in this model there really should be a single runoff election)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">do</span> {
+    <span class="hljs-keyword">var</span> sortedPartyTotals = emberA([]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>This is the current number of runoff elections</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> numberOfRunoffs = get(runoffs, <span class="hljs-string">'length'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Check to see if this is a runoff election</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (numberOfRunoffs &gt; <span class="hljs-number">0</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>If this is a runoff election then invoke the <code>processPartyPreferencesForRunoff</code> function (above)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      sortedPartyTotals = processPartyPreferencesForRunoff();
+    } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>If this is not a runoff election, then just sort the preferences group by the voters in each group (ascending order).
+This will cause the winning parties to be the last two items in the array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      sortedPartyTotals = preferenceGroupsArray.map(preferredPartyTotalsMapping).sortBy(<span class="hljs-string">'voters'</span>);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>The potential winner of the election is the last item in the <code>sortedPartyTotals</code> array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> potentialWinner = get(sortedPartyTotals, <span class="hljs-string">'lastObject'</span>);
+    <span class="hljs-keyword">var</span> numberOfParties = get(sortedPartyTotals, <span class="hljs-string">'length'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Determine if a majority has been reached</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    majorityReached = potentialWinner.voters &gt;= majorityOfVotes;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Add the potentially winning party (the last item in the <code>sortedPartyTotals</code> array to the winning parties result of this election</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> parties = [potentialWinner.party];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>If a majority has not been reached make sure there isn’t a dead even tie</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!majorityReached) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Grab the 2nd to last item in <code>sortedPartyTotals</code> array regardless if there was a tie for second place (this makes it easy)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">var</span> runnerup = sortedPartyTotals.objectAt(numberOfParties - <span class="hljs-number">2</span>);
+      <span class="hljs-keyword">if</span> (runnerup.voters === potentialWinner.voters &amp;&amp; numberOfRunoffs &gt; <span class="hljs-number">0</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>this is the scenario where there was a dead tie after the runoff election
+In this case, reaching a majority is impossible, as all subsequent runoffs
+will come to the same outcome, and your computer will melt.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        deadTieInRunoff = <span class="hljs-literal">true</span>;
+        parties = emberA([]); <span class="hljs-comment">// use an empty `parties` array to indicate an unresolveable tie for this election round</span>
+      } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>If there is no dead even tie, then the runner up party is added to the <code>parties</code> array, which signifies the winning parties in this election round</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        parties.push(sortedPartyTotals.objectAt(numberOfParties - <span class="hljs-number">2</span>).party);
+      }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>generate a coterSummary list that is used throughout the aplication which summarizes this round of elections</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> voterSummary = sortedPartyTotals.map(generateVoterSummary);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Add the results from this round of elections to the array holding all the rounds of elections</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    runoffs.push({
+      voterSummary : voterSummary,
+      parties: parties
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>hold another round of elections if the majority has not been reached and there is not a dead tie in this round of elections</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  } <span class="hljs-keyword">while</span>(!majorityReached &amp;&amp; !deadTieInRunoff);
+
+  <span class="hljs-keyword">return</span> runoffs;
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
