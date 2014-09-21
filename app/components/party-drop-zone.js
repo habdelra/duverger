@@ -14,7 +14,7 @@ export default Ember.Component.extend(Droppable, {
     return index + 1;
   }),
 
-  mimeType: computed('primaryPreference.abbreviation', function() {
+  mimeType: computed('primaryPreference.party', function() {
     var primaryPreference = get(this, 'primaryPreference.party').toLowerCase();
     return 'text/x-preference-' + primaryPreference;
   }),
