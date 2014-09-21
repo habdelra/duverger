@@ -14,15 +14,12 @@
   </head>
   <body>
     <script>
-      window.DuvergerENV = {{ENV}};
-      window.EmberENV = window.DuvergerENV.EmberENV;
+      window.EmberENV = {{EMBER_ENV}};
     </script>
     <script src="assets/vendor.js"></script>
     <script src="assets/duverger.js"></script>
     <script>
-      window.Duverger = require('duverger/app')['default'].create(DuvergerENV.APP);
+      window.Duverger = require('duverger/app')['default'].create({{APP_CONFIG}});
     </script>
-
-
   </body>
 </html>
