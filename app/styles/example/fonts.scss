@@ -1,0 +1,68 @@
+@import "grid";
+
+@font-face {
+  font-family: 'ProximaNovaS-Regular';
+  src: url('../webfonts/2AA533_0_0.eot');
+  src: url('../webfonts/2AA533_0_0.eot?#iefix') format('embedded-opentype'),
+       url('../webfonts/2AA533_0_0.woff') format('woff'),
+       url('../webfonts/2AA533_0_0.ttf') format('truetype');
+}
+
+
+@font-face {
+  font-family: 'ProximaNovaA-Regular';
+  src: url('../webfonts/2AA533_1_0.eot');
+  src: url('../webfonts/2AA533_1_0.eot?#iefix') format('embedded-opentype'),
+       url('../webfonts/2AA533_1_0.woff') format('woff'),
+       url('../webfonts/2AA533_1_0.ttf') format('truetype');
+}
+
+
+@font-face {
+  font-family: 'ProximaNova-Regular';
+  src: url('../webfonts/2AA533_2_0.eot');
+  src: url('../webfonts/2AA533_2_0.eot?#iefix') format('embedded-opentype'),
+       url('../webfonts/2AA533_2_0.woff') format('woff'),
+       url('../webfonts/2AA533_2_0.ttf') format('truetype');
+}
+
+
+@font-face {
+  font-family: 'ProximaNovaSoft-Regular';
+  src: url('../webfonts/2AA533_3_0.eot');
+  src: url('../webfonts/2AA533_3_0.eot?#iefix') format('embedded-opentype'),
+       url('../webfonts/2AA533_3_0.woff') format('woff'),
+       url('../webfonts/2AA533_3_0.ttf') format('truetype');
+}
+@mixin calculate-font ( $family, $size) {
+  font-family: $family;
+  line-height: $vertical-grid-unit;
+  font-size: $size;
+}
+
+$font-header-style: ProximaNova-Regular, Helvetica, Arial, "Myriad Pro";
+$font-normal-style: ProximaNova-Regular, Helvetica, Arial, "Myriad Pro";
+
+@mixin font-largest {
+  @include calculate-font($font-header-style, 37px);
+}
+
+@mixin font-omg-large {
+  @include calculate-font($font-header-style, 30px);
+}
+
+@mixin font-larger {
+  @include calculate-font($font-header-style, 27px);
+}
+
+@mixin font-large {
+  @include calculate-font($font-header-style, 20px);
+}
+
+@mixin font-normal {
+  @include calculate-font($font-normal-style, 16px);
+}
+
+@mixin font-small {
+  @include calculate-font($font-normal-style, 14px);
+}

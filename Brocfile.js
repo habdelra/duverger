@@ -1,6 +1,9 @@
 /* global require, module */
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var pickFiles = require('broccoli-static-compiler');
+var mergeTrees = require('broccoli-merge-trees');
+var kssCompile = require('broccoli-kss');
 
 var app = new EmberApp();
 
@@ -25,4 +28,20 @@ app.import('bower_components/ic-droppable/dist/named-amd/main.js', {
   }
 });
 
-module.exports = app.toTree();
+var kssSource = pickFiles('kss', {
+  srcDir: '/',
+  destDir: '/'
+});
+
+var styleguide = kssCompile(kssSource, {
+  templateDir: 'kss/template',
+  destDir: 'styleguide'
+});
+
+var sourceTrees = [app.toTree(), styleguide];
+
+var appTree = mergeTrees(sourceTrees, {
+  overwrite: true
+});
+
+module.exports = appTree;

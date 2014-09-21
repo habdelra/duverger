@@ -12,13 +12,13 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.4",
     "ember-console-utils": "git://github.com/ebryn/ember-console-utils",
-    "qunit": "~1.15.0"
+    "qunit": "~1.15.0",
+    "ic-droppable": "~0.1.1",
+    "d3": "~3.4.11",
+    "bourbon": "~3.2",
+    "neat": "1.5.0"
   },
   "resolutions": {
     "ember": "canary"
-  },
-  "devDependencies": {
-    "ic-droppable": "~0.1.1",
-    "d3": "~3.4.11"
   }
 }
