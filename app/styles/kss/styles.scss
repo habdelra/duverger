@@ -1,0 +1,54 @@
+/* This file is used to add SCSS variables to KSS as classes */
+/* cos KSS-node is kinda sucky */
+
+@import "../example/colors";
+@import "../example/fonts";
+
+.light-blue { background: $light-blue; }
+.medium-blue { background: $medium-blue; }
+.dark-blue { background: $dark-blue; }
+
+.light-orange { background: $light-orange; }
+.medium-orange { background: $medium-orange; }
+.dark-orange { background: $dark-orange; }
+
+.omg-light-gray { background: $omg-light-gray; }
+.lightestest-gray { background: $lightestest-gray; }
+.lightest-gray { background: $lightest-gray; }
+.lighter-gray { background: $lighter-gray; }
+.lighterish-gray { background: $lighterish-gray; }
+.lightish-gray { background: $lightish-gray; }
+.light-gray { background: $light-gray; }
+.wills-hair-gray { background: $wills-hair-gray; }
+.subway-rat-gray { background: $subway-rat-gray; }
+.medium-gray { background: $medium-gray; }
+.mediumish-gray { background: $mediumish-gray; }
+.dark-gray { background: $dark-gray; }
+.darker-gray { background: $darker-gray; }
+.darkest-gray { background: $darkest-gray; }
+
+.font-header-style {
+  font-family: $font-header-style;
+}
+.font-normal-style {
+  font-family: $font-normal-style;
+}
+.font-large {
+  @include font-large;
+}
+.font-larger {
+  @include font-larger;
+}
+.font-omg-large {
+  @include font-omg-large;
+}
+.font-largest {
+  @include font-largest;
+}
+.font-normal {
+  @include font-normal;
+}
+.font-small {
+  @include font-small;
+}
+

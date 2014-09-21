@@ -1,0 +1,36 @@
+
+.points {
+  opacity: 0.6;
+  .points-value {
+    @include font-larger;
+    line-height: 28px;
+  }
+  .points-unit {
+    @include font-large;
+    line-height: 20px;
+    color: $light-gray;
+  }
+}
+
+.question-title {
+  @include font-largest;
+  color: $dark-orange;
+}
+
+.answer-title {
+  @include font-large;
+  color: $medium-blue;
+}
+
+.item-menu-bar-title {
+  opacity: 0.8;
+  @include font-larger;
+  color: $dark-orange;
+}
+
+.callout {
+  opacity: 0.6;
+  font-family: $font-header-style;
+  color: $light-gray;
+  line-height: inherit;
+}
