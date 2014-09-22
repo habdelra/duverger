@@ -5,7 +5,6 @@ var get = Ember.get;
 var set = Ember.set;
 var empty = Ember.empty;
 var computed = Ember.computed;
-var not = computed.not;
 var alias = computed.alias;
 
 export default Ember.Component.extend({
@@ -14,8 +13,12 @@ export default Ember.Component.extend({
 
   classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', ':party-preference', 'party'],
   attributeBindings: ['draggable'],
-  draggable: not('isFirstPreference'),
   party: alias('model.party'),
+
+  draggable: computed('isFirstPreference', function() {
+    var isFirstPreference = !get(this, 'isFirstPreference');
+    return isFirstPreference + '';
+  }),
 
   votersDisplay: computed('voters', function(key, value) {
     if (arguments.length > 1) {

@@ -40,6 +40,8 @@ export default function(preferenceGroups) {
   var majorityReached = false;
   var deadTieInRunoff = false;
   var preferenceGroupsArray = emberA(preferenceGroups);
+  var voterSummary;
+  var votedFor;
 
   // Calculate the total amount of voters
   var totalVoters = preferenceGroupsArray.reduce(function(sum, preferenceGroup) {
@@ -52,6 +54,8 @@ export default function(preferenceGroups) {
   // Summary function
   var generateVoterSummary = function(partyTotal) {
     var summary = {};
+    var party = partyTotal.party;
+    votedFor[party] = party; // Putting initial identify votedFor mapping in this loop--so as not use use up an extra iteration
     summary[partyTotal.party] = partyTotal.voters;
     return summary;
   };
@@ -86,7 +90,7 @@ export default function(preferenceGroups) {
     // Iterate through each of the preference groups
     preferenceGroupsArray.forEach(function(preferenceGroup) {
       var preferences = preferenceGroup.preferences;
-
+      var primaryParty = preferences[0].party;
       // iterate through all the party preferences in the preference group
       for(var i = 0; i < preferences.length; i++) {
         var currentPreferredParty = preferences[i].party;
@@ -94,6 +98,7 @@ export default function(preferenceGroups) {
         // check to see if the current party preference is one of the parties that has made it to the runoff election
         if (runoffParties.contains(currentPreferredParty)) {
           runoffResults[currentPreferredParty] += preferenceGroup.voters;
+          votedFor[primaryParty] = currentPreferredParty;
           // stop iterating through the group's party prefernces after adding the groups votes to the tally
           break; //super important to the model that we stop processing the party preferences when we find a match
         }
@@ -114,6 +119,7 @@ export default function(preferenceGroups) {
   // This is the main loop. This iterates over all the elections (in this model there really should be a single runoff election)
   do {
     var sortedPartyTotals = emberA([]);
+    votedFor = {};
 
     // This is the current number of runoff elections
     var numberOfRunoffs = get(runoffs, 'length');
@@ -126,6 +132,10 @@ export default function(preferenceGroups) {
       // If this is not a runoff election, then just sort the preferences group by the voters in each group (ascending order).
       // This will cause the winning parties to be the last two items in the array.
       sortedPartyTotals = preferenceGroupsArray.map(preferredPartyTotalsMapping).sortBy('voters');
+
+      // generate a coterSummary list that is used throughout the aplication which summarizes this round of elections
+      // only set voterSummary once, as it doesn't change (only the votedFor changes, as well as the winner calculation)
+      voterSummary = sortedPartyTotals.map(generateVoterSummary);
     }
 
     // The potential winner of the election is the last item in the `sortedPartyTotals` array.
@@ -154,12 +164,11 @@ export default function(preferenceGroups) {
       }
     }
 
-    // generate a coterSummary list that is used throughout the aplication which summarizes this round of elections
-    var voterSummary = sortedPartyTotals.map(generateVoterSummary);
 
     // Add the results from this round of elections to the array holding all the rounds of elections
     runoffs.push({
       voterSummary : voterSummary,
+      votedFor: votedFor,
       parties: parties
     });
 

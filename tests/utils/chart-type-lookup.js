@@ -14,22 +14,22 @@ var chartDefinitions = {
   majorityRunoff: {
     colors: [
       '#777777',
-      '#BBDF2A',
-      '#F8DB3B',
-      '#46C8B3',
+      '#FB5258',
+      '#FB5258',
+      '#FB5258',
       '#FB5258'
     ],
-    text: [ '20%', '0%', '0%', '0%', '80%' ]
+    text: [ '20%', '20%', '10%', '20%', '30%' ]
   },
   majorityRunoffPreferenceChange: {
     colors: [
       '#777777',
-      '#BBDF2A',
-      '#F8DB3B',
-      '#46C8B3',
+      '#FB5258',
+      '#FB5258',// shouldn't this be #777777
+      '#FB5258',
       '#FB5258'
     ],
-    text: [ '30%', '0%', '0%', '0%', '70%' ]
+    text: [ '20%', '20%', '10%', '20%', '30%' ]
   },
   majorityFirstRoundSD60: {
     colors: [
@@ -44,12 +44,12 @@ var chartDefinitions = {
   majorityRunoffSD60: {
     colors: [
       '#777777',
-      '#BBDF2A',
-      '#F8DB3B',
-      '#46C8B3',
+      '#FB5258',
+      '#FB5258',
+      '#FB5258',
       '#FB5258'
     ],
-    text: [ '15%', '0%', '0%', '0%', '85%' ]
+    text: [ '15%', '15%', '8%', '15%', '46%' ]
   },
   majorityFirstRoundSD80: {
     colors: [
@@ -64,19 +64,19 @@ var chartDefinitions = {
   majorityRunoffPreferenceChangeSD60: {
     colors: [
       '#777777',
-      '#BBDF2A',
-      '#F8DB3B',
-      '#46C8B3',
+      '#FB5258',
+      '#777777',
+      '#FB5258',
       '#FB5258'
     ],
-    text: [ '23%', '0%', '0%', '0%', '77%' ]
+    text: [ '15%', '15%', '8%', '15%', '46%' ]
   },
   majorityRunoffSD30L0N0G0C30: {
     colors: [
       '#777777',
-      '#BBDF2A',
-      '#F8DB3B',
-      '#46C8B3',
+      '#FB5258',
+      '#FB5258',
+      '#FB5258',
       '#FB5258'
     ],
     text: [ '50%', '0%', '0%', '0%', '50%' ]

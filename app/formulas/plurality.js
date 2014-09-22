@@ -50,9 +50,14 @@ export default function(preferenceGroups){
   }).sortBy('voters');
 
   // create summary of the votes that is used throughout the application based on the `sortedPartyTotals` array
+  // As well as, create a mapping that describes for which party each group voted. In the case of this formula,
+  // this will be an identity matrix.
+  result.votedFor = {};
   result.voterSummary = sortedPartyTotals.map(function(partyTotal) {
     var summary = {};
-    summary[partyTotal.party] = partyTotal.voters;
+    var party = partyTotal.party;
+    summary[party] = partyTotal.voters;
+    result.votedFor[party] = party;
     return summary;
   });
 

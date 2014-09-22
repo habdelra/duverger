@@ -10,10 +10,10 @@ test('draggable is not isFirstPreference', function() {
   expect(1);
 
   var component = this.subject({
-    isFirstPrefernce: false
+    isFirstPreference: false
   });
 
-  ok(get(component, 'draggable'), 'draggable is true');
+  equal(get(component, 'draggable'), 'true', 'draggable is true');
 });
 
 test('votersDisplay key/value computed get returns voters', function(){
