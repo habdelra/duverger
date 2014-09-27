@@ -1,5 +1,3 @@
-@import 'ORGANIZE-MEEEEE';
-
 @import 'bower_components/bourbon/dist/_bourbon';
 @import 'bower_components/neat/app/assets/stylesheets/_neat';
 
@@ -10,9 +8,13 @@
 /* These are just examples of how to use KSS */
 /* remove these once you've figured it out */
 /* and also deelte the public/webfonts folder which are also used as part of this example */
-@import 'example/buttons';
+@import 'example/interactions';
 @import 'example/colors';
 @import 'example/fonts';
-@import 'example/labels';
-@import 'example/widgets';
+@import 'example/form-fields';
+@import 'example/icons';
+@import 'example/components';
+@import 'example/ios-android';
 
+//main styles
+@import 'ORGANIZE-MEEEEE';

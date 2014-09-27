@@ -1,68 +1,38 @@
 @import "grid";
 
 @font-face {
-  font-family: 'ProximaNovaS-Regular';
-  src: url('../webfonts/2AA533_0_0.eot');
-  src: url('../webfonts/2AA533_0_0.eot?#iefix') format('embedded-opentype'),
-       url('../webfonts/2AA533_0_0.woff') format('woff'),
-       url('../webfonts/2AA533_0_0.ttf') format('truetype');
+    font-family: 'source_sans_prosemibold';
+    src: url('../fonts/sourcesanspro-semibold-webfont.eot');
+    src: url('../fonts/sourcesanspro-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-semibold-webfont.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-semibold-webfont.woff') format('woff'),
+         url('../fonts/sourcesanspro-semibold-webfont.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-semibold-webfont.svg#source_sans_prosemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
+$font-size-small: 12px;
+$font-size-medium: 15px;
+$font-size-large: 21px;
+$font-size-largest: 100px;
 
-@font-face {
-  font-family: 'ProximaNovaA-Regular';
-  src: url('../webfonts/2AA533_1_0.eot');
-  src: url('../webfonts/2AA533_1_0.eot?#iefix') format('embedded-opentype'),
-       url('../webfonts/2AA533_1_0.woff') format('woff'),
-       url('../webfonts/2AA533_1_0.ttf') format('truetype');
+%font-family-standard {
+  font-family: 'source_sans_prosemibold', Helvetica, Arial, sans-serif;
 }
 
-
-@font-face {
-  font-family: 'ProximaNova-Regular';
-  src: url('../webfonts/2AA533_2_0.eot');
-  src: url('../webfonts/2AA533_2_0.eot?#iefix') format('embedded-opentype'),
-       url('../webfonts/2AA533_2_0.woff') format('woff'),
-       url('../webfonts/2AA533_2_0.ttf') format('truetype');
+%font-largest {
+  font-size: $font-size-largest;
 }
 
-
-@font-face {
-  font-family: 'ProximaNovaSoft-Regular';
-  src: url('../webfonts/2AA533_3_0.eot');
-  src: url('../webfonts/2AA533_3_0.eot?#iefix') format('embedded-opentype'),
-       url('../webfonts/2AA533_3_0.woff') format('woff'),
-       url('../webfonts/2AA533_3_0.ttf') format('truetype');
-}
-@mixin calculate-font ( $family, $size) {
-  font-family: $family;
-  line-height: $vertical-grid-unit;
-  font-size: $size;
+%font-large {
+  font-size: $font-size-large;
 }
 
-$font-header-style: ProximaNova-Regular, Helvetica, Arial, "Myriad Pro";
-$font-normal-style: ProximaNova-Regular, Helvetica, Arial, "Myriad Pro";
-
-@mixin font-largest {
-  @include calculate-font($font-header-style, 37px);
+%font-medium {
+  font-size: $font-size-medium;
 }
 
-@mixin font-omg-large {
-  @include calculate-font($font-header-style, 30px);
-}
-
-@mixin font-larger {
-  @include calculate-font($font-header-style, 27px);
-}
-
-@mixin font-large {
-  @include calculate-font($font-header-style, 20px);
-}
-
-@mixin font-normal {
-  @include calculate-font($font-normal-style, 16px);
-}
-
-@mixin font-small {
-  @include calculate-font($font-normal-style, 14px);
+%font-small {
+  font-size: $font-size-small;
 }

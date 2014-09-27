@@ -3,52 +3,24 @@
 
 @import "../example/colors";
 @import "../example/fonts";
+%dark { box-shadow: 0 0 0 1px black; }
 
-.light-blue { background: $light-blue; }
-.medium-blue { background: $medium-blue; }
-.dark-blue { background: $dark-blue; }
+.background-color { background-color: $background-color;}
+.social-democrat-color { background-color: $social-democrat-color;}
+.liberal-color { background-color: $liberal-color;}
+.green-color { background-color: $green-color;}
+.nationalist-color { background-color: $nationalist-color;}
+.conservative-color { background-color: $conservative-color;}
+.text-color { background-color: $text-color;}
+.light-text-color { 
+	background-color: $light-text-color;
+	@extend %dark;
+}
+.text-field-color { background-color: $text-field-color;}
 
-.light-orange { background: $light-orange; }
-.medium-orange { background: $medium-orange; }
-.dark-orange { background: $dark-orange; }
+.font-largest { @extend %font-largest;}
+.font-large { @extend %font-large;}
+.font-medium { @extend %font-normal;}
+.font-small { @extend %font-small;}
 
-.omg-light-gray { background: $omg-light-gray; }
-.lightestest-gray { background: $lightestest-gray; }
-.lightest-gray { background: $lightest-gray; }
-.lighter-gray { background: $lighter-gray; }
-.lighterish-gray { background: $lighterish-gray; }
-.lightish-gray { background: $lightish-gray; }
-.light-gray { background: $light-gray; }
-.wills-hair-gray { background: $wills-hair-gray; }
-.subway-rat-gray { background: $subway-rat-gray; }
-.medium-gray { background: $medium-gray; }
-.mediumish-gray { background: $mediumish-gray; }
-.dark-gray { background: $dark-gray; }
-.darker-gray { background: $darker-gray; }
-.darkest-gray { background: $darkest-gray; }
-
-.font-header-style {
-  font-family: $font-header-style;
-}
-.font-normal-style {
-  font-family: $font-normal-style;
-}
-.font-large {
-  @include font-large;
-}
-.font-larger {
-  @include font-larger;
-}
-.font-omg-large {
-  @include font-omg-large;
-}
-.font-largest {
-  @include font-largest;
-}
-.font-normal {
-  @include font-normal;
-}
-.font-small {
-  @include font-small;
-}
 
