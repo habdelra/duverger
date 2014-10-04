@@ -8,13 +8,9 @@
      {{#each party in displayParties}}
        <div class="party-winner runoff">{{party.name}} ({{party.abbreviation}})</div>
      {{/each}}
-     <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
    {{/if}}
 
    {{#if hasWinner}}
      <div class="party-winner">{{winnerName}} ({{winnerAbbreviation}})</div>
-   {{/if}}
-   {{#if currentRunoff}}
-     <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Election Results</button>
    {{/if}}
  </div>

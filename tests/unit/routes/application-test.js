@@ -11,6 +11,13 @@ test('it returns a district model', function(){
     formulaName: 'majority',
     districtNumber: 1,
     districtName: 'District 1',
+    formulae: [{
+      value: 'majority',
+      display: 'Majority'
+    },{
+      value: 'plurality',
+      display: 'Plurality'
+    }],
     preferenceGroups: ['group'],
     diameter: chartConstants().height
   };

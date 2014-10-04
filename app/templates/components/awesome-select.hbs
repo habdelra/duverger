@@ -1,0 +1,6 @@
+{{#if prompt}}
+  <option disabled value="">{{prompt}}</option>
+{{/if}}
+{{#each option in resolvedOptions}}
+  <option {{bind-attr value=option.value}}>{{option.display}}</option>
+{{/each}}

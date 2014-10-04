@@ -88,7 +88,11 @@ test('useFormula action sets the formulaName to the passed in formula', function
     content: {}
   });
 
-  controller.send('useFormula', 'theory of relativity');
+  var option = {
+    value: 'theory of relativity'
+  };
+
+  controller.send('useFormula', option);
   equal(get(controller, 'formulaName'), 'theory of relativity', 'the formulaName is correct');
 });
 
@@ -100,7 +104,11 @@ test('useFormula action sets the currentRunoff to 0 when the formula name is `pl
     currentRunoff: 1
   });
 
-  controller.send('useFormula', 'plurality');
+  var option = {
+    value: 'plurality'
+  };
+
+  controller.send('useFormula', option);
   equal(get(controller, 'currentRunoff'), 0, 'the currentRunoff is correct');
 });
 
@@ -117,4 +125,22 @@ test('recalculateElectionOutcome action recomputes the electionOutcome', functio
 
   controller.send('recalculateElectionOutcome');
   equal(get(controller, 'electionOutcome'), 'it`s happening!', 'the election outcome has changed');
+});
+
+test('viewRunoffElection sets the currentRunoff to 1', function() {
+  expect(1);
+
+  var controller = this.subject();
+
+  controller.send('viewRunoffElection');
+  equal(get(controller, 'currentRunoff'), 1, 'the currentRunoff is correct');
+});
+
+test('viewCurrentElection sets the currentRunoff to 0', function() {
+  expect(1);
+
+  var controller = this.subject();
+
+  controller.send('viewCurrentElection');
+  equal(get(controller, 'currentRunoff'), 0, 'the currentRunoff is correct');
 });
