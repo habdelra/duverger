@@ -11,11 +11,23 @@ var electionOutcomeSelector = '.party-winner';
 var dropZoneSelector = '.preference-group.liberal .preference-drop-zone';
 var tieSelector = '.election-outcome';
 var runoffSelector = '.election-nav-btn.view-runoff';
+var increaseLiberalVoterSelector = '.preference-group.liberal .voter-amount-btn.increase';
+var decreaseLiberalVoterSelector = '.preference-group.liberal .voter-amount-btn.decrease';
+var liberalVoterAmountSelector = '.preference-group.liberal .vote-input';
+var percentageSelector = '.preference-group-percentage';
 
 function assertChartDisplay(chartType) {
   return function() {
     assertChart(chartType);
   };
+}
+
+function clickIncreaseVoterAmount() {
+  return click(increaseLiberalVoterSelector);
+}
+
+function clickDecreaseVoterAmount() {
+  return click(decreaseLiberalVoterSelector);
 }
 
 function clickRunoffButton() {
@@ -49,6 +61,17 @@ function setVoterAmounts(voterAmounts) {
   };
 }
 
+function assertPercentages(voterPercentages) {
+  return function() {
+    var parties = keys(voterPercentages);
+    parties.forEach(function(party) {
+      var partyPercentageSelector = preferenceGroupSelector + '.' + party + ' ' + percentageSelector;
+      var partyPercentage = find(partyPercentageSelector);
+      ok(partyPercentage.text().trim().indexOf(voterPercentages[party]) > -1, 'the percentage is correct');
+    });
+  };
+}
+
 function dragThirdPreferencePartyInLiberalGroupToSecondPosition() {
   triggerEvent(dropZoneSelector, 'drop', {
     dataTransfer: {
@@ -77,9 +100,16 @@ module('Integration - Voter Amounts', {
 });
 
 test('changing the voter amount updates the chart in primary election and results in runoff election', function() {
-  expect(17);
+  expect(22);
 
   visit('/')
+    .then(assertPercentages({
+      socialDemocrat: '30%',
+      liberal: '10%',
+      nationalist: '20%',
+      green: '20%',
+      conservative: '20%'
+    }))
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('majorityFirstRoundSD60'))
     .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']));
@@ -165,3 +195,47 @@ test('changing the voter amounts results in a tie in the plurality formula', fun
     .then(assertTie);
 });
 
+test('clicking on the voter amount decrease button decrases the voter amount by one', function() {
+  expect(7);
+  visit('/')
+    .then(clickDecreaseVoterAmount)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 9, 'the voter amount is correct');
+    })
+    .then(clickDecreaseVoterAmount)
+    .then(clickDecreaseVoterAmount)
+    .then(clickDecreaseVoterAmount)
+    .then(clickDecreaseVoterAmount)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 5, 'the voter amount is correct');
+    })
+    .then(assertPercentages({
+      socialDemocrat: '32%',
+      liberal: '5%',
+      nationalist: '21%',
+      green: '21%',
+      conservative: '21%'
+    }));
+});
+
+test('clicking on the voter amount incrase button increases the voter amount by one', function(){
+  expect(1);
+  visit('/')
+    .then(clickIncreaseVoterAmount)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 11, 'the voter amount is correct');
+    });
+});
+
+test('when the voter amount is zero, decrease button is disabled', function() {
+  expect(2);
+  visit('/')
+    .then(setVoterAmounts({
+      liberal: 0
+    }))
+    .then(clickDecreaseVoterAmount)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 0, 'the voter amount is correct');
+      ok(find(decreaseLiberalVoterSelector).prop('disabled'), 'the decrease button is disabled');
+    });
+});

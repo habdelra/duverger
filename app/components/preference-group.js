@@ -2,15 +2,34 @@ import Ember from 'ember';
 
 var set = Ember.set;
 var get = Ember.get;
+var empty = Ember.empty;
 var computed = Ember.computed;
 var alias = computed.alias;
+var not = computed.not;
 
 export default Ember.Component.extend({
   recalculateElectionOutcome: 'recalculateElectionOutcome',
-
   classNameBindings: [':preference-group', 'primaryPreferenceParty'],
 
+  voters: alias('preferenceGroup.voters'),
+  hasNoVoters: not('voters'),
   preferences: alias('preferenceGroup.preferences'),
+
+  votersDisplay: computed('voters', function(key, value) {
+    if (arguments.length > 1) {
+      value = empty(value) ? 0 : value;
+      var votersInteger = parseInt(value, 10);
+      set(this, 'voters', votersInteger);
+    } else {
+      return get(this, 'voters');
+    }
+  }),
+
+  percentage: computed('voters', 'totalVoters', function() {
+    var voters = get(this, 'voters');
+    var totalVoters = get(this, 'totalVoters');
+    return Math.floor(( voters / totalVoters ) * 100 + 0.5);
+  }),
 
   primaryPreference: computed('preferences', function() {
     var primaryPreference = get(this, 'preferences.firstObject');
@@ -31,6 +50,16 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    incrementVoterAmount: function() {
+      var voters = get(this, 'voters');
+      set(this, 'voters', ++voters);
+    },
+    decrementVoterAmount: function() {
+      var voters = get(this, 'voters');
+      if (voters) {
+        set(this, 'voters', --voters);
+      }
+    },
     dragStarted: function() {
       set(this, 'isDragging', true);
     },

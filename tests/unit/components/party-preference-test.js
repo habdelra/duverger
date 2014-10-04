@@ -16,26 +16,6 @@ test('draggable is not isFirstPreference', function() {
   equal(get(component, 'draggable'), 'true', 'draggable is true');
 });
 
-test('votersDisplay key/value computed get returns voters', function(){
-  expect(1);
-
-  var component = this.subject({
-    voters: 2
-  });
-
-  equal(get(component, 'votersDisplay'), 2, 'votersDisplay is correct');
-});
-
-test('votersDisplay key/value computed set will set voters to 0 when it is Ember.empty', function() {
-  expect(1);
-
-  var component = this.subject({
-    voters: 2
-  });
-
-  set(component, 'votersDisplay', '');
-  equal(get(component, 'voters'), 0, 'voters is set to 0');
-});
 
 test('partyName returns the party name of the `party` property', function() {
   expect(1);

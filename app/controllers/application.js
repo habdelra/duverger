@@ -6,10 +6,14 @@ var get = Ember.get;
 var set = Ember.set;
 var computed = Ember.computed;
 var alias = computed.alias;
+var mapBy = computed.mapBy;
+var sum = computed.sum;
 var observer = Ember.observer;
 
 export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
   data: alias('content.preferenceGroups'),
+  voterAmounts : mapBy('preferenceGroups', 'voters'),
+  totalVoters: sum('voterAmounts'),
 
   _calculateElectionOutcome: function(){
     var formula = get(this, 'formula');

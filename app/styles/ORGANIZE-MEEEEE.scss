@@ -112,13 +112,14 @@ html, body {
       color: $light-text-color;
       text-align: left;
       white-space: normal;
-      @include grid-width(3);
+      @include grid-width(1);
       @include grid-height(5);
 
       .party-name {
         @extend %font-large;
         display: inline-block;
-        padding-right: 100px;
+        width: 100%;
+        text-align: center;
         @include vertical-align;
       }
 

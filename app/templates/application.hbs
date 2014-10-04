@@ -48,7 +48,7 @@
   </div>
 
   {{#each preferenceGroup in model.preferenceGroups}}
-      {{preference-group preferenceGroup=preferenceGroup}}
+      {{preference-group preferenceGroup=preferenceGroup totalVoters=totalVoters}}
   {{/each}}
 
   {{outlet}}
