@@ -25,6 +25,11 @@ test('winner in plurality formula', function() {
 
   var expected = [{
     parties: ['democrat'],
+    votedFor: {
+      green: "green",
+      republican: "republican",
+      democrat: "democrat"
+    },
     voterSummary: [{
       green: 5
     },{
@@ -60,6 +65,11 @@ test('tie in plurality formula', function() {
 
   var expected = [{
     parties: [],
+    votedFor: {
+      green: "green",
+      republican: "republican",
+      democrat: "democrat"
+    },
     voterSummary: [{
       green: 5
     },{

@@ -230,6 +230,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     var _this = this;
     var pie = this.pie;
     var data = get(this, 'voterSummary');
+    var votedFor = get(this, 'votedFor');
     var svg = d3.select(get(this, 'element')).select('g');
     var path = svg.selectAll('path');
     var arcTween = function(a) {
@@ -242,7 +243,11 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     };
 
     path = path.data(pie(data)); // compute the new angles
-    path.transition().duration(transitionDurationMs).attrTween("d", arcTween); // redraw the arcs
+    path.transition().duration(transitionDurationMs)
+      .attr("fill", function(d) {
+        return partyLookup(votedFor[Ember.keys(d.data)], 'color');
+      })
+      .attrTween("d", arcTween); // redraw the arcs
 
     next(function(){
       _this.updateLines();

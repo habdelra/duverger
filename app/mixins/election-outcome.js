@@ -11,6 +11,7 @@ var keys = Ember.keys;
 
 export default Ember.Mixin.create({
   currentRunoff: 0,
+  votedFor: alias('electionOutcomeForCurrentRunoff.votedFor'),
   parties: alias('electionOutcomeForCurrentRunoff.parties'),
   runoffs: alias('electionOutcome.length'),
   hasTie: not('parties.length'),
