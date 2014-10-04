@@ -3,7 +3,6 @@ import chartConstants from '../utils/chart-constants';
 import ElectionOutcomeMixin from '../mixins/election-outcome';
 
 var get = Ember.get;
-var set = Ember.set;
 var computed = Ember.computed;
 
 var donutMargin = chartConstants().donutMargin;
@@ -30,14 +29,5 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     return 'width:' + innerDiameter +
       'px; height:' + innerDiameter +
       'px; left:' + margin + 'px; top:' + margin + 'px;';
-  }),
-
-  actions: {
-    viewRunoffElection: function(){
-      set(this, 'currentRunoff', 1);
-    },
-    viewOriginalElection: function(){
-      set(this, 'currentRunoff', 0);
-    }
-  }
+  })
 });

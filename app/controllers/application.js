@@ -29,7 +29,9 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
   }),
 
   actions: {
-    useFormula: function(formulaName){
+    useFormula: function(option){
+      var formulaName = option.value;
+
       if (formulaName === 'plurality') {
         set(this, 'currentRunoff', 0);
       }
@@ -39,6 +41,14 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
     recalculateElectionOutcome: function() {
       var electionOutcome = this._calculateElectionOutcome();
       set(this, 'electionOutcome', electionOutcome);
+    },
+
+    viewRunoffElection: function(){
+      set(this, 'currentRunoff', 1);
+    },
+
+    viewOriginalElection: function(){
+      set(this, 'currentRunoff', 0);
     }
   }
 

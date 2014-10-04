@@ -36,21 +36,3 @@ test('style returns the CSS position of the donut hole', function() {
   var expected = 'width:164px; height:164px; left:218px; top:218px;';
   equal(get(component, 'style'), expected, 'the style is correct');
 });
-
-test('viewRunoffElection sets the currentRunoff to 1', function() {
-  expect(1);
-
-  var component = this.subject();
-
-  component.send('viewRunoffElection');
-  equal(get(component, 'currentRunoff'), 1, 'the currentRunoff is correct');
-});
-
-test('viewCurrentElection sets the currentRunoff to 0', function() {
-  expect(1);
-
-  var component = this.subject();
-
-  component.send('viewCurrentElection');
-  equal(get(component, 'currentRunoff'), 0, 'the currentRunoff is correct');
-});

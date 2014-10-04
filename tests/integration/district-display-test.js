@@ -8,8 +8,8 @@ var preferenceGroupSelector = '.preference-group';
 var partyNameSelector = '.party-name';
 var voterAmountSelector = '.vote-input';
 var partyPreferenceSelector = '.party-preference';
-var formulaSelector = '.formula';
-var districtSelector = '.district';
+var formulaValueSelector = '.formula__value option';
+var districtValueSelector = '.district__value';
 var donutSvgSelector = '.donut-chart svg';
 var electionOutcomeSelector = '.party-winner.runoff';
 
@@ -30,14 +30,15 @@ function assertElectionOutcome() {
   }
 }
 
-function assertFormulaDisplayed() {
-  var formula = find(formulaSelector);
-  equal(formula.text().trim(), 'Formula: majority');
+function assertDefaultFormulaSelected() {
+  var formula = $(find(formulaValueSelector)[1]);
+  equal(formula.prop('selected'), true);
+  equal(formula.val(), 'majority');
 }
 
 function assertDistrictDisplayed() {
-  var district = find(districtSelector);
-  equal(district.text().trim(), 'District 1');
+  var district = find(districtValueSelector);
+  equal(district.text().trim(), '1');
 }
 
 function assertPrefrenceGroupsDisplayed() {
@@ -121,9 +122,9 @@ test('preference parties are displayed', function() {
 });
 
 test('formula is displayed', function() {
-  expect(1);
+  expect(2);
   visit('/')
-    .then(assertFormulaDisplayed);
+    .then(assertDefaultFormulaSelected);
 });
 
 test('district is displayed', function() {

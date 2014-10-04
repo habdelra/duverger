@@ -3,10 +3,12 @@ import Ember           from 'ember';
 
 var App, assertChart;
 var run = Ember.run;
+var empty = Ember.empty;
 
 var electionOutcomeSelector = '.party-winner';
-var formulaButtonSelector = '.formula-btn';
 var formulaDisplaySelector = '.formula';
+var formulaSelectSelector = '.formula select';
+var formulaOptionsSelector = 'option';
 var electionRoundButton = '.election-nav-btn';
 
 function assertChartDisplay(chartType) {
@@ -15,10 +17,34 @@ function assertChartDisplay(chartType) {
   };
 }
 
-function clickFormulaButton(formula) {
+function selectFromDropDown(optionIndex) {
   return function() {
-    var button = find(formulaButtonSelector + '.' + formula);
-    return click(button);
+    var select  = find(formulaSelectSelector);
+    var options = select.find(formulaOptionsSelector);
+    var option  = find(options[optionIndex]);
+
+    option.prop('selected', true);
+    triggerEvent(select[0], 'change');
+  };
+}
+
+function assertDropDownSelection(selectedOptionIndex) {
+  return function() {
+    var select  = find(formulaSelectSelector);
+    var options = select.find(formulaOptionsSelector);
+    var option  = find(options[selectedOptionIndex]);
+
+    if (empty(selectedOptionIndex)) {
+      for (var i = 0; i < options.length; i++) {
+        if (i === 0) {
+          ok(find(options[i]).prop('selected'), 'the option is selected');
+        } else {
+          ok(!find(options[i]).prop('selected'), 'the option is not selected');
+        }
+      }
+    } else {
+      ok(find(option).prop('selected'), 'the option is selected');
+    }
   };
 }
 
@@ -30,13 +56,6 @@ function assertElectionNavButtonExists() {
 function assertElectionNavButtonDoesNotExist() {
   var button = find(electionRoundButton);
   ok(!button.length, 'election navigation button doesnt exist');
-}
-
-function assertFormulaDisplay(formulaName) {
-  return function() {
-    var formula = find(formulaDisplaySelector);
-    ok(formula.text().trim().indexOf(formulaName) > -1, 'the fomula display shows `' + formulaName + '`');
-  };
 }
 
 function assertPartyWinners(partyWinners) {
@@ -60,18 +79,17 @@ module('Integration - Formula', {
 });
 
 test('switch from majority to plurality and black', function() {
-  expect(37);
+  expect(36);
 
   visit('/')
-    .then(clickFormulaButton('plurality'))
+    .then(selectFromDropDown(2))
+    .then(assertDropDownSelection(2))
     .then(assertChartDisplay('plurality'))
     .then(assertPartyWinners(['Social Democrat (SD)']))
-    .then(assertElectionNavButtonDoesNotExist)
-    .then(assertFormulaDisplay('plurality'))
-    .then(clickFormulaButton('majority'))
+    .then(selectFromDropDown(1))
+    .then(assertDropDownSelection(1))
     .then(assertChartDisplay('majorityFirstRound'))
     .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']))
-    .then(assertElectionNavButtonExists)
-    .then(assertFormulaDisplay('majority'));
+    .then(assertElectionNavButtonExists);
 });
 
