@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import districtOneFixture from '../models/district-one-fixture';
+import formulaeFixture from '../models/formulae-fixture';
 import chartConstants from '../utils/chart-constants';
+
+var merge = Ember.merge;
 
 export default Ember.Route.extend({
   _getFixtureData: function(){
-    return districtOneFixture();
+    return merge(districtOneFixture(), formulaeFixture());
   },
 
   model: function() {
@@ -15,6 +18,7 @@ export default Ember.Route.extend({
       formulaName: formulaName,
       districtNumber: data.districtNumber,
       districtName: data.districtName,
+      formulae: data.formulae,
       preferenceGroups: data.preferenceGroups,
       diameter: chartConstants().height
     };

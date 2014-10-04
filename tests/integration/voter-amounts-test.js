@@ -1,7 +1,7 @@
 import startApp        from '../helpers/start-app';
 import Ember           from 'ember';
 
-var App, assertChart, navigateToMajorityRunoff;
+var App, assertChart, navigateToMajorityRunoff, navigateToPlurality;
 var run = Ember.run;
 var keys = Ember.keys;
 
@@ -11,7 +11,6 @@ var electionOutcomeSelector = '.party-winner';
 var dropZoneSelector = '.preference-group.liberal .preference-drop-zone';
 var tieSelector = '.election-outcome';
 var runoffSelector = '.election-nav-btn.view-runoff';
-var pluralitySelector = '.formula-btn.plurality';
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -21,10 +20,6 @@ function assertChartDisplay(chartType) {
 
 function clickRunoffButton() {
   return click(runoffSelector);
-}
-
-function clickPluralityButton() {
-  return click(pluralitySelector);
 }
 
 function assertTie() {
@@ -74,6 +69,7 @@ module('Integration - Voter Amounts', {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
     navigateToMajorityRunoff = App.testHelpers.navigateToMajorityRunoff;
+    navigateToPlurality = App.testHelpers.navigateToPlurality;
   },
   teardown: function() {
     run(App, 'destroy');
@@ -147,7 +143,7 @@ test('changing the voter amount updates the chart using the plurality formula', 
   expect(16);
 
   visit('/')
-    .then(clickPluralityButton)
+    .then(navigateToPlurality)
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('pluralitySD60'))
     .then(assertPartyWinners(['Social Democrat (SD)']));
@@ -164,7 +160,7 @@ test('changing the voter amounts results in a tie in the plurality formula', fun
       green: 0,
       conservative: 30
     }))
-    .then(clickPluralityButton)
+    .then(navigateToPlurality)
     .then(assertChartDisplay('pluralitySD30L0N0G0C30'))
     .then(assertTie);
 });

@@ -1,22 +1,55 @@
-{{!
-  The following variable is available too (replace []'s with {}'s):
+<div class="left">
+  {{!
+    The following variable is available too (replace []'s with {}'s):
 
-  District [[model.districtNumber]]
-}}
+    District [[model.districtNumber]]
+  }}
+  <div class="district">
+    <div class="district__label">District</div>
+    <div class="district__value">{{model.districtNumber}}</div>
+  </div>
 
-<div class="formula">Formula: {{model.formulaName}}</div>
-<div class="district">{{model.districtName}}</div>
+  <div class="percentage-votes">
+    <span class="percentage-votes__label">Percentage of Votes</span>
+    <div class="percentage-votes__value">
+      1st Round
 
-{{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-  {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-{{/donut-chart}}
+      {{#if requiresRunoff}}
+       <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
+      {{/if}}
 
-{{#each preferenceGroup in model.preferenceGroups}}
-    {{preference-group preferenceGroup=preferenceGroup}}
-{{/each}}
+      {{#if currentRunoff}}
+        <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Election Results</button>
+      {{/if}}
+    </div>
+  </div>
 
-<button class="formula-btn plurality" {{action 'useFormula' 'plurality'}}>Pluarality Formula</button>
-<button class="formula-btn majority" {{action 'useFormula' 'majority'}}>Majority Formula</button>
+  {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+    {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+  {{/donut-chart}}
+</div>
 
-{{outlet}}
+<div class="right">
+  <div class="total-voters">
+    <div class="total-voters__label">Total Voters</div>
+    <div class="total-voters__value">1000</div>
+  <div>
 
+  <div class="formula">
+    <div class="formula__label">Formula Applied:</div>
+    <div class="formula__value">
+      {{awesome-select
+        prompt='Select Formula'
+        options=model.formulae
+        initialValue=model.formulaName
+        on-change='useFormula'
+      }}
+    </div>
+  </div>
+
+  {{#each preferenceGroup in model.preferenceGroups}}
+      {{preference-group preferenceGroup=preferenceGroup}}
+  {{/each}}
+
+  {{outlet}}
+</div>
