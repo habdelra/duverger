@@ -1,4 +1,10 @@
+<button class="voter-amount-btn decrease" {{action 'decrementVoterAmount'}} {{bind-attr disabled=hasNoVoters}}>decrease voter amount</button>
+<span class="vote-input-container">{{input type='text' class="vote-input" value=votersDisplay maxlength="3"}}</span>
+<button class="voter-amount-btn increase" {{action 'incrementVoterAmount'}}>increase voter amount</button>
+
 {{#each partyPreference in preferenceGroup.preferences}}
-  {{party-preference model=partyPreference primaryPreference=primaryPreference voters=preferenceGroup.voters}}
+  {{party-preference model=partyPreference primaryPreference=primaryPreference}}
   {{party-drop-zone model=partyPreference isDragging=isDragging primaryPreference=primaryPreference}}
 {{/each}}
+
+<div class="preference-group-percentage">{{percentage}}% of population</div>

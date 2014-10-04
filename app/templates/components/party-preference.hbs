@@ -1,6 +1,1 @@
-{{#if isFirstPreference}}
-  <span class="party-name">{{partyName}} ({{partyAbbreviation}})</span>
-  <span class="vote-input-container">{{input type='text' class="vote-input" value=votersDisplay maxlength="3"}}</span>
-{{else}}
-  <span class="secondary-party-name">{{partyAbbreviation}}</span>
-{{/if}}
+<span {{bind-attr class="isFirstPreference:party-name:secondary-party-name"}}>{{partyAbbreviation}}</span>

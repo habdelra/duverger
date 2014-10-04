@@ -43,11 +43,11 @@ function assertDistrictDisplayed() {
 
 function assertPrefrenceGroupsDisplayed() {
   var expectedPartyNames = [
-    'Social Democrat (SD)',
-    'Liberal (L)',
-    'Nationalist (N)',
-    'Green (G)',
-    'Conservative (C)'
+    'SD',
+    'L',
+    'N',
+    'G',
+    'C'
   ];
   var preferenceGroups = find(preferenceGroupSelector);
   equal(preferenceGroups.length, 5, 'there are 5 preference groups displayed');

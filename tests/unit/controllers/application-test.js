@@ -11,6 +11,26 @@ moduleFor('controller:application', 'controller:application', {
   }
 });
 
+test('totalVoters is the sum of all the voters from all the preference groups', function() {
+  expect(2);
+
+  var controller = this.subject({
+    content: {},
+    _calculateElectionOutcome: Ember.K,
+    preferenceGroups: [{
+      voters: 10
+    }, {
+      voters: 20
+    }]
+  });
+
+  equal(get(controller, 'totalVoters'), 30, 'the totalVoters is correct');
+
+  set(controller, 'preferenceGroups.firstObject.voters', 20);
+
+  equal(get(controller, 'totalVoters'), 40, 'the totalVoters is correct');
+});
+
 test('_calculateElectionOutcome returns the election outcome', function() {
   expect(2);
 
