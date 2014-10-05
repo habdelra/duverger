@@ -1,8 +1,61 @@
-// Component name
+// Election Header
 //
-// Component description
+// The headers used for main sections in the election screen
 //
 // Markup:
-// <div class="component-class">component</div>
+// <div class="header--election">
+//   <div class="header--election__label">Label</div>
+//   <div class="header--election__value">VAL</div>
+// </div>
 //
 // Styleguide 6.1
+
+// Election Secondary Header
+//
+// Markup:
+// <div class="preference-group-header header--election--secondary">
+//   <span class="secondary--voter-count">Number of Voters</span>
+//   <ul class="party-preference-header">
+//     <li>1st choice</li>
+//     <li>2nd</li>
+//     <li>3rd</li>
+//     <li>4th</li>
+//     <li>5th</li>
+//   </ul>
+// </div>
+//
+// Styleguide 6.2
+
+// Voter Count Box
+//
+// Displays a voter count that can be incremented via clickable arrows.
+//
+// Markup:
+// <div class="voter-count">
+//   <a class="voter-amount-btn decrease">decrease voter amount</a>
+//   <span class="vote-input-container"><input class="vote-input" maxlength="3" type="text" value="900"></span>
+//   <a class="voter-amount-btn increase" >increase voter amount</a>
+//   <div class="preference-group-percentage">30% of population</div>
+// </div>
+//
+// Styleguide 6.3
+
+// Party Preferences
+//
+// Draggable party preferences
+//
+// Markup:
+// <div class="preference-group socialDemocrat">
+//  <div id="ember378" class="ember-view first-preference party-preference socialDemocrat" draggable="false"><span class="party-name">SD</span></div>
+//  <div id="ember389" class="ember-view preference-drop-zone"></div>
+//  <div id="ember393" class="ember-view party-preference conservative" draggable="true"><span class="secondary-party-name">C</span></div>
+//  <div id="ember394" class="ember-view preference-drop-zone"></div>
+//  <div id="ember398" class="ember-view party-preference green" draggable="true"><span class="secondary-party-name">G</span></div>
+//  <div id="ember399" class="ember-view preference-drop-zone"></div>
+//  <div id="ember403" class="ember-view party-preference nationalist" draggable="true"><span class="secondary-party-name">N</span></div>
+//  <div id="ember404" class="ember-view preference-drop-zone"></div>
+//  <div id="ember408" class="ember-view party-preference liberal" draggable="true"><span class="secondary-party-name">L</span></div>
+//  <div id="ember409" class="ember-view preference-drop-zone"></div>
+// </div>
+//
+// Styleguide 6.4

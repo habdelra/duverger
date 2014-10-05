@@ -1,9 +1,11 @@
-/* This file is used to add SCSS variables to KSS as classes */
-/* cos KSS-node is kinda sucky */
+// This file is used to add SCSS variables to KSS as classes
+// cos KSS-node is kinda sucky
 
 %dark { box-shadow: 0 0 0 1px black; }
 
 .background-color { background-color: $background-color;}
+.background-color-secondary { background-color: $background-color-secondary;}
+.border-color { background-color: $border-color;}
 .social-democrat-color { background-color: $social-democrat-color;}
 .liberal-color { background-color: $liberal-color;}
 .green-color { background-color: $green-color;}
@@ -21,4 +23,22 @@
 .font-medium { @extend %font-normal;}
 .font-small { @extend %font-small;}
 
+// Icon helper classes
+// used to attach icon classes to KSS elements
+// when in reality you'd use a mixin :/
 
+.icon.north {
+  @include icon-arrow(north);
+}
+
+.icon.south {
+  @include icon-arrow(south);
+}
+
+.icon.east {
+  @include icon-arrow(east);
+}
+
+.icon.west {
+  @include icon-arrow(west);
+}

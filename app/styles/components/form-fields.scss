@@ -1,7 +1,19 @@
 //Form Field styles go here
 
-input {
+input,
+input[type="text"] {
+  @extend %font-medium;
   padding: 0;
   margin: 0;
   border: 0;
+  background: transparent;
+
+  &:hover, &:focus {
+    background: white;
+  }
+
+  &:focus {
+    outline: 1px solid $border-color;
+    outline-offset: -1px;
+  }
 }

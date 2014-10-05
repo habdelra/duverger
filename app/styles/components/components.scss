@@ -101,6 +101,7 @@
 .voter-count {
   @extend %election-header-style;
   font-size: 0;
+  font-weight: 100;
   display: inline-block;
   padding: 0 $grid-padding-unit;
   width: grid-width(2)+$grid-padding-unit*2;
@@ -118,28 +119,20 @@
     }
   }
 
-  .vote-input { //ABSTRACT OUT
+  .vote-input {
     @extend %font-largest;
+    font-weight: 600;
     padding: grid-height(1) 0;
     width: grid-width(2) - 20;
     line-height: grid-height(3);
     height: grid-height(5);
     text-align: center;
     margin: 0 0 grid-height(2);
-    background: transparent;
-
-    &:hover, &:focus {
-      background: white;
-    }
-
-    &:focus {
-      outline: 1px solid $border-color;
-      outline-offset: -1px;
-    }
   }
 
   .preference-group-percentage {
     @extend %election-header-style;
+    font-weight: 600;
     letter-spacing: -.08em;
   }
 
