@@ -1,6 +1,6 @@
- <div {{bind-attr class=":election-outcome" }}>
-   {{#each party in displayParties}}
-     <div {{bind-attr class="hasWinner::runoff party.name :party-winner"}}> {{party.abbreviation}}</div>
-   {{/each}}
-   <div class="final-seats">Final Seats</div>
+<div {{bind-attr class=":election-outcome__results" }}>
+  {{#each party in displayParties}}
+    <div {{bind-attr class="hasWinner::runoff party.name :party-winner"}}> {{party.abbreviation}}</div>
+  {{/each}}
+  <div class="final-seats">Final Seats</div>
  </div>

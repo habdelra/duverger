@@ -1,0 +1,37 @@
+%icon {
+  @include hide-text;
+  display: inline-block;
+  background-position: left center;
+}
+
+%icon-arrow-south {
+  @extend %icon;
+  background-image: url("../images/south-arrow.svg");
+  background-repeat: no-repeat;
+  background-size: auto 13px;
+  height: 10px;
+  width: 13px;
+}
+
+%icon-arrow-east {
+  @extend %icon;
+  background-image: url("../images/east-arrow.svg");
+  background-repeat: no-repeat;
+  background-size: auto 13px;
+  height: 13px;
+  width: 10px;
+}
+
+@mixin icon-arrow($direction) {
+  @if ($direction == "north") {
+    @extend %icon-arrow-south;
+    @include transform(rotate(180deg));
+  } @else if ($direction == "south") {
+    @extend %icon-arrow-south;
+  } @else if ($direction == "east") {
+    @extend %icon-arrow-east;
+  } @else if ($direction == "west") {
+    @extend %icon-arrow-east;
+    @include transform(rotate(180deg));
+  }
+}

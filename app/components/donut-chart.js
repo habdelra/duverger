@@ -101,9 +101,10 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
 
   updateAnnotations: function() {
     var _this = this;
-    var backgroundWidth = 40;
+    var backgroundWidth = 50;
     var backgroundHeight = 20;
     var backgroundHorizontalCenterOffset = 5;
+    var backgroundVerticalCenterOffset = -2;
     var pie = this.pie;
     var data = get(this, 'voterSummary');
     var outerRadius = get(this, 'outerRadius');
@@ -150,15 +151,15 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       return function(t) {
         var val = fn(t);
         var x = Math.cos(val) * (outerRadius+textOffset) + backgroundHorizontalCenterOffset;
-        var y = Math.sin(val) * (outerRadius+textOffset);
+        var y = Math.sin(val) * (outerRadius+textOffset) + backgroundVerticalCenterOffset;
         if (val > 0 && val < Math.PI ) {
           y += 15 - backgroundHeight/1.5;
         } else {
           y -= 7 + backgroundHeight/1.5;
         }
 
-        if ( val > Math.PI/2 && val < Math.PI*1.5 ){
-          x -= backgroundWidth/1.25;
+        if ( val > Math.PI/2 && val <= Math.PI*1.50 ){
+          x -= backgroundWidth/1.125;
         } else {
           x -= backgroundWidth/4;
         }
@@ -184,21 +185,21 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       return function(t) {
         var val = fn(t);
         var x = Math.cos(val) * (outerRadius+textOffset) + backgroundHorizontalCenterOffset;
-        var y = Math.sin(val) * (outerRadius+textOffset);
+        var y = Math.sin(val) * (outerRadius+textOffset) + backgroundVerticalCenterOffset;
         if (val > 0 && val < Math.PI ) {
           y += 15 - backgroundHeight/1.5;
         } else {
           y -= 7 + backgroundHeight/1.5;
         }
 
-        if ( val > Math.PI/2 && val < Math.PI*1.5 ){
-          x -= backgroundWidth/1.25;
+        if ( val > Math.PI/2 && val <= Math.PI*1.5 ){
+          x -= backgroundWidth/1.125;
         } else {
           x -= backgroundWidth/4;
         }
         var upperRightHandX = x + backgroundWidth - 1;
         var upperRightHandY = y + 1;
-        var triangeHeight = backgroundHeight * 0.66;
+        var triangeHeight = backgroundHeight * 0.5;
         var vertex1 = upperRightHandX + ',' + upperRightHandY;
         var vertex2 = (upperRightHandX - triangeHeight) + ',' + upperRightHandY;
         var vertex3 = upperRightHandX + ',' + (upperRightHandY + triangeHeight);
@@ -253,8 +254,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     textBackground.enter().append('rect')
       .attr('width', backgroundWidth)
       .attr('height', backgroundHeight)
-      .style('fill', 'white')
-      .style('fill-opacity', '0.7');
+      .style('fill', 'white');
 
     textBackground
       .transition()
@@ -284,7 +284,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
         }
       })
       .attr("text-anchor", function(d){
-        if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
+        if ( (d.startAngle+d.endAngle)/2 <= Math.PI ){
           return "beginning";
         } else {
           return "end";
@@ -310,7 +310,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
         }
       })
       .attr("text-anchor", function(d){
-        if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
+        if ( (d.startAngle+d.endAngle)/2 <= Math.PI ){
           return "beginning";
         } else {
           return "end";

@@ -8,13 +8,15 @@
 /* These are just examples of how to use KSS */
 /* remove these once you've figured it out */
 /* and also deelte the public/webfonts folder which are also used as part of this example */
-@import 'example/interactions';
-@import 'example/colors';
-@import 'example/fonts';
-@import 'example/form-fields';
-@import 'example/icons';
-@import 'example/components';
-@import 'example/ios-android';
+@import '_grid';
+@import '_colors';
+@import '_layouts';
+@import '_interactions';
+@import '_fonts';
+@import '_form-fields';
+@import '_icons';
+@import '_components';
+@import '_ios-android';
 
 //main styles
 @import 'ORGANIZE-MEEEEE';
