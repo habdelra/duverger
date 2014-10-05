@@ -1,16 +1,120 @@
-<img src="images/duverger_logo.png" class="duverger-logo" />
+<ul class="tabs">
+  <li class="tab tab-duverger">
+    <input type="radio" name="tabs" id="tab1" checked />
+    <label for="tab1">Duverger</label>
+    <div id="tab-content1" class="tab-content">
+      <img src="images/duverger_logo.png" class="duverger-logo" />
 
-<header class="project-name">Project Duverger</header>
+      <header class="project-name">Project Duverger</header>
 
-<div class="description">
-  Duverger is an instructional tool for exploring the relationship between what voters want, different types of electoral system, and the outcomes of legislative elections.
-</div>
+      <div class="description">
+        Duverger is an instructional tool for exploring the relationship between what voters want, different types of electoral system, and the outcomes of legislative elections.
+      </div>
 
-<div class="district-level">
-  <header>District Level<header>
-  
-  Enter the number of voters in a particular preference group using the arrows and view the 
-  results of the election in the pie chart.
-</div>
+      <div class="district-level">
+        <header>District Level<header>
 
-<button class="toggle-btn" {{action 'toggleLeftHandPanel'}}>Toggle</button>
+        Enter the number of voters in a particular preference group using the arrows and view the 
+        results of the election in the pie chart.
+      </div>
+    </div>
+  </li>
+
+  <li class="tab tab-parameters">
+    <input type="radio" name="tabs" id="tab2" />
+    <label for="tab2">Parameters</label>
+    <div id="tab-content2" class="tab-content">
+      <header>Global Parameters</header>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="parameter">Default formula</span>
+              system of voting
+            </td>
+            <td>Majority with run-off</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="parameter">District magnitude (DM)</span>
+              Number of seats elected per district
+            </td>
+            <td>1</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="parameter">Legislative size</span>
+              Number of seats in the legislature
+            </td>
+            <td>10</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="parameter">Number of voters</span>
+              Voters per district
+            </td>
+            <td>Unlimited</td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="parameter">Preference Groups</span>
+              Groups of voters with the same party preferences
+            </td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Party Name</th>
+            <th>Party color</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Conservative (C)</td>
+            <td><span class="conservative">Charcoal</span></td>
+          </tr>
+          <tr>
+            <td>Green (G)</td>
+            <td><span class="green">Green</span></td>
+          </tr>
+          <tr>
+            <td>Liberal (L)</td>
+            <td><span class="liberal">Yellow</span></td>
+          </tr>
+          <tr>
+            <td>Nationalist (N)</td>
+            <td><span class="nationalist">Teal</span></td>
+          </tr>
+          <tr>
+            <td>Social Democrat (SD)</td>
+            <td><span class="social-democrat">Red</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+
+  <li class="tab tab-formulae">
+    <input type="radio" name="tabs" id="tab3" />
+    <label for="tab3">Formulae</label>
+    <div id="tab-content3" class="tab-content">
+      FORMULAE
+    </div>
+  </li>
+</ul>
+
+<button class="toggle-btn" {{action 'toggleLeftHandPanel'}}>Info</button>
