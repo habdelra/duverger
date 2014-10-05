@@ -63,7 +63,7 @@
   margin: 0 0 grid-height(1);
 
   >*, .party-preference-header li {
-    display: inline-block;  
+    display: inline-block;
   }
 
   .secondary--voter-count {
@@ -317,18 +317,103 @@
 // left hand panel
 // SHAME
 // bad styles
+$lhp-width: grid-width(8);
+
 .left-hand-panel {
-  width: grid-width(8);
-  padding: grid-width(1);
+  background-color: $lhp-background-color;
+  color: $text-color-light;
+  width: $lhp-width;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
-  background: $text-color;
-  height: 100%;
-  color: $text-color-light;
+  bottom: 0;
+  padding: grid-width(1);
+  z-index: 9000;
+  @include transition-property(left);
 
   &.closed {
-    display: none;
+    left: -$lhp-width;
+    @include transition-property(left);
+  }
+
+  .project-name {
+    @extend %font-largest;
+  }
+
+  .toggle-btn {
+    position: absolute;
+    bottom: 10px;
+    right: -93px;
+    background-color: $lhp-background-color;
+    color: $text-color-light;
+    border-style: none;
+    padding: 27px 36px;
+    border-radius: 0 36px 36px 0;
+    @extend %font-medium;
+    opacity: .8;
+    outline: none;
+    text-transform: uppercase;
+  }
+
+  .tabs {
+    list-style: none;
+    text-align: left;
+    li {
+      display: block;
+    }
+
+    input[type="radio"] {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    label {
+      display: block;
+      padding: 14px 21px;
+      border-radius: 2px 2px 0 0;
+      font-size: 20px;
+      font-weight: normal;
+      text-transform: uppercase;
+      background: $lhp-background-color;
+      cursor: pointer;
+      position: absolute;
+      bottom: 4px;
+      @include transition(all 0.2s ease-in-out);
+      &:hover {
+        background: darken($lhp-background-color, 10);
+      }
+    }
+    .tab-content{
+      z-index: 2;
+      display: none;
+      overflow: hidden;
+      width: 100%;
+      font-size: 17px;
+      line-height: 25px;
+      padding: 25px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: darken($lhp-background-color, 15);
+    }
+    //The Magic
+    [id^="tab"]:checked + label {
+      padding-top: 17px;
+      background: darken($lhp-background-color, 15);
+    }
+    [id^="tab"]:checked ~ [id^="tab-content"] {
+      display: block;
+    }
+
+    // individual tab styles
+    .tab-duverger label {
+      left: 0;
+    }
+    .tab-parameters label {
+      left: 150px;
+    }
+    .tab-formulae label {
+      left: 300px;
+    }
   }
 }
