@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { randomlySelect } from '../utils/random-helpers';
 
 var get = Ember.get;
 var emberA = Ember.A;
@@ -35,7 +36,12 @@ var emberA = Ember.A;
 //   ```
 
 export default function(preferenceGroups){
-  var result = {};
+  var result = {
+    coinToss: {
+      participants: [],
+      winners: []
+    }
+  };
   var preferenceGroupsArray = emberA(preferenceGroups);
 
   // create an array `sortedPartyTotals` based on the preferencesGroups array that is re-mapped
@@ -63,18 +69,18 @@ export default function(preferenceGroups){
 
   // the winning party in the election is the last item in the `sortedPartyTotals` array (since it is sorted by voters)
   var potentialWinner = get(sortedPartyTotals, 'lastObject');
-  var numberOfParties = get(sortedPartyTotals, 'length');
 
-  // in the case where the 2nd to last item in the `sortedPartyTotals` array has the same amount of voters as the
-  // last item in `sortedPArtyTotals`, then there has been a tie. Return an emtpty `parties` array in the
-  // result to indicate that a tie has occured.
-  if(numberOfParties > 1 && potentialWinner.voters === sortedPartyTotals.objectAt(numberOfParties - 2).voters) {
-    result.parties = [];//for now an empty array means tied
-    return [result];
+  var winningAmount = potentialWinner.voters;
+  var winners = sortedPartyTotals.filterBy('voters', winningAmount).mapBy('party');
+  if (winners.length > 1) {
+    [].push.apply(result.coinToss.participants, winners);
+    var winner = randomlySelect(winners, 1);
+    result.winners = winner;
+    result.coinToss.winners = winner;
   }
 
-  // Otherwise, if there is no tie, set the winning party in the `parties` array in the result
-  result.parties = [potentialWinner.party];
+  // Otherwise, if there is no tie, set the winning party in the `winners` array in the result
+  result.winners = [potentialWinner.party];
 
   // the result is returned as an array, where each item in the array represents a separate round of elections.
   // for the plurality formula, there is currently only round round of elections ever, so just return an array of one item.

@@ -4,6 +4,8 @@ import Ember           from 'ember';
 var App, assertChart;
 var run = Ember.run;
 
+var originalRandomFunction;
+
 var runoffSelector = '.election-nav-btn.view-runoff';
 var electionOutcomeSelector = '.party-winner';
 var electionRoundButton = '.election-nav-btn';
@@ -40,8 +42,14 @@ module('Integration - Runnoffs', {
   setup: function() {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
   },
   teardown: function() {
+    Math.random = originalRandomFunction;
     run(App, 'destroy');
   }
 });

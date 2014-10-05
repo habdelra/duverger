@@ -36,7 +36,11 @@ test('returns plurality formula function', function() {
   expect(2);
 
   var expectedResults = [{
-    parties: ['socialDemocrat'],
+    winners: ['socialDemocrat'],
+    coinToss: {
+      participants: [],
+      winners:[]
+    },
     votedFor: {
       conservative: 'conservative',
       green: 'green',
@@ -62,7 +66,11 @@ test('returns majority formula function', function() {
   expect(2);
 
   var expectedResults = [{
-    parties: ['socialDemocrat', 'conservative'],
+    winners: ['socialDemocrat', 'conservative'],
+    coinToss: {
+      participants: [],
+      winners:[]
+    },
     votedFor: {
       conservative: 'conservative',
       green: 'green',
@@ -76,7 +84,11 @@ test('returns majority formula function', function() {
       socialDemocrat: 6
     }]
   },{
-    parties: ['socialDemocrat'],
+    winners: ['socialDemocrat'],
+    coinToss: {
+      participants: [],
+      winners:[]
+    },
     votedFor: {
       conservative: 'conservative',
       green: 'socialDemocrat',

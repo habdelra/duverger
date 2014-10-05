@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { randomlySelect } from '../utils/random-helpers';
 
 var get = Ember.get;
 var emberA = Ember.A;
@@ -38,7 +39,6 @@ var emberA = Ember.A;
 export default function(preferenceGroups) {
   var runoffs = emberA([]);
   var majorityReached = false;
-  var deadTieInRunoff = false;
   var preferenceGroupsArray = emberA(preferenceGroups);
   var voterSummary;
   var votedFor;
@@ -51,15 +51,6 @@ export default function(preferenceGroups) {
   // Determine the majority of voters: one person more than half
   var majorityOfVotes = Math.floor(totalVoters / 2) + 1;
 
-  // Summary function
-  var generateVoterSummary = function(partyTotal) {
-    var summary = {};
-    var party = partyTotal.party;
-    votedFor[party] = party; // Putting initial identify votedFor mapping in this loop--so as not use use up an extra iteration
-    summary[partyTotal.party] = partyTotal.voters;
-    return summary;
-  };
-
   // This function is used to generate the objects within an array of preferred parties for all the party groups
   var preferredPartyTotalsMapping = function(preferenceGroup) {
     var primaryPartyPreference = preferenceGroup.preferences[0].party;
@@ -67,6 +58,15 @@ export default function(preferenceGroups) {
       party: primaryPartyPreference,
       voters: preferenceGroup.voters
     };
+  };
+
+  // Summary function
+  var generateVoterSummary = function (partyTotal) {
+    var summary = {};
+    var party = partyTotal.party;
+    votedFor[party] = party; // Putting initial identify votedFor mapping in this loop--so as not use use up an extra iteration
+    summary[partyTotal.party] = partyTotal.voters;
+    return summary;
   };
 
   // This function is used to process a runoff election
@@ -77,7 +77,7 @@ export default function(preferenceGroups) {
     var allPreferredParties = preferenceGroupsArray.map(preferredPartyTotalsMapping);
 
     // Initialize the runoffResults object which will hold the results of the runoff tally
-    var runoffParties = get(runoffs, 'lastObject.parties');
+    var runoffParties = get(runoffs, 'lastObject.winners');
     var runoffResults = {};
     allPreferredParties.forEach(function(partyInfo) {
       runoffResults[partyInfo.party] = 0;
@@ -139,41 +139,74 @@ export default function(preferenceGroups) {
     }
 
     // The potential winner of the election is the last item in the `sortedPartyTotals` array.
-    var potentialWinner = get(sortedPartyTotals, 'lastObject');
-    var numberOfParties = get(sortedPartyTotals, 'length');
+    var firstPlaceVoterAmount = get(sortedPartyTotals, 'lastObject.voters');
+    majorityReached = firstPlaceVoterAmount >= majorityOfVotes;
 
     // Determine if a majority has been reached
-    majorityReached = potentialWinner.voters >= majorityOfVotes;
 
     // Add the potentially winning party (the last item in the `sortedPartyTotals` array to the winning parties result of this election
-    var parties = [potentialWinner.party];
+    var winners = [];
+    var coinTossParticipants = [];
+    var coinTossWinners = [];
 
     // If a majority has not been reached make sure there isn't a dead even tie
     if (!majorityReached) {
-      // Grab the 2nd to last item in `sortedPartyTotals` array regardless if there was a tie for second place (this makes it easy)
-      var runnerup = sortedPartyTotals.objectAt(numberOfParties - 2);
-      if (runnerup.voters === potentialWinner.voters && numberOfRunoffs > 0) {
-        // this is the scenario where there was a dead tie after the runoff election
-        // In this case, reaching a majority is impossible, as all subsequent runoffs
-        // will come to the same outcome, and your computer will melt.
-        deadTieInRunoff = true;
-        parties = emberA([]); // use an empty `parties` array to indicate an unresolveable tie for this election round
+      var runoffWinnerObjects = sortedPartyTotals.filterBy('voters', firstPlaceVoterAmount);
+      var runoffWinnerParties = runoffWinnerObjects.mapBy('party');
+      if (numberOfRunoffs === 0) {
+        // Select 2 finalists for the runoff election
+        if (runoffWinnerParties.length > 2) {
+          [].push.apply(coinTossParticipants, runoffWinnerParties);
+        }
+        sortedPartyTotals.removeObjects(runoffWinnerObjects);
+        runoffWinnerParties = randomlySelect(runoffWinnerParties, 2);
+        if (coinTossParticipants.length) {
+          coinTossWinners = runoffWinnerParties;
+        }
+        if (runoffWinnerParties.length < 2) {
+          // need one more candidate for the runoff election
+          var secondPlaceAmount = get(sortedPartyTotals, 'lastObject.voters');
+          var secondPlaceContestantParties = sortedPartyTotals.filterBy('voters', secondPlaceAmount).mapBy('party');
+          if (secondPlaceContestantParties.length > 1) {
+            [].push.apply(coinTossParticipants, secondPlaceContestantParties);
+          }
+          var secondPlaceContestant = randomlySelect(secondPlaceContestantParties, 1)[0];
+          runoffWinnerParties.push(secondPlaceContestant);
+          if (coinTossParticipants.length) {
+            coinTossWinners.push(secondPlaceContestant);
+          }
+        }
       } else {
-        // If there is no dead even tie, then the runner up party is added to the `parties` array, which signifies the winning parties in this election round
-        parties.push(sortedPartyTotals.objectAt(numberOfParties - 2).party);
+        // Select 1 winner of the runoff election
+        if (runoffWinnerParties.length > 1) {
+          [].push.apply(coinTossParticipants, runoffWinnerParties);
+        }
+        runoffWinnerParties = randomlySelect(runoffWinnerParties, 1);
+        if (coinTossParticipants.length) {
+          coinTossWinners.push(runoffWinnerParties[0]);
+        }
+        //force the majority to be reached
+        majorityReached = true;
       }
-    }
 
+      [].push.apply(winners, runoffWinnerParties);
+    } else {
+      winners = [ get(sortedPartyTotals, 'lastObject.party') ];
+    }
 
     // Add the results from this round of elections to the array holding all the rounds of elections
     runoffs.push({
+      coinToss: {
+        winners: coinTossWinners,
+        participants: coinTossParticipants
+      },
       voterSummary : voterSummary,
       votedFor: votedFor,
-      parties: parties
+      winners: winners
     });
 
   // hold another round of elections if the majority has not been reached and there is not a dead tie in this round of elections
-  } while(!majorityReached && !deadTieInRunoff);
+  } while(!majorityReached);
 
   return runoffs;
 }

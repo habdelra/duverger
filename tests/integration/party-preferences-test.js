@@ -4,6 +4,8 @@ import Ember           from 'ember';
 var App, assertChart, navigateToMajorityRunoff;
 var run = Ember.run;
 
+var originalRandomFunction;
+
 var liberalGroupPartyPreference = '.preference-group.liberal .party-preference';
 var dropZoneSelector = '.preference-group.liberal .preference-drop-zone';
 var electionOutcomeSelector = '.party-winner';
@@ -14,7 +16,7 @@ function assertChartDisplay(chartType) {
   };
 }
 
-function dragThirdPreferencePartyInLiberalGroupToSecondPosition() {
+function dragFourthPreferencePartyInLiberalGroupToSecondPosition() {
   triggerEvent(dropZoneSelector, 'drop', {
     dataTransfer: {
       types: {
@@ -23,7 +25,7 @@ function dragThirdPreferencePartyInLiberalGroupToSecondPosition() {
         }
       },
       getData: function() {
-        return '{ "index": 2, "party": "conservative" }';
+        return '{ "index": 3, "party": "green" }';
       }
     }
   });
@@ -55,9 +57,15 @@ module('Integration - Party Preferences', {
   setup: function() {
     App = startApp();
     navigateToMajorityRunoff = App.testHelpers.navigateToMajorityRunoff;
-    assertChart= App.testHelpers.assertChart;
+    assertChart = App.testHelpers.assertChart;
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
   },
   teardown: function() {
+    Math.random = originalRandomFunction;
     run(App, 'destroy');
   }
 });
@@ -68,10 +76,10 @@ test('rearrange preferences that do not effect the donut graph', function() {
   visit('/')
     .then(assertChartDisplay('majorityFirstRound'))
     .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'G', 'N']))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']))
-    .then(dragThirdPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']))
-    .then(assertLiberalGroupsNewPreferences(['C', 'SD', 'G', 'N']))
+    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']))
+    .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
+    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']))
+    .then(assertLiberalGroupsNewPreferences(['G', 'SD', 'C', 'N']))
     .then(assertChartDisplay('majorityFirstRound'));
 });
 
@@ -80,10 +88,10 @@ test('rearrange preferences that effect donut graph', function(){
 
   navigateToMajorityRunoff('/')
     .then(assertChartDisplay('majorityRunoff'))
-    .then(dragThirdPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['Social Democrat (SD)']))
+    .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
+    .then(assertPartyWinners(['Green (G)']))
     .then(assertChartDisplay('majorityRunoffPreferenceChange'))
-    .then(dragThirdPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['Social Democrat (SD)']))
+    .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
+    .then(assertPartyWinners(['Green (G)']))
     .then(assertChartDisplay('majorityRunoff'));
 });
