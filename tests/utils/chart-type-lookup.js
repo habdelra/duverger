@@ -8,7 +8,7 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '20%', '20%', '10%', '20%', '30%' ]
+    text: [ '5%', '20%', '10%', '15%', '50%' ]
   },
 
   majorityRunoff: {
@@ -19,7 +19,7 @@ var chartDefinitions = {
       '#FB5258',
       '#FB5258'
     ],
-    text: [ '20%', '20%', '10%', '20%', '30%' ]
+    text: [ '5%', '20%', '10%', '15%', '50%' ]
   },
   majorityRunoffPreferenceChange: {
     colors: [
@@ -29,9 +29,9 @@ var chartDefinitions = {
       '#FB5258',
       '#FB5258'
     ],
-    text: [ '20%', '20%', '10%', '20%', '30%' ]
+    text: [ '5%', '20%', '10%', '15%', '50%' ]
   },
-  majorityFirstRoundSD60: {
+  majorityFirstRoundSD45: {
     colors: [
       '#777777',
       '#BBDF2A',
@@ -39,9 +39,9 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '15%', '15%', '8%', '15%', '46%' ]
+    text: [ '5%', '21%', '11%', '16%', '47%' ]
   },
-  majorityRunoffSD60: {
+  majorityRunoffSD45: {
     colors: [
       '#BBDF2A',
       '#BBDF2A',
@@ -49,7 +49,7 @@ var chartDefinitions = {
       '#FB5258',
       '#FB5258'
     ],
-    text: [ '15%', '15%', '8%', '15%', '46%' ]
+    text: [ '5%', '21%', '11%', '16%', '47%' ]
   },
   majorityFirstRoundSD80: {
     colors: [
@@ -59,9 +59,9 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '13%', '13%', '7%', '13%', '53%' ]
+    text: [ '4%', '15%', '8%', '12%', '62%' ]
   },
-  majorityRunoffPreferenceChangeSD60: {
+  majorityRunoffPreferenceChangeSD45: {
     colors: [
       '#BBDF2A',
       '#BBDF2A',
@@ -69,7 +69,7 @@ var chartDefinitions = {
       '#FB5258',
       '#FB5258'
     ],
-    text: [ '15%', '15%', '8%', '15%', '46%' ]
+    text: [ '5%', '21%', '11%', '16%', '47%' ]
   },
   majorityRunoffSD30L0N0G0C30: {
     colors: [
@@ -89,9 +89,9 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '20%', '20%', '10%', '20%', '30%' ]
+    text: [ '5%', '20%', '10%', '15%', '50%' ]
   },
-  pluralitySD60: {
+  pluralitySD45: {
     colors: [
       '#777777',
       '#BBDF2A',
@@ -99,7 +99,7 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '15%', '15%', '8%', '15%', '46%' ]
+    text: [ '5%', '21%', '11%', '16%', '47%' ]
   },
   pluralitySD30L0N0G0C30: {
     colors: [

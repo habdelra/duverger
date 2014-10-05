@@ -63,7 +63,7 @@ function assertPrefrenceGroupsDisplayed() {
 }
 
 function assertPreferenceGroupVoterAmounts() {
-  var expectedAmounts = ['30', '10', '20', '20' , '20'];
+  var expectedAmounts = ['50', '10', '15', '20' , '5'];
   var voterAmounts = find(voterAmountSelector);
   equal(voterAmounts.length, 5, 'there are 5 voter amounts displayed');
 

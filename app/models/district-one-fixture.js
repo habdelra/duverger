@@ -3,7 +3,7 @@ export default function(){
     districtNumber: 1,
     districtName: 'District 1',
     preferenceGroups: [{
-      voters: 30,
+      voters: 50,
       preferences: [{
         index: 0,
         party: 'socialDemocrat'
@@ -39,7 +39,7 @@ export default function(){
         party: 'nationalist'
       }]
     },{
-      voters: 20,
+      voters: 15,
       preferences: [{
         index: 0,
         party: 'nationalist'
@@ -75,7 +75,7 @@ export default function(){
         party: 'conservative'
       }]
     },{
-      voters: 20,
+      voters: 5,
       preferences: [{
         index: 0,
         party: 'conservative'

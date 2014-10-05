@@ -89,9 +89,9 @@ test('rearrange preferences that effect donut graph', function(){
   navigateToMajorityRunoff('/')
     .then(assertChartDisplay('majorityRunoff'))
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['G']))
+    .then(assertPartyWinners(['SD']))
     .then(assertChartDisplay('majorityRunoffPreferenceChange'))
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['G']))
+    .then(assertPartyWinners(['SD']))
     .then(assertChartDisplay('majorityRunoff'));
 });
