@@ -15,6 +15,7 @@ var increaseLiberalVoterSelector = '.preference-group.liberal .voter-amount-btn.
 var decreaseLiberalVoterSelector = '.preference-group.liberal .voter-amount-btn.decrease';
 var liberalVoterAmountSelector = '.preference-group.liberal .vote-input';
 var percentageSelector = '.preference-group-percentage';
+var totalVotersValueSelector = '.total-voters__value';
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -85,6 +86,14 @@ function dragThirdPreferencePartyInLiberalGroupToSecondPosition() {
       }
     }
   });
+}
+
+function assertTotalVotesCount(voteCount) {
+  var totalVoters = find(totalVotersValueSelector);
+
+  return function() {
+    equal(totalVoters.text().trim(), voteCount, 'total vote count is ' + voteCount);
+  };
 }
 
 module('Integration - Voter Amounts', {
@@ -238,4 +247,23 @@ test('when the voter amount is zero, decrease button is disabled', function() {
       equal(find(liberalVoterAmountSelector).val(), 0, 'the voter amount is correct');
       ok(find(decreaseLiberalVoterSelector).prop('disabled'), 'the decrease button is disabled');
     });
+});
+
+test('display total votes cast', function() {
+  expect(3);
+
+  visit('/')
+    .then(assertTotalVotesCount(100))
+    .then(setVoterAmounts({
+      socialDemocrat: 30,
+      liberal: 0,
+      nationalist: 0,
+      green: 0,
+      conservative: 30
+    }))
+    .then(assertTotalVotesCount(60))
+    .then(setVoterAmounts({
+      nationalist: 10
+    }))
+    .then(assertTotalVotesCount(70));
 });
