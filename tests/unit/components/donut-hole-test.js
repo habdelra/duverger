@@ -23,7 +23,7 @@ test('innerRadius is the radius - donutThickness - donut margin', function(){
     radius: 300
   });
 
-  equal(get(component, 'innerRadius'), 173, 'the innerRadius is correct');
+  equal(get(component, 'innerRadius'), 153, 'the innerRadius is correct');
 });
 
 test('style returns the CSS position of the donut hole', function() {
@@ -33,6 +33,6 @@ test('style returns the CSS position of the donut hole', function() {
     radius: 300
   });
 
-  var expected = 'width:346px; height:346px; left:127px; top:127px;';
+  var expected = 'width:306px; height:306px; left:147px; top:147px;';
   equal(get(component, 'style'), expected, 'the style is correct');
 });

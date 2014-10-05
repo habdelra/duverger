@@ -39,7 +39,7 @@ test('the outerRadius is the radius - the donutMargin', function() {
     radius: 200
   });
 
-  equal(get(component, 'outerRadius'), 160, 'the outerRadius is correct');
+  equal(get(component, 'outerRadius'), 140, 'the outerRadius is correct');
 });
 
 test('the innerRadius is the radius - the donut margin - the donut thickness', function() {
@@ -49,5 +49,5 @@ test('the innerRadius is the radius - the donut margin - the donut thickness', f
     radius: 300
   });
 
-  equal(get(component, 'innerRadius'), 173, 'the innerRadius is correct');
+  equal(get(component, 'innerRadius'), 153, 'the innerRadius is correct');
 });
