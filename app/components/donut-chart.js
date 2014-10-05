@@ -95,12 +95,15 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       .style({ 'stroke': 'white', 'stroke-width': '1x'})
       .each(function(d) { this._current = d; });
 
-    this.updateLines();
+    this.updateAnnotations();
 
   }.on('didInsertElement'),
 
-  updateLines: function() {
+  updateAnnotations: function() {
     var _this = this;
+    var backgroundWidth = 40;
+    var backgroundHeight = 20;
+    var backgroundHorizontalCenterOffset = 5;
     var pie = this.pie;
     var data = get(this, 'voterSummary');
     var outerRadius = get(this, 'outerRadius');
@@ -126,6 +129,80 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       return function(t) {
         var val = fn(t);
         return "translate(" + Math.cos(val) * (outerRadius+textOffset) + "," + Math.sin(val) * (outerRadius+textOffset) + ")";
+      };
+    };
+
+    var textBackgroundTween = function(d, i) {
+      var a;
+      var pieData = get(_this, 'oldPieData');
+      if(pieData && pieData[i]){
+        a = (pieData[i].startAngle + pieData[i].endAngle - Math.PI)/2;
+      } else if(pieData && !(pieData[i]) && pieData[i-1]) {
+        a = (pieData[i-1].startAngle + pieData[i-1].endAngle - Math.PI)/2;
+      } else if(pieData && !(pieData[i-1]) && pieData.length > 0) {
+        a = (pieData[pieData.length-1].startAngle + pieData[pieData.length-1].endAngle - Math.PI)/2;
+      } else {
+        a = 0;
+      }
+      var b = (d.startAngle + d.endAngle - Math.PI)/2;
+
+      var fn = d3.interpolateNumber(a, b);
+      return function(t) {
+        var val = fn(t);
+        var x = Math.cos(val) * (outerRadius+textOffset) + backgroundHorizontalCenterOffset;
+        var y = Math.sin(val) * (outerRadius+textOffset);
+        if (val > 0 && val < Math.PI ) {
+          y += 15 - backgroundHeight/1.5;
+        } else {
+          y -= 7 + backgroundHeight/1.5;
+        }
+
+        if ( val > Math.PI/2 && val < Math.PI*1.5 ){
+          x -= backgroundWidth/1.25;
+        } else {
+          x -= backgroundWidth/4;
+        }
+        return 'translate(' + x + ',' + y + ')';
+      };
+    };
+
+    var partyIndicatorTween = function(d, i) {
+      var a;
+      var pieData = get(_this, 'oldPieData');
+      if(pieData && pieData[i]){
+        a = (pieData[i].startAngle + pieData[i].endAngle - Math.PI)/2;
+      } else if(pieData && !(pieData[i]) && pieData[i-1]) {
+        a = (pieData[i-1].startAngle + pieData[i-1].endAngle - Math.PI)/2;
+      } else if(pieData && !(pieData[i-1]) && pieData.length > 0) {
+        a = (pieData[pieData.length-1].startAngle + pieData[pieData.length-1].endAngle - Math.PI)/2;
+      } else {
+        a = 0;
+      }
+      var b = (d.startAngle + d.endAngle - Math.PI)/2;
+
+      var fn = d3.interpolateNumber(a, b);
+      return function(t) {
+        var val = fn(t);
+        var x = Math.cos(val) * (outerRadius+textOffset) + backgroundHorizontalCenterOffset;
+        var y = Math.sin(val) * (outerRadius+textOffset);
+        if (val > 0 && val < Math.PI ) {
+          y += 15 - backgroundHeight/1.5;
+        } else {
+          y -= 7 + backgroundHeight/1.5;
+        }
+
+        if ( val > Math.PI/2 && val < Math.PI*1.5 ){
+          x -= backgroundWidth/1.25;
+        } else {
+          x -= backgroundWidth/4;
+        }
+        var upperRightHandX = x + backgroundWidth - 1;
+        var upperRightHandY = y + 1;
+        var triangeHeight = backgroundHeight * 0.66;
+        var vertex1 = upperRightHandX + ',' + upperRightHandY;
+        var vertex2 = (upperRightHandX - triangeHeight) + ',' + upperRightHandY;
+        var vertex3 = upperRightHandX + ',' + (upperRightHandY + triangeHeight);
+        return vertex1 + ' ' + vertex2 + ' ' + vertex3;
       };
     };
 
@@ -172,6 +249,31 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       .attr("r", 3);
     }
 
+    var textBackground = svg.selectAll('rect').data(pie(data));
+    textBackground.enter().append('rect')
+      .attr('width', backgroundWidth)
+      .attr('height', backgroundHeight)
+      .style('fill', 'white')
+      .style('fill-opacity', '0.7');
+
+    textBackground
+      .transition()
+      .duration(transitionDurationMs)
+      .attrTween("transform", textBackgroundTween);
+    textBackground.exit().remove();
+
+    var partyIndicator = svg.selectAll('polygon').data(pie(data));
+    partyIndicator.enter().append('polygon')
+      .attr("fill", function(d) {
+        return partyLookup(Ember.keys(d.data), 'color');
+      });
+
+    partyIndicator
+      .transition()
+      .duration(transitionDurationMs)
+      .attrTween("points", partyIndicatorTween);
+    partyIndicator.exit().remove();
+
     var valueLabels = svg.selectAll("text.value")
       .data(pie(data))
       .attr("dy", function(d){
@@ -195,6 +297,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
 
     valueLabels.enter().append("svg:text")
       .attr("class", "value vote-percentage")
+      .style('background', 'white')
       .attr("transform", function(d) {
         return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (outerRadius+textOffset) +
           "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (outerRadius+textOffset) + ")";
@@ -250,7 +353,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       .attrTween("d", arcTween); // redraw the arcs
 
     next(function(){
-      _this.updateLines();
+      _this.updateAnnotations();
     });
   })
 });
