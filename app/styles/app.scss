@@ -2,21 +2,18 @@
 @import 'bower_components/neat/app/assets/stylesheets/_neat';
 
 
-/* this is for styles you want to get into KSS compiled style guide specifically */
+
+// Base Imports
+//
+// ---------------------------------------
+// These imports reference nested stylesheets
+// DO NOT MESS WITH THE IMPORT ORDER
+// ---------------------------------------
+
+@import 'config';
+@import 'components';
+@import 'layouts';
+
+// this is for styles you want to get into 
+// KSS compiled style guide specifically
 @import 'kss/styles';
-
-/* These are just examples of how to use KSS */
-/* remove these once you've figured it out */
-/* and also deelte the public/webfonts folder which are also used as part of this example */
-@import '_grid';
-@import '_colors';
-@import '_layouts';
-@import '_interactions';
-@import '_fonts';
-@import '_form-fields';
-@import '_icons';
-@import '_components';
-@import '_ios-android';
-
-//main styles
-@import 'ORGANIZE-MEEEEE';

@@ -1,3 +1,8 @@
+// Container
+#main {
+  width: grid-width(16);
+}
+
 // Left section that contains the pie chart
 // and election results
 .election-outcome {
@@ -22,4 +27,16 @@
   .header--election--dropdown {
     float: right;
   }
+}
+
+// Donut Chart
+.donut-chart {
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.donut-hole {
+  padding:40px;
+  position: absolute;
+  text-align: center;
 }
