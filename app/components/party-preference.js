@@ -3,7 +3,6 @@ import partyLookup from '../utils/party-lookup';
 
 var get = Ember.get;
 var set = Ember.set;
-var empty = Ember.empty;
 var computed = Ember.computed;
 var alias = computed.alias;
 
@@ -18,16 +17,6 @@ export default Ember.Component.extend({
   draggable: computed('isFirstPreference', function() {
     var isFirstPreference = !get(this, 'isFirstPreference');
     return isFirstPreference + '';
-  }),
-
-  votersDisplay: computed('voters', function(key, value) {
-    if (arguments.length > 1) {
-      value = empty(value) ? 0 : value;
-      var votersInteger = parseInt(value, 10);
-      set(this, 'voters', votersInteger);
-    } else {
-      return get(this, 'voters');
-    }
   }),
 
   partyName: computed('party', function(){
