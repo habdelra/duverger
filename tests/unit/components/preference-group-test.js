@@ -70,6 +70,30 @@ test('votersDisplay key/value computed set will set voters to 0 when it is Ember
   equal(get(component, 'voters'), 0, 'voters is set to 0');
 });
 
+test('votersDisplay key/value computed set will set voters to 0 when it is negative', function() {
+  expect(1);
+
+  var component = this.subject({
+    preferenceGroup: {},
+    voters: 2
+  });
+
+  set(component, 'votersDisplay', '-10');
+  equal(get(component, 'voters'), 0, 'voters is set to 0');
+});
+
+test('votersDisplay key/value computed set will set voters to 0 when it is not a number', function() {
+  expect(1);
+
+  var component = this.subject({
+    preferenceGroup: {},
+    voters: 2
+  });
+
+  set(component, 'votersDisplay', '༼ ༎ຶ ෴ ༎ຶ༽');
+  equal(get(component, 'voters'), 0, 'voters is set to 0');
+});
+
 test('_reindexChildren sets the index property on all the preferences array items', function() {
   expect(1);
 

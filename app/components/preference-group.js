@@ -17,8 +17,9 @@ export default Ember.Component.extend({
 
   votersDisplay: computed('voters', function(key, value) {
     if (arguments.length > 1) {
-      value = empty(value) ? 0 : value;
+      value = isNaN(value) || empty(value) ? 0 : value;
       var votersInteger = parseInt(value, 10);
+      votersInteger = votersInteger < 0 ? 0 : votersInteger;
       set(this, 'voters', votersInteger);
     } else {
       return get(this, 'voters');
