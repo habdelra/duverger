@@ -3,9 +3,9 @@
 // These are fonts used within the application.
 //
 // Markup:
-// <div class="font-row"><span class="font-largest">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> $font-large</span></div>
-// <div class="font-row"><span class="font-large">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> $font-larger</span></div>
-// <div class="font-row"><span class="font-medium">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> $font-omg-large</span></div>
-// <div class="font-row"><span class="font-small">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> $font-largest</span></div>
+// <div class="font-row"><span class="font-largest">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> @extend %font-largest</span></div>
+// <div class="font-row"><span class="font-large">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> @extend %font-large</span></div>
+// <div class="font-row"><span class="font-medium">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> @extend %font-medium</span></div>
+// <div class="font-row"><span class="font-small">Sympathizing would fix Quaker objectives.</span><span class="font-desc"> @extend %font-small</span></div>
 //
 // Styleguide 1.1
