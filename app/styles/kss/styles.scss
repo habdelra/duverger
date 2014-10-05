@@ -1,8 +1,6 @@
 /* This file is used to add SCSS variables to KSS as classes */
 /* cos KSS-node is kinda sucky */
 
-@import "../example/colors";
-@import "../example/fonts";
 %dark { box-shadow: 0 0 0 1px black; }
 
 .background-color { background-color: $background-color;}
@@ -13,7 +11,7 @@
 .conservative-color { background-color: $conservative-color;}
 .text-color { background-color: $text-color;}
 .light-text-color { 
-	background-color: $light-text-color;
+	background-color: $text-color-light;
 	@extend %dark;
 }
 .text-field-color { background-color: $text-field-color;}

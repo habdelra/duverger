@@ -23,8 +23,10 @@
 
 // Election Headers
 //
+// ---------------------------------------
 // The headers used for main sections
 // in the election screen
+// ---------------------------------------
 
 // Top level header
 .header--election,
@@ -90,8 +92,10 @@
 
 // Election Tools
 //
+// ---------------------------------------
 // These are tools that you can interact with
 // to change election data
+// ---------------------------------------
 
 // The voter count box
 .voter-count {
@@ -281,5 +285,57 @@
       background: $text-field-color;
       width: 40px;
     }
+  }
+}
+
+// Election Visualizations
+//
+// ---------------------------------------
+// These are the output of your inputted
+// visualization data
+// ---------------------------------------
+
+// Donut Chart
+.party-winner {
+  @extend %font-medium;
+  color: $text-color-light;
+  text-align: center;
+  white-space: normal;
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+
+  &.socialDemocrat { background: $social-democrat-color; }
+  &.liberal { background: $liberal-color; }
+  &.nationalist { background: $nationalist-color; }
+  &.green { background: $green-color; }
+  &.conservative { background: $conservative-color; }
+
+  @extend %font-medium;
+}
+
+// Menus
+//
+// ---------------------------------------
+// Overlay Menus
+// ---------------------------------------
+
+// left hand panel
+// SHAME
+// bad styles
+.left-hand-panel {
+  width: grid-width(8);
+  padding: grid-width(1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: $text-color;
+  height: 100%;
+  color: $text-color-light;
+
+  &.closed {
+    display: none;
   }
 }
