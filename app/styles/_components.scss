@@ -1,0 +1,285 @@
+@mixin simple-hover-state($color) {
+  @include transition(background-color .1s);
+
+  &:hover {
+    cursor: pointer;
+    background-color: mix(#000, $color, 10%);
+  }
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+%election-header-style {
+  @extend %font-small;
+  text-transform: uppercase;
+  color: $text-color-secondary;
+}
+
+// Election Headers
+//
+// The headers used for main sections
+// in the election screen
+
+// Top level header
+.header--election,
+.header--election--dropdown {
+  display: inline-block;
+  margin: 0 0 grid-height(3);
+  width: grid-width(2);
+
+  .header--election__label {
+    @extend %election-header-style;
+    text-align: center;
+    padding: grid-height(1) 0;
+    margin: 0 0 grid-height(2);
+    border-bottom: 1px solid $border-color;
+    display: block;
+  }
+
+  .header--election__value {
+    @extend %font-largest;
+    text-align: center;
+  }
+}
+
+.header--election--dropdown {
+  width: grid-width(3)+$grid-padding-unit;
+}
+
+// Secondary header
+.header--election--secondary {
+  border-bottom: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  padding: grid-height(1) 0 grid-height(1) $grid-padding-unit;
+  font-size: 0;
+  margin: 0 0 grid-height(1);
+
+  >*, .party-preference-header li {
+    display: inline-block;  
+  }
+
+  .secondary--voter-count {
+    @extend %election-header-style;
+    letter-spacing: -.08em;
+    width: grid-width(2);
+  }
+
+  .party-preference-header li {
+    @extend %election-header-style;
+    width: grid-width(1);
+    letter-spacing: -.08em;
+    margin-right: 2px;
+    text-align: center;
+
+    &:first-child {
+      width: grid-width(1)+$grid-padding-unit;
+      margin-left: $grid-padding-unit;
+      text-align: left;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+// Election Tools
+//
+// These are tools that you can interact with
+// to change election data
+
+// The voter count box
+.voter-count {
+  @extend %election-header-style;
+  font-size: 0;
+  display: inline-block;
+  padding: 0 $grid-padding-unit;
+  width: grid-width(2)+$grid-padding-unit*2;
+
+  .voter-amount-btn {
+    &.decrease, &.increase {
+      height: grid-height(5);
+      @include simple-hover-state($background-color-secondary);
+    }
+    &.decrease {
+      @include icon-arrow(west);
+    }
+    &.increase {
+      @include icon-arrow(east);
+    }
+  }
+
+  .vote-input { //ABSTRACT OUT
+    @extend %font-largest;
+    padding: grid-height(1) 0;
+    width: grid-width(2) - 20;
+    line-height: grid-height(3);
+    height: grid-height(5);
+    text-align: center;
+    margin: 0 0 grid-height(2);
+    background: transparent;
+
+    &:hover, &:focus {
+      background: white;
+    }
+
+    &:focus {
+      outline: 1px solid $border-color;
+      outline-offset: -1px;
+    }
+  }
+
+  .preference-group-percentage {
+    @extend %election-header-style;
+    letter-spacing: -.08em;
+  }
+
+  >* {
+    vertical-align: top;
+  }
+}
+
+// Draggable party preferences
+.preference-group {
+  margin-bottom: 20px;
+  font-size: 0; //hack to remove inline block spaces
+  white-space: nowrap; //make sure inline preference items never break to a new line
+  > * {
+    @extend %font-medium;
+  }
+
+  .party-preference {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    text-align: center;
+    background: $text-color-light;
+    padding: grid-height(1) 0;
+    width: grid-width(1);
+    height: grid-height(5);
+
+    &:hover {
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+      cursor: grab;
+      bottom: 4px;
+      @include transition-property(bottom);
+    }
+
+    .secondary-party-name {
+      @extend %font-large;
+      @include vertical-align;
+      display: block;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        border: 10px solid black;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid transparent;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    &.conservative:after {
+      border-top-color: $conservative-color;
+      border-right-color: $conservative-color;
+    }
+    &.green:after {
+      border-top-color: $green-color;
+      border-right-color: $green-color;
+    }
+    &.nationalist:after {
+      border-top-color: $nationalist-color;
+      border-right-color: $nationalist-color;
+    }
+    &.liberal:after {
+      border-top-color: $liberal-color;
+      border-right-color: $liberal-color;
+    }
+    &.socialDemocrat:after {
+      border-top-color: $social-democrat-color;
+      border-right-color: $social-democrat-color;
+    }
+
+    &.first-preference {
+      color: $text-color-light;
+      text-align: left;
+      white-space: normal;
+      width: grid-width(1)+$grid-padding-unit;
+
+      .party-name {
+        @extend %font-large;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        @include vertical-align;
+      }
+
+      .vote-input-container {
+        background: $text-field-color;
+        padding: 10px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        .vote-input {
+          @extend %font-medium;
+          background: none;
+          border: none;
+          padding: 0;
+          margin: 0;
+          display: inline-block;
+          width: 60px;
+          height: auto;
+          font-weight: 600;
+          color: $text-color-light;
+          text-align: center;
+        }
+
+        .vote-input:focus {
+          outline: none;
+        }
+      }
+
+      &:after { display: none; }
+      &:hover {
+        cursor: auto;
+        bottom: 0;
+      }
+    }
+
+    &.dragging {
+      opacity: .4;
+    }
+  }
+
+  &.socialDemocrat .first-preference{ background: $social-democrat-color; }
+  &.liberal .first-preference{ background: $liberal-color; }
+  &.nationalist .first-preference{ background: $nationalist-color; }
+  &.green .first-preference{ background: $green-color; }
+  &.conservative .first-preference{ background: $conservative-color; }
+
+  .preference-drop-zone {
+    @include grid-height(5);
+    @include transition-property(width);
+    display: inline-block;
+    width: 2;
+    vertical-align: top;
+
+    &.can-accept-drop {
+      width: 3px;
+    }
+
+    &.accepts-drag {
+      background: $text-field-color;
+      width: 40px;
+    }
+  }
+}

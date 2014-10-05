@@ -5,33 +5,36 @@
   transition: $property .1s ease-in-out;
 }
 
-@mixin grid-width($units){
-  $column-width: 95px;
-  $gutter-width: 33px;
-  @if $units > 1 {
-      $gutter-amount: $units - 1;
-      width: $column-width * $units + $gutter-amount * $gutter-width;
-    } @else {
-      width: $column-width;
-    }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
 }
-
-@mixin grid-height($units){
-  height: $units*20px;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
 }
-
-@mixin vertical-align {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-html, body {
+body {
   @extend %font-family-standard;
   @extend %font-small;
-  margin: 20px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
   background-color: $background-color;
   font-weight: 600;
   color: $text-color;
@@ -39,152 +42,13 @@ html, body {
     box-sizing: border-box;
   }
 }
-
-
-.donut-chart {
-  float: left;
+ol, ul {
+  list-style: none;
 }
 
-.preference-group {
-  margin-bottom: 20px;
-  font-size: 0; //hack to remove inline block spaces
-  white-space: nowrap; //make sure inline preference items never break to a new line
-  > * {
-    @extend %font-medium;
-  }
-
-  .party-preference {
-    display: inline-block;
-    position: relative;
-    vertical-align: top;
-    text-align: center;
-    background: $light-text-color;
-    padding: 20px;
-    @include grid-width(1);
-    @include grid-height(5);
-
-    &:hover {
-      cursor: -moz-grab;
-      cursor: -webkit-grab;
-      cursor: grab;
-      bottom: 4px;
-      @include transition-property(bottom);
-    }
-
-    .secondary-party-name {
-      @extend %font-large;
-      display: block;
-      @include vertical-align;
-    }
-
-    &:after {
-        content: "";
-        display: block;
-        border: 10px solid black;
-        border-bottom: 10px solid transparent;
-        border-left: 10px solid transparent;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-    &.conservative:after {
-      border-top-color: $conservative-color;
-      border-right-color: $conservative-color;
-    }
-    &.green:after {
-      border-top-color: $green-color;
-      border-right-color: $green-color;
-    }
-    &.nationalist:after {
-      border-top-color: $nationalist-color;
-      border-right-color: $nationalist-color;
-    }
-    &.liberal:after {
-      border-top-color: $liberal-color;
-      border-right-color: $liberal-color;
-    }
-    &.socialDemocrat:after {
-      border-top-color: $social-democrat-color;
-      border-right-color: $social-democrat-color;
-    }
-
-    &.first-preference {
-      color: $light-text-color;
-      text-align: left;
-      white-space: normal;
-      @include grid-width(1);
-      @include grid-height(5);
-
-      .party-name {
-        @extend %font-large;
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-        @include vertical-align;
-      }
-
-      .vote-input-container {
-        background: $text-field-color;
-        padding: 10px;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-
-        .vote-input {
-          @extend %font-medium;
-          background: none;
-          border: none;
-          padding: 0;
-          margin: 0;
-          display: inline-block;
-          width: 60px;
-          height: auto;
-          font-weight: 600;
-          color: $light-text-color;
-          text-align: center;
-        }
-
-        .vote-input:focus {
-          outline: none;
-        }
-      }
-
-      &:after { display: none; }
-      &:hover {
-        cursor: auto;
-        bottom: 0;
-      }
-    }
-
-    &.dragging {
-      opacity: .4;
-    }
-  }
-
-  &.socialDemocrat .first-preference{ background: $social-democrat-color; }
-  &.liberal .first-preference{ background: $liberal-color; }
-  &.nationalist .first-preference{ background: $nationalist-color; }
-  &.green .first-preference{ background: $green-color; }
-  &.conservative .first-preference{ background: $conservative-color; }
-
-  .preference-drop-zone {
-    display: inline-block;
-    width: 1px;
-    @include grid-height(5);
-    @include transition-property(width);
-
-    &.can-accept-drop {
-      width: 10px;
-    }
-
-    &.accepts-drag {
-      background: $text-field-color;
-      width: 40px;
-    }
-  }
+#main {
+  width: grid-width(16);
 }
-
-
 
 .donut-chart {
   margin-bottom: 50px;
@@ -197,17 +61,8 @@ html, body {
   text-align: center;
 }
 
-.hole-wrapper {
-}
-
-
 .party-winner {
-  &.socialDemocrat { background: $social-democrat-color; }
-  &.liberal { background: $liberal-color; }
-  &.nationalist { background: $nationalist-color; }
-  &.green { background: $green-color; }
-  &.conservative { background: $conservative-color; }
-
+  @extend %font-medium;
   color: $light-text-color;
   text-align: center;
   white-space: normal;
@@ -215,5 +70,10 @@ html, body {
   height: 60px;
   width: 60px;
   margin: 10px;
-  @extend %font-medium;
+  
+  &.socialDemocrat { background: $social-democrat-color; }
+  &.liberal { background: $liberal-color; }
+  &.nationalist { background: $nationalist-color; }
+  &.green { background: $green-color; }
+  &.conservative { background: $conservative-color; }
 }

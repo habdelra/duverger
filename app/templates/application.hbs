@@ -1,55 +1,70 @@
-<div class="left">
-  {{!
-    The following variable is available too (replace []'s with {}'s):
+<div id="main">
+  <div class="election-outcome">
+    {{!
+      The following variable is available too (replace []'s with {}'s):
 
-    District [[model.districtNumber]]
-  }}
-  <div class="district">
-    <div class="district__label">District</div>
-    <div class="district__value">{{model.districtNumber}}</div>
-  </div>
-
-  <div class="percentage-votes">
-    <span class="percentage-votes__label">Percentage of Votes</span>
-    <div class="percentage-votes__value">
-      1st Round
-
-      {{#if requiresRunoff}}
-       <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
-      {{/if}}
-
-      {{#if currentRunoff}}
-        <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Election Results</button>
-      {{/if}}
+      District [[model.districtNumber]]
+    }}
+    <div class="district header--election">
+      <div class="district__label header--election__label">District</div>
+      <div class="district__value header--election__value">{{model.districtNumber}}</div>
     </div>
-  </div>
 
-  {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-    {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-  {{/donut-chart}}
-</div>
+    <div class="percentage-votes .header--election--secondary">
+      <span class="percentage-votes__label">Percentage of Votes</span>
+      <div class="percentage-votes__value">
+        1st Round
 
-<div class="right">
-  <div class="total-voters">
-    <div class="total-voters__label">Total Voters</div>
-    <div class="total-voters__value">{{totalVoters}}</div>
-  <div>
+        {{#if requiresRunoff}}
+         <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
+        {{/if}}
 
-  <div class="formula">
-    <div class="formula__label">Formula Applied:</div>
-    <div class="formula__value">
-      {{awesome-select
-        prompt='Select Formula'
-        options=model.formulae
-        initialValue=model.formulaName
-        on-change='useFormula'
-      }}
+        {{#if currentRunoff}}
+          <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Election Results</button>
+        {{/if}}
+      </div>
     </div>
+
+    {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+      {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+    {{/donut-chart}}
   </div>
 
-  {{#each preferenceGroup in model.preferenceGroups}}
-      {{preference-group preferenceGroup=preferenceGroup totalVoters=totalVoters}}
-  {{/each}}
+  <div class="election-settings">
+    <div class="election-settings__overview">
+      <div class="total-voters header--election">
+        <div class="total-voters__label header--election__label">Total Voters</div>
+        <div class="total-voters__value header--election__value">{{totalVoters}}</div>
+      </div>
 
-  {{outlet}}
+      <div class="formula header--election--dropdown">
+        <div class="formula__label header--election__label">Formula Applied:</div>
+        <div class="formula__value header--election__value">
+          {{awesome-select
+            prompt='Select Formula'
+            options=model.formulae
+            initialValue=model.formulaName
+            on-change='useFormula'
+          }}
+        </div>
+      </div>
+    </div>
+
+    <div class="preference-group-header header--election--secondary">
+      <span class="secondary--voter-count">Number of Voters</span>
+      <ul class="party-preference-header">
+        <li>1st choice</li>
+        <li>2nd</li>
+        <li>3rd</li>
+        <li>4th</li>
+        <li>5th</li>
+      </ul>
+    </div>
+
+    {{#each preferenceGroup in model.preferenceGroups}}
+        {{preference-group preferenceGroup=preferenceGroup totalVoters=totalVoters}}
+    {{/each}}
+
+    {{outlet}}
+  </div>
 </div>

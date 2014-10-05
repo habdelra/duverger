@@ -1,0 +1,38 @@
+@import "grid";
+
+@font-face {
+    font-family: 'source_sans_prosemibold';
+    src: url('../fonts/sourcesanspro-semibold-webfont.eot');
+    src: url('../fonts/sourcesanspro-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sourcesanspro-semibold-webfont.woff2') format('woff2'),
+         url('../fonts/sourcesanspro-semibold-webfont.woff') format('woff'),
+         url('../fonts/sourcesanspro-semibold-webfont.ttf') format('truetype'),
+         url('../fonts/sourcesanspro-semibold-webfont.svg#source_sans_prosemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$font-size-small: 12px;
+$font-size-medium: 15px;
+$font-size-large: 21px;
+$font-size-largest: 30px;
+
+%font-family-standard {
+  font-family: 'source_sans_prosemibold', Helvetica, Arial, sans-serif;
+}
+
+%font-largest {
+  font-size: $font-size-largest;
+}
+
+%font-large {
+  font-size: $font-size-large;
+}
+
+%font-medium {
+  font-size: $font-size-medium;
+}
+
+%font-small {
+  font-size: $font-size-small;
+}
