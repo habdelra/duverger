@@ -129,7 +129,7 @@ test('changing the voter amount updates the chart in primary election and result
     }))
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('majorityFirstRoundSD60'))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']));
+    .then(assertPartyWinners(['SD', 'G']));
 });
 
 test('changing the voter amount updates the chart in primary election and does not result in runoff election', function() {
@@ -138,7 +138,7 @@ test('changing the voter amount updates the chart in primary election and does n
   visit('/')
     .then(setVoterAmounts({ socialDemocrat: 80 }))
     .then(assertChartDisplay('majorityFirstRoundSD80'))
-    .then(assertPartyWinners(['Social Democrat (SD)']));
+    .then(assertPartyWinners(['SD']));
 });
 
 test('changing the voter amount updates the chart in runoff election', function() {
@@ -147,7 +147,7 @@ test('changing the voter amount updates the chart in runoff election', function(
   navigateToMajorityRunoff('/')
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('majorityRunoffSD60'))
-    .then(assertPartyWinners(['Social Democrat (SD)']));
+    .then(assertPartyWinners(['SD']));
 });
 
 test('changing the voter amount updates the chart in runoff election to a result that does not require a runoff election', function() {
@@ -156,7 +156,7 @@ test('changing the voter amount updates the chart in runoff election to a result
   navigateToMajorityRunoff('/')
     .then(setVoterAmounts({ socialDemocrat: 80 }))
     .then(assertChartDisplay('majorityFirstRoundSD80'))
-    .then(assertPartyWinners(['Social Democrat (SD)']));
+    .then(assertPartyWinners(['SD']));
 });
 
 
@@ -167,7 +167,7 @@ test('changing the voter amount updates the chart that was previously altered by
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('majorityRunoffPreferenceChangeSD60'))
-    .then(assertPartyWinners(['Social Democrat (SD)']));
+    .then(assertPartyWinners(['SD']));
 });
 
 test('changing the voter amount updates the chart using the plurality formula', function() {
@@ -177,7 +177,7 @@ test('changing the voter amount updates the chart using the plurality formula', 
     .then(navigateToPlurality)
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('pluralitySD60'))
-    .then(assertPartyWinners(['Social Democrat (SD)']));
+    .then(assertPartyWinners(['SD']));
 });
 
 test('clicking on the voter amount decrease button decrases the voter amount by one', function() {

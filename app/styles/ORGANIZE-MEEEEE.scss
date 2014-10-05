@@ -192,7 +192,7 @@ html, body {
 }
 
 .donut-hole {
-  padding-top:87px;
+  padding:40px;
   position: absolute;
   text-align: center;
 }
@@ -200,4 +200,21 @@ html, body {
 .hole-wrapper {
 }
 
+
+.party-winner {
+  &.socialDemocrat { background: $social-democrat-color; }
+  &.liberal { background: $liberal-color; }
+  &.nationalist { background: $nationalist-color; }
+  &.green { background: $green-color; }
+  &.conservative { background: $conservative-color; }
+
+  color: $light-text-color;
+  text-align: center;
+  white-space: normal;
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+  @extend %font-medium;
+}
 

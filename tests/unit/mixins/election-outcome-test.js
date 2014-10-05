@@ -92,12 +92,14 @@ test('displayParties retuns an array of objects that has display properties for 
   expect(1);
 
   var expected = [{
-    name: 'Green',
+    name: 'green',
+    fullName: 'Green',
     abbreviation: 'G',
     color: '#BBDF2A'
   },{
+    name: 'nationalist',
     abbreviation: 'N',
-    name: 'Nationalist',
+    fullName: 'Nationalist',
     color: '#46C8B3'
   }];
 

@@ -93,11 +93,11 @@ test('switch from majority to plurality and black', function() {
     .then(selectFromDropDown(2))
     .then(assertDropDownSelection(2))
     .then(assertChartDisplay('plurality'))
-    .then(assertPartyWinners(['Social Democrat (SD)']))
+    .then(assertPartyWinners(['SD']))
     .then(selectFromDropDown(1))
     .then(assertDropDownSelection(1))
     .then(assertChartDisplay('majorityFirstRound'))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']))
+    .then(assertPartyWinners(['SD', 'G']))
     .then(assertElectionNavButtonExists);
 });
 

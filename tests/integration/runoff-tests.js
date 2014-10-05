@@ -59,14 +59,14 @@ test('switch from first round test to runoff and back', function() {
 
   visit('/')
     .then(assertChartDisplay('majorityFirstRound'))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']))
+    .then(assertPartyWinners(['SD', 'C']))
     .then(assertElectionNavigationButton('View Runoff Results'))
     .then(clickRunoffButton)
     .then(assertChartDisplay('majorityRunoff'))
-    .then(assertPartyWinners(['Social Democrat (SD)']))
+    .then(assertPartyWinners(['SD']))
     .then(assertElectionNavigationButton('View Original Election Results'))
     .then(clickRunoffButton)
     .then(assertChartDisplay('majorityFirstRound'))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']))
+    .then(assertPartyWinners(['SD', 'C']))
     .then(assertElectionNavigationButton('View Runoff Results'));
 });
