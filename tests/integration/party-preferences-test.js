@@ -76,9 +76,9 @@ test('rearrange preferences that do not effect the donut graph', function() {
   visit('/')
     .then(assertChartDisplay('majorityFirstRound'))
     .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'G', 'N']))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']))
+    .then(assertPartyWinners(['SD', 'G']))
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']))
+    .then(assertPartyWinners(['SD', 'G']))
     .then(assertLiberalGroupsNewPreferences(['G', 'SD', 'C', 'N']))
     .then(assertChartDisplay('majorityFirstRound'));
 });
@@ -89,9 +89,9 @@ test('rearrange preferences that effect donut graph', function(){
   navigateToMajorityRunoff('/')
     .then(assertChartDisplay('majorityRunoff'))
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['Green (G)']))
+    .then(assertPartyWinners(['G']))
     .then(assertChartDisplay('majorityRunoffPreferenceChange'))
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
-    .then(assertPartyWinners(['Green (G)']))
+    .then(assertPartyWinners(['G']))
     .then(assertChartDisplay('majorityRunoff'));
 });

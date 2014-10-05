@@ -36,7 +36,8 @@ export default Ember.Mixin.create({
     var winners = get(this, 'winners');
     return winners.map(function(party){
       return {
-        name: partyLookup(party, 'name'),
+        name: party,
+        fullName: partyLookup(party, 'name'),
         abbreviation: partyLookup(party, 'abbreviation'),
         color: partyLookup(party, 'color')
       };

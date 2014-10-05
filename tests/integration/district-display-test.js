@@ -21,13 +21,15 @@ function assertChartDisplay(chartType) {
 }
 
 function assertElectionOutcome() {
-  var expectedWinners = ['Social Democrat (SD)', 'Green (G)'];
+  var expectedWinners = ['SD', 'G'];
+  var expectedWinnerClasses = ['socialDemocrat', 'green'];
   var outcome = find(electionOutcomeSelector);
   equal(outcome.length, 2, 'there are 2 election winners');
 
   for (var i = 0; i < outcome.length; i++) {
     var winner = find(outcome[i]);
     equal(winner.text().trim(), expectedWinners[i], 'the correct winner is displayed');
+    ok(winner.hasClass(expectedWinnerClasses[i]), 'the class is correct');
   }
 }
 
@@ -148,7 +150,7 @@ test('assert donut graph is displayed', function(){
 });
 
 test('initial election results are displayed', function(){
-  expect(3);
+  expect(5);
 
   visit('/')
     .then(assertElectionOutcome);
