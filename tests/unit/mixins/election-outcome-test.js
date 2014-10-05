@@ -75,33 +75,20 @@ test('the voterSummary is an array sorted aphabetically by the enclosed object`s
   deepEqual(get(object, 'voterSummary'), expected, 'the voter summary is sorted correctly');
 });
 
-test('hasTie is true when the parties array length is 0', function(){
+test('hasWinner is true when the winners array length is 1', function(){
   expect(2);
 
   var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: []
-  });
-
-  ok(get(object, 'hasTie'), 'hasTie is correct');
-
-  set(object, 'parties', ['republican']);
-  ok(!get(object, 'hasTie'), 'hasTie is correct');
-});
-
-test('hasWinner is true when the parties array length is 1', function(){
-  expect(2);
-
-  var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: ['democrat']
+    winners: ['democrat']
   });
 
   ok(get(object, 'hasWinner'), 'hasWinner is correct');
 
-  set(object, 'parties', ['democrat', 'republican']);
+  set(object, 'winners', ['democrat', 'republican']);
   ok(!get(object, 'hasWinner'), 'hasWinner is correct');
 });
 
-test('displayParties retuns an array of objects that has display properties for each party in the parties array', function(){
+test('displayParties retuns an array of objects that has display properties for each party in the winners array', function(){
   expect(1);
 
   var expected = [{
@@ -115,10 +102,10 @@ test('displayParties retuns an array of objects that has display properties for 
   }];
 
   var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: ['green', 'nationalist']
+    winners: ['green', 'nationalist']
   });
 
-  deepEqual(get(object, 'displayParties'), expected, 'the display parties array is correct');
+  deepEqual(get(object, 'displayParties'), expected, 'the display winners array is correct');
 });
 
 test('requiresRunoff returns true when runoffs is greater than 0 and currentRunoff is less than runoffs - 1', function(){
@@ -135,19 +122,19 @@ test('requiresRunoff returns true when runoffs is greater than 0 and currentRuno
   ok(!get(object, 'requiresRunoff'), 'requiresRunoff is false');
 });
 
-test('winningParty returns the party when the parties array has only one item in it', function() {
+test('winningParty returns the party when the winners array has only one item in it', function() {
   expect(3);
 
   var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: ['democrat']
+    winners: ['democrat']
   });
 
   equal(get(object, 'winningParty'), 'democrat', 'the winning party is correct');
 
-  set(object, 'parties', ['democrat', 'republican']);
+  set(object, 'winners', ['democrat', 'republican']);
   equal(get(object, 'winningParty'), undefined, 'the winning party is `undefined`');
 
-  set(object, 'parties', []);
+  set(object, 'winners', []);
   equal(get(object, 'winningParty'), undefined, 'the winning party is `undefined`');
 });
 
@@ -155,7 +142,7 @@ test('winnerName returns the name of the winning party', function(){
   expect(1);
 
   var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: ['green']
+    winners: ['green']
   });
 
   equal(get(object, 'winnerName'), 'Green', 'the correct party name is returned');
@@ -165,7 +152,7 @@ test('winnerAbbreviation returns the abbreviation of the winning party', functio
   expect(1);
 
   var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: ['green']
+    winners: ['green']
   });
 
   equal(get(object, 'winnerAbbreviation'), 'G', 'the correct party abbreviation is returned');
@@ -175,7 +162,7 @@ test('winnerColor returns the color of the winning party', function(){
   expect(1);
 
   var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
-    parties: ['green']
+    winners: ['green']
   });
 
   equal(get(object, 'winnerColor'), '#BBDF2A', 'the correct party color is returned');

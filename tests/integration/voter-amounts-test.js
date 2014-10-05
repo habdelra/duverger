@@ -5,6 +5,8 @@ var App, assertChart, navigateToMajorityRunoff, navigateToPlurality;
 var run = Ember.run;
 var keys = Ember.keys;
 
+var originalRandomFunction;
+
 var preferenceGroupSelector = '.preference-group';
 var inputSelector = '.vote-input';
 var electionOutcomeSelector = '.party-winner';
@@ -72,7 +74,7 @@ function assertPercentages(voterPercentages) {
   };
 }
 
-function dragThirdPreferencePartyInLiberalGroupToSecondPosition() {
+function dragFourthPreferencePartyInLiberalGroupToSecondPosition() {
   triggerEvent(dropZoneSelector, 'drop', {
     dataTransfer: {
       types: {
@@ -81,7 +83,7 @@ function dragThirdPreferencePartyInLiberalGroupToSecondPosition() {
         }
       },
       getData: function() {
-        return '{ "index": 2, "party": "conservative" }';
+        return '{ "index": 3, "party": "green" }';
       }
     }
   });
@@ -93,9 +95,15 @@ module('Integration - Voter Amounts', {
     assertChart = App.testHelpers.assertChart;
     navigateToMajorityRunoff = App.testHelpers.navigateToMajorityRunoff;
     navigateToPlurality = App.testHelpers.navigateToPlurality;
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
   },
   teardown: function() {
     run(App, 'destroy');
+    Math.random = originalRandomFunction;
   }
 });
 
@@ -112,7 +120,7 @@ test('changing the voter amount updates the chart in primary election and result
     }))
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('majorityFirstRoundSD60'))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']));
+    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']));
 });
 
 test('changing the voter amount updates the chart in primary election and does not result in runoff election', function() {
@@ -147,26 +155,10 @@ test('changing the voter amount updates the chart that was previously altered by
   expect(16);
 
   navigateToMajorityRunoff('/')
-    .then(dragThirdPreferencePartyInLiberalGroupToSecondPosition)
+    .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('majorityRunoffPreferenceChangeSD60'))
     .then(assertPartyWinners(['Social Democrat (SD)']));
-});
-
-test('changing the voter amounts results in an unresolvable tie in the runoff', function(){
-  expect(15);
-
-  visit('/')
-    .then(setVoterAmounts({
-      socialDemocrat: 30,
-      liberal: 0,
-      nationalist: 0,
-      green: 0,
-      conservative: 30
-    }))
-    .then(clickRunoffButton)
-    .then(assertChartDisplay('majorityRunoffSD30L0N0G0C30'))
-    .then(assertTie);
 });
 
 test('changing the voter amount updates the chart using the plurality formula', function() {
@@ -177,22 +169,6 @@ test('changing the voter amount updates the chart using the plurality formula', 
     .then(setVoterAmounts({ socialDemocrat: 60 }))
     .then(assertChartDisplay('pluralitySD60'))
     .then(assertPartyWinners(['Social Democrat (SD)']));
-});
-
-test('changing the voter amounts results in a tie in the plurality formula', function() {
-  expect(15);
-
-  visit('/')
-    .then(setVoterAmounts({
-      socialDemocrat: 30,
-      liberal: 0,
-      nationalist: 0,
-      green: 0,
-      conservative: 30
-    }))
-    .then(navigateToPlurality)
-    .then(assertChartDisplay('pluralitySD30L0N0G0C30'))
-    .then(assertTie);
 });
 
 test('clicking on the voter amount decrease button decrases the voter amount by one', function() {

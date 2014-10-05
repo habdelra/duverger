@@ -13,9 +13,9 @@ var chartDefinitions = {
 
   majorityRunoff: {
     colors: [
-      '#777777',
-      '#FB5258',
-      '#FB5258',
+      '#BBDF2A',
+      '#BBDF2A',
+      '#BBDF2A',
       '#FB5258',
       '#FB5258'
     ],
@@ -23,9 +23,9 @@ var chartDefinitions = {
   },
   majorityRunoffPreferenceChange: {
     colors: [
-      '#777777',
-      '#FB5258',
-      '#FB5258',// shouldn't this be #777777
+      '#BBDF2A',
+      '#BBDF2A',
+      '#BBDF2A',
       '#FB5258',
       '#FB5258'
     ],
@@ -43,8 +43,8 @@ var chartDefinitions = {
   },
   majorityRunoffSD60: {
     colors: [
-      '#777777',
-      '#FB5258',
+      '#BBDF2A',
+      '#BBDF2A',
       '#FB5258',
       '#FB5258',
       '#FB5258'
@@ -63,9 +63,9 @@ var chartDefinitions = {
   },
   majorityRunoffPreferenceChangeSD60: {
     colors: [
-      '#777777',
-      '#FB5258',
-      '#777777',
+      '#BBDF2A',
+      '#BBDF2A',
+      '#BBDF2A',
       '#FB5258',
       '#FB5258'
     ],

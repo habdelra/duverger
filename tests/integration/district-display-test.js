@@ -3,6 +3,7 @@ import Ember           from 'ember';
 
 var App, assertChart;
 var run = Ember.run;
+var originalRandomFunction;
 
 var preferenceGroupSelector = '.preference-group';
 var partyNameSelector = '.party-name';
@@ -20,7 +21,7 @@ function assertChartDisplay(chartType) {
 }
 
 function assertElectionOutcome() {
-  var expectedWinners = ['Social Democrat (SD)', 'Conservative (C)'];
+  var expectedWinners = ['Social Democrat (SD)', 'Green (G)'];
   var outcome = find(electionOutcomeSelector);
   equal(outcome.length, 2, 'there are 2 election winners');
 
@@ -94,8 +95,14 @@ module('Integration - District Display', {
   setup: function() {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
   },
   teardown: function() {
+    Math.random = originalRandomFunction;
     run(App, 'destroy');
   }
 });

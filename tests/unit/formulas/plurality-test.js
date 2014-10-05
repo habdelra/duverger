@@ -1,7 +1,20 @@
 import { test, moduleFor } from 'ember-qunit';
 import plurality from '../../../formulas/plurality';
 
-module('formula:plurality');
+var originalRandomFunction;
+
+module('formula:plurality',{
+  setup: function() {
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
+  },
+  teardown: function() {
+    Math.random = originalRandomFunction;
+  }
+});
 
 test('winner in plurality formula', function() {
   expect(1);
@@ -24,7 +37,11 @@ test('winner in plurality formula', function() {
   }];
 
   var expected = [{
-    parties: ['democrat'],
+    winners: ['democrat'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: "green",
       republican: "republican",
@@ -64,7 +81,11 @@ test('tie in plurality formula', function() {
   }];
 
   var expected = [{
-    parties: [],
+    winners: ['democrat'],
+    coinToss: {
+      participants: ['republican', 'democrat'],
+      winners: ['democrat']
+    },
     votedFor: {
       green: "green",
       republican: "republican",

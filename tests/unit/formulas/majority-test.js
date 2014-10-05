@@ -1,7 +1,20 @@
 import { test, moduleFor } from 'ember-qunit';
 import majority from '../../../formulas/majority';
 
-module('formula:majority');
+var originalRandomFunction;
+
+module('formula:majority', {
+  setup: function() {
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
+  },
+  teardown: function() {
+    Math.random = originalRandomFunction;
+  }
+});
 
 test('winner in first round of elections', function(){
   expect(1);
@@ -24,7 +37,11 @@ test('winner in first round of elections', function(){
   }];
 
   var expected = [{
-    parties: ['republican'],
+    winners: ['republican'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: "green",
       democrat: "democrat",
@@ -68,7 +85,11 @@ test('winner in runoff election', function() {
   }];
 
   var expected = [{
-    parties: ['republican', 'democrat'],
+    winners: ['republican', 'democrat'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: 'green',
       democrat: 'democrat',
@@ -82,7 +103,11 @@ test('winner in runoff election', function() {
       republican: 41
     }]
   },{
-    parties: ['democrat'],
+    winners: ['democrat'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: 'democrat',
       democrat: 'democrat',
@@ -94,6 +119,70 @@ test('winner in runoff election', function() {
       democrat: 40
     },{
       republican: 41
+    }]
+  }];
+
+  var actual = majority(voterData);
+  deepEqual(actual, expected, 'the formula is correct');
+});
+
+test('tie for 1st place in first round election', function() {
+  expect(1);
+
+  var voterData = [{
+    voters: 30,
+    preferences: [{
+      party: 'republican'
+    },{
+      party: 'democrat'
+    }]
+  },{
+    voters: 40,
+    preferences: [{
+      party: 'democrat'
+    }]
+  },{
+    voters: 40,
+    preferences: [{
+      party: 'green'
+    }]
+  }];
+
+  var expected = [{
+    winners: ['democrat', 'green'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
+    votedFor: {
+      green: 'green',
+      democrat: 'democrat',
+      republican: 'republican'
+    },
+    voterSummary: [{
+      republican: 30
+    },{
+      democrat: 40
+    },{
+      green: 40
+    }]
+  },{
+    winners: ['democrat'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
+    votedFor: {
+      green: 'green',
+      democrat: 'democrat',
+      republican: 'democrat'
+    },
+    voterSummary: [{
+      republican: 30
+    },{
+      democrat: 40
+    },{
+      green: 40
     }]
   }];
 
@@ -126,7 +215,11 @@ test('tie for 2nd place in first round election', function() {
   }];
 
   var expected = [{
-    parties: ['republican', 'green'],
+    winners: ['republican', 'green'],
+    coinToss: {
+      participants: ['democrat', 'green'],
+      winners: ['green']
+    },
     votedFor: {
       green: 'green',
       democrat: 'democrat',
@@ -140,7 +233,11 @@ test('tie for 2nd place in first round election', function() {
       republican: 40
     }]
   },{
-    parties: ['green'],
+    winners: ['green'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: 'green',
       democrat: 'green',
@@ -186,7 +283,11 @@ test('3-way tie in first round election', function() {
   }];
 
   var expected = [{
-    parties: ['green', 'democrat'],
+    winners: ['democrat', 'green'],
+    coinToss: {
+      participants: ['republican', 'democrat', 'green'],
+      winners: ['democrat', 'green']
+    },
     votedFor: {
       green: 'green',
       democrat: 'democrat',
@@ -200,7 +301,11 @@ test('3-way tie in first round election', function() {
       green: 30
     }]
   },{
-    parties: ['democrat'],
+    winners: ['democrat'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: 'green',
       democrat: 'democrat',
@@ -253,7 +358,11 @@ test('tie in second round election', function() {
   }];
 
   var expected = [{
-    parties: ['democrat', 'republican'],
+    winners: ['republican', 'democrat'],
+    coinToss: {
+      participants: [],
+      winners: []
+    },
     votedFor: {
       green: 'green',
       democrat: 'democrat',
@@ -270,7 +379,11 @@ test('tie in second round election', function() {
       democrat: 30
     }]
   },{
-    parties: [],
+    winners: ['democrat'],
+    coinToss: {
+      participants: ['republican', 'democrat'],
+      winners: ['democrat']
+    },
     votedFor: {
       green: 'democrat',
       democrat: 'democrat',
@@ -291,3 +404,4 @@ test('tie in second round election', function() {
   var actual = majority(voterData);
   deepEqual(actual, expected, 'the formula is correct');
 });
+

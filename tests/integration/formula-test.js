@@ -5,6 +5,8 @@ var App, assertChart;
 var run = Ember.run;
 var empty = Ember.empty;
 
+var originalRandomFunction;
+
 var electionOutcomeSelector = '.party-winner';
 var formulaDisplaySelector = '.formula';
 var formulaSelectSelector = '.formula select';
@@ -72,8 +74,14 @@ module('Integration - Formula', {
   setup: function() {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
+    originalRandomFunction = Math.random;
+    //need to fake randomness so that we can make deterministic assertions in the tests
+    Math.random = function() {
+      return 0;
+    };
   },
   teardown: function() {
+    Math.random = originalRandomFunction;
     run(App, 'destroy');
   }
 });
@@ -89,7 +97,7 @@ test('switch from majority to plurality and black', function() {
     .then(selectFromDropDown(1))
     .then(assertDropDownSelection(1))
     .then(assertChartDisplay('majorityFirstRound'))
-    .then(assertPartyWinners(['Social Democrat (SD)', 'Conservative (C)']))
+    .then(assertPartyWinners(['Social Democrat (SD)', 'Green (G)']))
     .then(assertElectionNavButtonExists);
 });
 
