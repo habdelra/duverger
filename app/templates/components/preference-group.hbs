@@ -1,6 +1,6 @@
 <div class="voter-count">
   <a class="voter-amount-btn decrease" {{action 'decrementVoterAmount'}} {{bind-attr disabled=hasNoVoters}}>decrease voter amount</a>
-  <span class="vote-input-container">{{input type='text' class="vote-input" value=votersDisplay maxlength="3"}}</span>
+  <span class="vote-input-container">{{input type='text' class="vote-input" value=votersDisplay maxlength="4"}}</span>
   <a class="voter-amount-btn increase" {{action 'incrementVoterAmount'}}>increase voter amount</a>
   
   <div class="preference-group-percentage">{{percentage}}% of population</div>

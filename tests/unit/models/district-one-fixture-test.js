@@ -10,7 +10,7 @@ test('the initial district 1 model data is correct', function(){
     districtNumber: 1,
     districtName: 'District 1',
     preferenceGroups: [{
-      voters: 30,
+      voters: 50,
       preferences: [{
         index: 0,
         party: 'socialDemocrat'
@@ -46,7 +46,7 @@ test('the initial district 1 model data is correct', function(){
         party: 'nationalist'
       }]
     },{
-      voters: 20,
+      voters: 15,
       preferences: [{
         index: 0,
         party: 'nationalist'
@@ -82,7 +82,7 @@ test('the initial district 1 model data is correct', function(){
         party: 'conservative'
       }]
     },{
-      voters: 20,
+      voters: 5,
       preferences: [{
         index: 0,
         party: 'conservative'

@@ -121,14 +121,14 @@ test('changing the voter amount updates the chart in primary election and result
 
   visit('/')
     .then(assertPercentages({
-      socialDemocrat: '30%',
+      socialDemocrat: '50%',
       liberal: '10%',
-      nationalist: '20%',
+      nationalist: '15%',
       green: '20%',
-      conservative: '20%'
+      conservative: '5%'
     }))
-    .then(setVoterAmounts({ socialDemocrat: 60 }))
-    .then(assertChartDisplay('majorityFirstRoundSD60'))
+    .then(setVoterAmounts({ socialDemocrat: 45 }))
+    .then(assertChartDisplay('majorityFirstRoundSD45'))
     .then(assertPartyWinners(['SD', 'G']));
 });
 
@@ -145,8 +145,8 @@ test('changing the voter amount updates the chart in runoff election', function(
   expect(16);
 
   navigateToMajorityRunoff('/')
-    .then(setVoterAmounts({ socialDemocrat: 60 }))
-    .then(assertChartDisplay('majorityRunoffSD60'))
+    .then(setVoterAmounts({ socialDemocrat: 45 }))
+    .then(assertChartDisplay('majorityRunoffSD45'))
     .then(assertPartyWinners(['SD']));
 });
 
@@ -165,8 +165,8 @@ test('changing the voter amount updates the chart that was previously altered by
 
   navigateToMajorityRunoff('/')
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
-    .then(setVoterAmounts({ socialDemocrat: 60 }))
-    .then(assertChartDisplay('majorityRunoffPreferenceChangeSD60'))
+    .then(setVoterAmounts({ socialDemocrat: 45 }))
+    .then(assertChartDisplay('majorityRunoffPreferenceChangeSD45'))
     .then(assertPartyWinners(['SD']));
 });
 
@@ -175,8 +175,8 @@ test('changing the voter amount updates the chart using the plurality formula', 
 
   visit('/')
     .then(navigateToPlurality)
-    .then(setVoterAmounts({ socialDemocrat: 60 }))
-    .then(assertChartDisplay('pluralitySD60'))
+    .then(setVoterAmounts({ socialDemocrat: 45 }))
+    .then(assertChartDisplay('pluralitySD45'))
     .then(assertPartyWinners(['SD']));
 });
 
@@ -195,11 +195,11 @@ test('clicking on the voter amount decrease button decrases the voter amount by 
       equal(find(liberalVoterAmountSelector).val(), 5, 'the voter amount is correct');
     })
     .then(assertPercentages({
-      socialDemocrat: '32%',
+      socialDemocrat: '53%',
       liberal: '5%',
-      nationalist: '21%',
+      nationalist: '16%',
       green: '21%',
-      conservative: '21%'
+      conservative: '5%'
     }));
 });
 
