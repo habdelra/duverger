@@ -12,6 +12,18 @@ var formulaDisplaySelector = '.formula';
 var formulaSelectSelector = '.formula select';
 var formulaOptionsSelector = 'option';
 var electionRoundButton = '.election-nav-btn';
+var toggleFormulaListButtonSelector = '.toggle-formula-list-button';
+var formulaButtonsSelector = '.select-formula-button';
+
+function assertDropDownIsHidden() {
+  var formulaButtons = find(formulaButtonsSelector);
+  ok(!formulaButtons.length, 'formula buttons are not displayed');
+}
+
+function assertDropDownIsVisible() {
+  var formulaButtons = find(formulaButtonsSelector);
+  equal(formulaButtons.length, 2, 'two formula buttons are displayed');
+}
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -19,34 +31,14 @@ function assertChartDisplay(chartType) {
   };
 }
 
-function selectFromDropDown(optionIndex) {
-  return function() {
-    var select  = find(formulaSelectSelector);
-    var options = select.find(formulaOptionsSelector);
-    var option  = find(options[optionIndex]);
-
-    option.prop('selected', true);
-    triggerEvent(select[0], 'change');
-  };
+function showFormulaList() {
+  return click(toggleFormulaListButtonSelector);
 }
 
-function assertDropDownSelection(selectedOptionIndex) {
+function selectFromDropDown(buttonIndex) {
   return function() {
-    var select  = find(formulaSelectSelector);
-    var options = select.find(formulaOptionsSelector);
-    var option  = find(options[selectedOptionIndex]);
-
-    if (empty(selectedOptionIndex)) {
-      for (var i = 0; i < options.length; i++) {
-        if (i === 0) {
-          ok(find(options[i]).prop('selected'), 'the option is selected');
-        } else {
-          ok(!find(options[i]).prop('selected'), 'the option is not selected');
-        }
-      }
-    } else {
-      ok(find(option).prop('selected'), 'the option is selected');
-    }
+    var formulaButtons = find(formulaButtonsSelector);
+    return click(formulaButtons[buttonIndex]);
   };
 }
 
@@ -90,12 +82,14 @@ test('switch from majority to plurality and black', function() {
   expect(36);
 
   visit('/')
-    .then(selectFromDropDown(2))
-    .then(assertDropDownSelection(2))
+    .then(assertDropDownIsHidden)
+    .then(showFormulaList)
+    .then(assertDropDownIsVisible)
+    .then(selectFromDropDown(1))
     .then(assertChartDisplay('plurality'))
     .then(assertPartyWinners(['SD']))
-    .then(selectFromDropDown(1))
-    .then(assertDropDownSelection(1))
+    .then(showFormulaList)
+    .then(selectFromDropDown(0))
     .then(assertChartDisplay('majorityFirstRound'))
     .then(assertPartyWinners(['SD', 'G']))
     .then(assertElectionNavButtonExists);
