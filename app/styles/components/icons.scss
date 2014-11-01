@@ -35,3 +35,33 @@
     @include transform(rotate(180deg));
   }
 }
+
+%stroke-black {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.sprite-duverger-outline {
+  @extend %stroke-black;
+  width: 40px;
+  height: 54px;
+}
+
+.sprite-icon-parameters {
+  @extend %stroke-black;
+  width: 53px;
+  height: 47px;
+}
+
+.sprite-icon-formulas {
+  @extend %stroke-black;
+  width: 54px;
+  height: 47px;
+}
+
+.sprite-icon-team {
+  @extend %stroke-black;
+  height: 45px;
+  width: 83px;
+}
