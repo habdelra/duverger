@@ -102,7 +102,7 @@ test('when the voter amounts change, the election is recomputed', function() {
 });
 
 test('useFormula action sets the formulaName to the passed in formula', function(){
-  expect(1);
+  expect(2);
 
   var controller = this.subject({
     content: {}
@@ -114,6 +114,7 @@ test('useFormula action sets the formulaName to the passed in formula', function
 
   controller.send('useFormula', option);
   equal(get(controller, 'formulaName'), 'theory of relativity', 'the formulaName is correct');
+  ok(!get(controller, 'showFormulaList'), 'the value of showFormulaList is correct');
 });
 
 test('useFormula action sets the currentRunoff to 0 when the formula name is `plurality`', function() {
@@ -163,4 +164,22 @@ test('viewCurrentElection sets the currentRunoff to 0', function() {
 
   controller.send('viewCurrentElection');
   equal(get(controller, 'currentRunoff'), 0, 'the currentRunoff is correct');
+});
+
+test('toggleFormulaList action toggles showFormulaList property', function() {
+  expect(3);
+
+  var controller = this.subject({
+    content: {}
+  });
+
+  ok(!get(controller, 'showFormulaList'), 'the value of showFormulaList is correct');
+
+  controller.send('toggleFormulaList');
+
+  ok(get(controller, 'showFormulaList'), 'the value of showFormulaList is correct');
+
+  controller.send('toggleFormulaList');
+
+  ok(!get(controller, 'showFormulaList'), 'the value of showFormulaList is correct');
 });

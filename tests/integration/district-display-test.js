@@ -13,6 +13,7 @@ var formulaValueSelector = '.formula__value option';
 var districtValueSelector = '.district__value';
 var donutSvgSelector = '.donut-chart svg';
 var electionOutcomeSelector = '.party-winner.runoff';
+var selectedFormulaSelector = '.selected-formula';
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -34,9 +35,8 @@ function assertElectionOutcome() {
 }
 
 function assertDefaultFormulaSelected() {
-  var formula = $(find(formulaValueSelector)[1]);
-  equal(formula.prop('selected'), true);
-  equal(formula.val(), 'majority');
+  var formula = find(selectedFormulaSelector);
+  equal(formula.text(), 'majority');
 }
 
 function assertDistrictDisplayed() {
@@ -131,7 +131,7 @@ test('preference parties are displayed', function() {
 });
 
 test('formula is displayed', function() {
-  expect(2);
+  expect(1);
   visit('/')
     .then(assertDefaultFormulaSelected);
 });

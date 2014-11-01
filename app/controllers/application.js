@@ -33,6 +33,10 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
   }),
 
   actions: {
+    toggleFormulaList: function() {
+      var showFormulaList = get(this, 'showFormulaList');
+      set(this, 'showFormulaList', !showFormulaList);
+    },
     useFormula: function(option){
       var formulaName = option.value;
 
@@ -40,6 +44,7 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
         set(this, 'currentRunoff', 0);
       }
       set(this, 'formulaName', formulaName);
+      set(this, 'showFormulaList', false);
     },
 
     recalculateElectionOutcome: function() {

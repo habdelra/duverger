@@ -3,17 +3,15 @@ import Ember from 'ember';
 
 var registerAsyncHelper = Ember.Test.registerAsyncHelper;
 
-var formulaSelectSelector = '.formula select';
-var majorityFormulaOptionSelector = 'option';
+var toggleFormulaListButtonSelector = '.toggle-formula-list-button';
+var formulaButtonsSelector = '.select-formula-button';
 var runoffSelector = '.election-nav-btn.view-runoff';
 
-function selectDropdownOption(optionIndex) {
+function selectFromDropDown(buttonIndex) {
   return function() {
-    var select = find(formulaSelectSelector);
-    var option = select.find(majorityFormulaOptionSelector)[optionIndex];
-
-    $(option).prop('selected', true);
-    triggerEvent(select[0], 'change');
+    click(toggleFormulaListButtonSelector);
+    var formulaButtons = find(formulaButtonsSelector);
+    return click(formulaButtons[buttonIndex]);
   };
 }
 
@@ -21,7 +19,7 @@ registerAsyncHelper('navigateToMajorityRunoff', function(app, districtUrl) {
   var click = app.testHelpers.click;
 
   return visit(districtUrl)
-    .then(selectDropdownOption(1))
+    .then(selectFromDropDown(0))
     .then(function() {
       return click(runoffSelector);
     });
@@ -31,5 +29,5 @@ registerAsyncHelper('navigateToPlurality', function(app, districtUrl) {
   var click = app.testHelpers.click;
 
   return visit(districtUrl)
-    .then(selectDropdownOption(2));
+    .then(selectFromDropDown(1));
 });
