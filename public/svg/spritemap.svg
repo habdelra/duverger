@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <g id="duverger-outline" viewBox="0 0 40 54">
+    <g>
+      <path class="st0" d="M39.9,41.1c0,8.3-6.8,15.1-15.1,15.1c-8.3,0-15.1-6.8-15.1-15.1c0-8.3,6.8-15.1,15.1-15.1
+        C33.2,26,39.9,32.7,39.9,41.1z"/>
+      <polyline class="st0" points="41.1,24.9 17.6,1.4 1.4,17.6 9.5,25.8    "/>
+      <polyline class="st0" points="15,30 25.5,40.5 35.2,30.8     "/>
+    </g>
+  </g>
+</svg>

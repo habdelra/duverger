@@ -35,3 +35,9 @@
     @include transform(rotate(180deg));
   }
 }
+
+.svg-duverger-outline {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
