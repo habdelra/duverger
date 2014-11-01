@@ -15,14 +15,14 @@
     <div class="percentage-votes header--election--secondary">
       <span class="percentage-votes__label">Percentage of Votes</span>
       <div class="percentage-votes__value">
-        1st Round
+        {{runoffOrdinal}} Round
 
         {{#if requiresRunoff}}
          <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
         {{/if}}
 
         {{#if currentRunoff}}
-          <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Election Results</button>
+          <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Results</button>
         {{/if}}
       </div>
     </div>

@@ -169,3 +169,25 @@ test('winnerColor returns the color of the winning party', function(){
 
   equal(get(object, 'winnerColor'), '#BBDF2A', 'the correct party color is returned');
 });
+
+test('runoffOrdinal returns the english ordinal string based on the currentRunoff', function() {
+  expect(4);
+
+  var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
+    currentRunoff: 0
+  });
+
+  equal(get(object, 'runoffOrdinal'), '1st', 'the ordinal value is correct');
+
+  set(object, 'currentRunoff', 1);
+
+  equal(get(object, 'runoffOrdinal'), '2nd', 'the ordinal value is correct');
+
+  set(object, 'currentRunoff', 2);
+
+  equal(get(object, 'runoffOrdinal'), '3rd', 'the ordinal value is correct');
+
+  set(object, 'currentRunoff', 3);
+
+  equal(get(object, 'runoffOrdinal'), '4th', 'the ordinal value is correct');
+});
