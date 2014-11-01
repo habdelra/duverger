@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg">
-  <g id="duverger-outline" viewBox="0 0 40 54">
+  <g id="duverger-outline">
     <g>
       <path class="st0" d="M39.9,41.1c0,8.3-6.8,15.1-15.1,15.1c-8.3,0-15.1-6.8-15.1-15.1c0-8.3,6.8-15.1,15.1-15.1
         C33.2,26,39.9,32.7,39.9,41.1z"/>
@@ -7,4 +7,31 @@
       <polyline class="st0" points="15,30 25.5,40.5 35.2,30.8     "/>
     </g>
   </g>
+  <g id="icon-parameters">
+    <g>
+      <line class="st0" x1="5.6" y1="0" x2="5.6" y2="47"/>
+      <circle class="st0" cx="6" cy="13.8" r="5"/>
+      <line class="st0" x1="25.6" y1="0" x2="25.6" y2="47"/>
+      <circle class="st0" cx="26" cy="32.8" r="5"/>
+      <line class="st0" x1="46.6" y1="0" x2="46.6" y2="47"/>
+      <circle class="st0" cx="47" cy="19.8" r="5"/>
+    </g>
+  </g>
+  <g id="icon-formulas">
+    <path fill="none" stroke-miterlimit="10" d="M23,5.7c0,0-8.2,15.1,0,33.6"/>
+    <path fill="none" stroke-miterlimit="10" d="M50,5.7c0,0,8.2,15.1,0,33.6"/>
+    <line fill="none" stroke-miterlimit="10" x1="30" y1="16.1" x2="43.4" y2="31"/>
+    <line fill="none" stroke-miterlimit="10" x1="43.4" y1="16.1" x2="30" y2="31"/>
+    <path fill="none" stroke-miterlimit="10" d="M4.4,35.7V4.9c0,0,0.7-3.9,6.7-3.9"/>
+    <line fill="none" stroke-miterlimit="10" x1="11.5" y1="15.3" x2="0" y2="15.3"/>
+  </g>
+  <svg id="icon-team">
+    <g>
+      <circle fill="none" stroke-miterlimit="10" cx="14.2" cy="30.8" r="13.2"/>
+      <circle fill="none" stroke-miterlimit="10" cx="54.4" cy="30.8" r="13.2"/>
+      <path fill="none"   stroke-miterlimit="10" d="M27.3,30.8c0,0,7-7,13.9,0"/>
+      <path fill="none"   stroke-miterlimit="10" d="M1.4,25.3l9.3-20.9c0,0,3.9-2.9,10.2-3.4"       <path fill="none" s stroke-width="2" stroke-miterlimit="10" d="M65.9,25.3l6.8-19.9c0,0,3.9-2.9,10.2-3.4"/>
+    </g>
+  </svg>
+
 </svg>
