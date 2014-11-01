@@ -12,7 +12,7 @@
       <div class="district__value header--election__value">{{model.districtNumber}}</div>
     </div>
 
-    <div class="percentage-votes .header--election--secondary">
+    <div class="percentage-votes header--election--secondary">
       <span class="percentage-votes__label">Percentage of Votes</span>
       <div class="percentage-votes__value">
         1st Round
@@ -40,7 +40,7 @@
       </div>
 
       <div class="formula header--election--dropdown">
-        <div class="formula__label header--election__label">Formula Applied: <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Select formula</button></div>
+        <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>Formula Applied: <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Select formula</button></div>
         <div class="selected-formula">{{model.formulaName}}</div>
         {{#if showFormulaList}}
           <ul class="formula-selector">

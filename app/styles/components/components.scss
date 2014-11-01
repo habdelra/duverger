@@ -41,25 +41,36 @@
     padding: grid-height(1) 0;
     margin: 0 0 grid-height(2);
     border-bottom: 1px solid $border-color;
+    border-top: 1px solid transparent;
     display: block;
+
+    &.menu-displayed {
+      background: white;
+      border: 1px solid $text-color;
+      border-bottom-width: 0;
+    }
   }
 
   .header--election__value {
-    @extend %font-largest;
+    @extend %font-large;
+    color: $conservative-color;
     text-align: center;
   }
 }
 
 .header--election--dropdown {
+  position: relative;
   width: grid-width(3)+$grid-padding-unit;
 }
 
 // Secondary header
 .header--election--secondary {
+  text-transform: uppercase;
+  line-height: grid-height(2);
+  color: $conservative-color;
   border-bottom: 1px solid $border-color;
   border-top: 1px solid $border-color;
   padding: grid-height(1) 0 grid-height(1) $grid-padding-unit;
-  font-size: 0;
   margin: 0 0 grid-height(1);
 
   >*, .party-preference-header li {
@@ -87,6 +98,17 @@
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  .percentage-votes__value {
+    @extend %election-header-style;
+    float: right;
+  }
+
+  .election-nav-btn {
+    background: $border-color;
+    @extend %election-header-style;
+    border: none;
   }
 }
 
@@ -290,23 +312,83 @@
 
 // Donut Chart
 .party-winner {
-  @extend %font-medium;
+  @extend %font-large;
   color: $text-color-light;
   text-align: center;
   white-space: normal;
   display: inline-block;
-  height: 60px;
-  width: 60px;
+  height: 62px;
+  width: 62px;
   margin: 10px;
+  border-radius: 50%;
+  line-height: 62px;
 
   &.socialDemocrat { background: $social-democrat-color; }
   &.liberal { background: $liberal-color; }
   &.nationalist { background: $nationalist-color; }
   &.green { background: $green-color; }
   &.conservative { background: $conservative-color; }
-
-  @extend %font-medium;
 }
+
+.final-seats {
+  text-transform: uppercase;
+  @extend %font-medium;
+  color: $conservative-color;
+  margin-bottom: 10px;
+}
+
+// Forumula drop down
+.toggle-formula-list-button {
+  border: none;
+  background-color: transparent;
+  margin-left: 30px;
+  vertical-align: middle;
+  @include icon-arrow(south);
+}
+
+.selected-formula {
+  @extend %font-large;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.formula-selector {
+  width: 100%;
+  top: grid-height(3);
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid $text-color;
+  border-top-width: 0;
+
+  .formula-item {
+    padding-left: 6px;
+    border-top: 1px dotted $text-color;
+
+    &:first-of-type {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $text-color;
+
+      .select-formula-button {
+        color: white;
+      }
+    }
+
+    .select-formula-button {
+      @extend %election-header-style;
+      width: 100%;
+      text-align: left;
+      height: grid-height(6);
+      line-height: grid-height(6);
+      border: none;
+      background: none;
+    }
+  }
+}
+
 
 // Menus
 //
