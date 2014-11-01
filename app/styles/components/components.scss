@@ -358,6 +358,7 @@ $lhp-width: grid-width(8);
   .tabs {
     list-style: none;
     text-align: left;
+
     li {
       display: block;
     }
@@ -368,19 +369,25 @@ $lhp-width: grid-width(8);
       left: -9999px;
     }
     label {
+      width: 120px;
+      /* height: 160px; */
       display: block;
-      padding: 14px 21px;
+      padding: 80px 10px 14px;
       border-radius: 2px 2px 0 0;
       font-size: 20px;
       font-weight: normal;
       text-transform: uppercase;
-      background: $lhp-background-color;
+      text-align: center;
+      vertical-align: text-bottom;
+      background-color: $lhp-background-color;
+      background-position: center 10px;
+      background-repeat: no-repeat;
       cursor: pointer;
       position: absolute;
-      bottom: 4px;
-      @include transition(all 0.2s ease-in-out);
+      bottom: 14px;
+      @include transition(background-color 0.2s ease-in-out);
       &:hover {
-        background: darken($lhp-background-color, 10);
+        background-color: darken($lhp-background-color, 10);
       }
     }
     .tab-content{
@@ -394,12 +401,11 @@ $lhp-width: grid-width(8);
       position: absolute;
       top: 0;
       left: 0;
-      background: darken($lhp-background-color, 15);
+      background-color: darken($lhp-background-color, 15);
     }
     //The Magic
     [id^="tab"]:checked + label {
-      padding-top: 17px;
-      background: darken($lhp-background-color, 15);
+      background-color: darken($lhp-background-color, 15);
     }
     [id^="tab"]:checked ~ [id^="tab-content"] {
       display: block;
@@ -408,12 +414,19 @@ $lhp-width: grid-width(8);
     // individual tab styles
     .tab-duverger label {
       left: 0;
+      background-image: url(/images/tab_home.svg);
     }
     .tab-parameters label {
-      left: 150px;
+      left: 120px;
+      background-image: url(/images/tab_parameters.svg);
     }
     .tab-formulae label {
-      left: 300px;
+      left: 240px;
+      background-image: url(/images/tab_formulas.svg);
+    }
+    .tab-team label {
+      left: 360px;
+      background-image: url(/images/tab_team.svg);
     }
   }
 }
