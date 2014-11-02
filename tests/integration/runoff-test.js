@@ -6,10 +6,10 @@ var run = Ember.run;
 
 var originalRandomFunction;
 
-var runoffSelector = '.election-nav-btn.view-runoff';
+var runoffSelector = '.election-nav-btn';
 var electionOutcomeSelector = '.party-winner';
 var electionRoundButton = '.election-nav-btn';
-
+var runoffMessageSelector = '.percentage-votes__value';
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -28,6 +28,13 @@ function assertElectionNavigationButton(display) {
   };
 }
 
+function assertRunoffNumber(text) {
+  return function () {
+    var runoff = find(runoffMessageSelector);
+    ok(runoff.text().indexOf(text) > -1, 'the text `' + text + '`is present');
+  };
+}
+
 function assertPartyWinners(partyWinners) {
   return function() {
     var outcome = find(electionOutcomeSelector);
@@ -38,7 +45,7 @@ function assertPartyWinners(partyWinners) {
   };
 }
 
-module('Integration - Runnoffs', {
+module('Integration - Runoffs', {
   setup: function() {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
@@ -55,18 +62,18 @@ module('Integration - Runnoffs', {
 });
 
 test('switch from first round test to runoff and back', function() {
-  expect(20);
+  expect(14);
 
   visit('/')
-    .then(assertChartDisplay('majorityFirstRound'))
-    .then(assertPartyWinners(['SD', 'C']))
+    .then(assertRunoffNumber('1st'))
+    .then(assertPartyWinners(['SD', 'G']))
     .then(assertElectionNavigationButton('View Runoff Results'))
     .then(clickRunoffButton)
-    .then(assertChartDisplay('majorityRunoff'))
+    .then(assertRunoffNumber('2nd'))
     .then(assertPartyWinners(['SD']))
-    .then(assertElectionNavigationButton('View Original Election Results'))
+    .then(assertElectionNavigationButton('View Original Results'))
     .then(clickRunoffButton)
-    .then(assertChartDisplay('majorityFirstRound'))
-    .then(assertPartyWinners(['SD', 'C']))
+    .then(assertRunoffNumber('1st'))
+    .then(assertPartyWinners(['SD', 'G']))
     .then(assertElectionNavigationButton('View Runoff Results'));
 });

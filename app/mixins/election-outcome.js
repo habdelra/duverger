@@ -86,5 +86,18 @@ export default Ember.Mixin.create({
     return this._winningField('color');
   }),
 
+  runoffOrdinal: computed('currentRunoff', function() {
+    var currentRunoff = get(this, 'currentRunoff');
+    switch(currentRunoff) {
+      case 0:
+        return '1st';
+      case 1:
+        return '2nd';
+      case 2:
+        return '3rd';
+      default:
+        return (currentRunoff + 1) + 'th';
+    }
+  })
 });
 
