@@ -61,7 +61,7 @@ test('winner in plurality formula', function() {
 });
 
 test('tie in plurality formula', function() {
-  expect(1);
+  expect(2);
 
   var voterData = [{
     voters: 20,
@@ -100,6 +100,34 @@ test('tie in plurality formula', function() {
     }]
   }];
 
+  actual = plurality(voterData);
+  deepEqual(actual, expected, 'the formula is correct');
+
+  Math.random = function() {
+    return 0.99;
+  };
+
+  expected = [{
+    winners: ['republican'],
+    coinToss: {
+      participants: ['republican', 'democrat'],
+      winners: ['republican']
+    },
+    votedFor: {
+      green: "green",
+      republican: "republican",
+      democrat: "democrat"
+    },
+    voterSummary: [{
+      green: 5
+    },{
+      republican: 20
+    },{
+      democrat: 20
+    }]
+  }];
+
   var actual = plurality(voterData);
   deepEqual(actual, expected, 'the formula is correct');
+
 });

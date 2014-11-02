@@ -77,10 +77,10 @@ export default function(preferenceGroups){
     var winner = randomlySelect(winners, 1);
     result.winners = winner;
     result.coinToss.winners = winner;
+  } else {
+    // Otherwise, if there is no tie, set the winning party in the `winners` array in the result
+    result.winners = [potentialWinner.party];
   }
-
-  // Otherwise, if there is no tie, set the winning party in the `winners` array in the result
-  result.winners = [potentialWinner.party];
 
   // the result is returned as an array, where each item in the array represents a separate round of elections.
   // for the plurality formula, there is currently only round round of elections ever, so just return an array of one item.
