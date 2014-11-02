@@ -447,7 +447,7 @@ $lhp-thumb-padding: 10px;
   z-index: 9000;
   @include transition-property(left);
 
-  &.closed {
+  &.closed, &.closed .tabs .tab-content {
     left: -$lhp-width;
     @include transition-property(left);
   }
