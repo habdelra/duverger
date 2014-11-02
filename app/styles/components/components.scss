@@ -7,14 +7,6 @@
   }
 }
 
-@mixin vertical-align {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
 %election-header-style {
   @extend %font-small;
   text-transform: uppercase;
@@ -318,6 +310,8 @@
 // SHAME
 // bad styles
 $lhp-width: grid-width(8);
+$lhp-thumb-height: 26px;
+$lhp-thumb-padding: 10px;
 
 .left-hand-panel {
   background-color: $lhp-background-color;
@@ -327,7 +321,6 @@ $lhp-width: grid-width(8);
   top: 0;
   left: 0;
   bottom: 0;
-  padding: grid-width(1);
   z-index: 9000;
   @include transition-property(left);
 
@@ -340,27 +333,30 @@ $lhp-width: grid-width(8);
     @extend %font-largest;
   }
 
-  .toggle-btn {
-    position: absolute;
-    bottom: 10px;
-    right: -93px;
-    background-color: $lhp-background-color;
-    color: $text-color-light;
-    border-style: none;
-    padding: 27px 36px;
-    border-radius: 0 36px 36px 0;
-    @extend %font-medium;
-    opacity: .8;
-    outline: none;
-    text-transform: uppercase;
-  }
-
   .tabs {
+    padding: 0 0 0 8px;
     list-style: none;
     text-align: left;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba($text-color, .8);
 
-    li {
-      display: block;
+    .tab {
+      text-align: center;
+      vertical-align: top;
+      float: left;
+      width: 120px;
+      position: relative;
+
+      &:hover {
+        background-color: darken($text-color, 8);
+      }
+    }
+
+    .icon {
+      stroke: #fff;
+      margin-bottom: 5px;
     }
 
     input[type="radio"] {
@@ -368,65 +364,113 @@ $lhp-width: grid-width(8);
       top: -9999px;
       left: -9999px;
     }
+
     label {
-      width: 120px;
-      /* height: 160px; */
+      @include transition(background-color 0.2s ease-in-out);
+      @extend %font-size-small;
       display: block;
-      padding: 80px 10px 14px;
       border-radius: 2px 2px 0 0;
-      font-size: 20px;
-      font-weight: normal;
       text-transform: uppercase;
       text-align: center;
       vertical-align: text-bottom;
-      background-color: $lhp-background-color;
       background-position: center 10px;
       background-repeat: no-repeat;
       cursor: pointer;
-      position: absolute;
-      bottom: 14px;
-      @include transition(background-color 0.2s ease-in-out);
+      padding: $lhp-thumb-height + $lhp-thumb-padding + 2 $lhp-thumb-padding $lhp-thumb-padding $lhp-thumb-padding;
+      position: relative;
+
       &:hover {
-        background-color: darken($lhp-background-color, 10);
+        cursor: pointer;
       }
     }
+
     .tab-content{
+      @extend %font-size-medium;
+      line-height: normal;
       z-index: 2;
       display: none;
       overflow: hidden;
       width: 100%;
-      font-size: 17px;
       line-height: 25px;
-      padding: 25px;
-      position: absolute;
+      padding: 25px $column-width;
+      position: fixed;
       top: 0;
       left: 0;
-      background-color: darken($lhp-background-color, 15);
+      bottom: $lhp-thumb-height*2 + 8px;
+      width: $lhp-width;
     }
-    //The Magic
+
+    //Show or hide section based on whether tab is checked
     [id^="tab"]:checked + label {
       background-color: darken($lhp-background-color, 15);
     }
     [id^="tab"]:checked ~ [id^="tab-content"] {
-      display: block;
+      display: flex;
     }
 
-    // individual tab styles
-    .tab-duverger label {
-      left: 0;
-      background-image: url(/images/tab_home.svg);
+    .tab-content-about {
+      $duverger-icon-width: 75px;
+      $duverger-icon-height: 104px;
+      text-align: left;
+
+      .sprite-duverger {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: $duverger-icon-width;
+        height: $duverger-icon-height;
+        margin-right: $gutter-width;
+      }
+
+      .content {
+        @extend %font-small;
+        flex-grow: 1;
+      }
+
+      .project-name {
+        @extend %font-maximum;
+        text-transform: uppercase;
+        margin: 28px 0;
+      }
     }
-    .tab-parameters label {
-      left: 120px;
-      background-image: url(/images/tab_parameters.svg);
+
+    .icon {
+      position: absolute;
+      top: $lhp-thumb-padding - 4;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
     }
-    .tab-formulae label {
-      left: 240px;
-      background-image: url(/images/tab_formulas.svg);
+
+    .sprite-duverger-outline { height: $lhp-thumb-height; width: 20px; }
+    .sprite-icon-parameters { height: $lhp-thumb-height; width: 25px; }
+    .sprite-icon-formulas { height: $lhp-thumb-height; width: 25px; }
+    .sprite-icon-team { height: $lhp-thumb-height; width: 40px; }
+
+    .tab-info {
+      border-radius: 0 36px 36px 0;
+      padding: 0;
+      height: 100%;
+      position: absolute;
+      left: $lhp-width;
+      background-color: rgba($text-color, .8);
     }
-    .tab-team label {
-      left: 360px;
-      background-image: url(/images/tab_team.svg);
+
+    .toggle-btn {
+      @extend %font-medium;
+      display: block;
+      height: 60px;
+      width: 100%;
+      color: $text-color-light;
+      background: transparent;
+      border: none;
+      outline: none;
+      text-transform: uppercase;
+      display: block;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
