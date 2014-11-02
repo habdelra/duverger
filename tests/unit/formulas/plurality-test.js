@@ -100,7 +100,7 @@ test('tie in plurality formula', function() {
     }]
   }];
 
-  actual = plurality(voterData);
+  var actual = plurality(voterData);
   deepEqual(actual, expected, 'the formula is correct');
 
   Math.random = function() {
@@ -127,7 +127,6 @@ test('tie in plurality formula', function() {
     }]
   }];
 
-  var actual = plurality(voterData);
+  actual = plurality(voterData);
   deepEqual(actual, expected, 'the formula is correct');
-
 });
