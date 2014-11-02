@@ -58,7 +58,31 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
 
     viewOriginalElection: function(){
       set(this, 'currentRunoff', 0);
+    },
+
+    preferenceDoneMoving: function() {
+      set(this, 'preferenceIsMoving', null);
+    },
+
+    movePreferenceBefore: function() {
+      set(this, 'preferenceMoveDirection', 'previous');
+    },
+
+    movePreferenceAfter: function() {
+      set(this, 'preferenceMoveDirection', 'after');
+    },
+
+    partyAtBeginning: function() {
+      set(this, 'preferencePreviousButtonDisabled', true);
+    },
+
+    partyAtMiddle: function() {
+      set(this, 'preferencePreviousButtonDisabled', false);
+      set(this, 'preferenceNextButtonDisabled', false);
+    },
+
+    partyAtEnd: function() {
+      set(this, 'preferenceNextButtonDisabled', true);
     }
   }
-
 });

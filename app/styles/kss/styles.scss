@@ -12,7 +12,7 @@
 .nationalist-color { background-color: $nationalist-color;}
 .conservative-color { background-color: $conservative-color;}
 .text-color { background-color: $text-color;}
-.light-text-color { 
+.light-text-color {
 	background-color: $text-color-light;
 	@extend %dark;
 }
@@ -28,17 +28,17 @@
 // when in reality you'd use a mixin :/
 
 .icon.north {
-  @include icon-arrow(north);
+  @include icon-arrow(north, false);
 }
 
 .icon.south {
-  @include icon-arrow(south);
+  @include icon-arrow(south, false);
 }
 
 .icon.east {
-  @include icon-arrow(east);
+  @include icon-arrow(east, false);
 }
 
 .icon.west {
-  @include icon-arrow(west);
+  @include icon-arrow(west, false);
 }

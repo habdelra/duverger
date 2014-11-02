@@ -183,3 +183,77 @@ test('toggleFormulaList action toggles showFormulaList property', function() {
 
   ok(!get(controller, 'showFormulaList'), 'the value of showFormulaList is correct');
 });
+
+test('preferenceDoneMoving action sets preferenceIsMoving to null', function() {
+  expect(1);
+
+  var controller = this.subject({
+    preferenceIsMoving: {}
+  });
+
+  controller.send('preferenceDoneMoving');
+
+  equal(get(controller, 'preferenceIsMoving'), null, 'preferenceIsMoving is set to null');
+});
+
+test('movePreferenceBefore action sets preferenceMoveDirection to `previous`', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {}
+  });
+
+  controller.send('movePreferenceBefore');
+
+  equal(get(controller, 'preferenceMoveDirection'), 'previous', 'the preferenceMoveDirection is correct');
+});
+
+test('movePreferenceAfter action sets preferenceMoveDirection to `after`', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {}
+  });
+
+  controller.send('movePreferenceAfter');
+
+  equal(get(controller, 'preferenceMoveDirection'), 'after', 'the preferenceMoveDirection is correct');
+});
+
+test('partyAtBeginning action sets the preferencePreviousButtonDisabled to true', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {}
+  });
+
+  controller.send('partyAtBeginning');
+
+  ok(get(controller, 'preferencePreviousButtonDisabled'), 'preferencePreviousButtonDisabled set to true');
+});
+
+test('partyAtEnd action sets the preferenceNextButtonDisabled to true', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {}
+  });
+
+  controller.send('partyAtEnd');
+
+  ok(get(controller, 'preferenceNextButtonDisabled'), 'preferenceNextButtonDisabled set to true');
+});
+
+test('partyAtMiddle action set preferenceNextButtonDisabled and preferencePreviousButtonDisabled to false', function() {
+  expect(2);
+
+  var controller = this.subject({
+    preferenceNextButtonDisabled: true,
+    preferencePreviousButtonDisabled: true
+  });
+
+  controller.send('partyAtMiddle');
+
+  ok(!get(controller, 'preferenceNextButtonDisabled'), 'preferenceNextButtonDisabled is set to false');
+  ok(!get(controller, 'preferencePreviousButtonDisabled'), 'preferencePreviousButtonDisabled is set to false');
+});

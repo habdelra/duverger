@@ -1,1 +1,7 @@
-<span {{bind-attr class="isFirstPreference:party-name:secondary-party-name"}}>{{partyAbbreviation}}</span>
+{{#if isFirstPreference}}
+  <span {{bind-attr class="isFirstPreference:party-name:secondary-party-name"}}>{{partyAbbreviation}}</span>
+{{else}}
+  {{#ic-modal-trigger controls="preference-order-modal"}}
+    <span {{bind-attr class="isFirstPreference:party-name:secondary-party-name"}}>{{partyAbbreviation}}</span>
+  {{/ic-modal-trigger}}
+{{/if}}

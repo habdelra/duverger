@@ -9,6 +9,79 @@ var originalRandomFunction;
 var liberalGroupPartyPreference = '.preference-group.liberal .party-preference';
 var dropZoneSelector = '.preference-group.liberal .preference-drop-zone';
 var electionOutcomeSelector = '.party-winner';
+var liberalSDPreferenceButtonSelector = '.preference-group.liberal .party-preference.socialDemocrat button';
+var liberalNationalistPreferenceButtonSelector = '.preference-group.liberal .party-preference.nationalist button';
+var liberalGreenPreferenceButtonSelector = '.preference-group.liberal .party-preference.green button';
+var liberalGreenPreferenceSeelctor = '.preference-group.liberal .party-preference.green';
+var preferenceOrderMask = '#preference-order-modal';
+var preferenceOrderModal = '#preference-order-modal ic-modal-main';
+var preferenceMoveBeforeButton = '#preference-order-modal .move-before';
+var preferenceMoveAfterButton = '#preference-order-modal .move-after';
+var partyPreferenceHighlightClass = 'moving';
+
+function clickPreferenceOrderMask() {
+  return click(preferenceOrderMask);
+}
+
+function clickMoveBeforeButton() {
+  return click(preferenceMoveBeforeButton);
+}
+
+function clickMoveAfterButton() {
+  return click(preferenceMoveAfterButton);
+}
+
+function clickLiberalsSDPartyPreferenceButton() {
+  click(liberalSDPreferenceButtonSelector);
+}
+
+function clickLiberalsNationalistPartyPreferenceButton() {
+  click(liberalNationalistPreferenceButtonSelector);
+}
+
+function clickLiberalsGreenPartyPreferenceButton() {
+  return click(liberalGreenPreferenceButtonSelector);
+}
+
+function assertMoveBeforeButtonIsDisabled() {
+  var button = find(preferenceMoveBeforeButton);
+  ok(button.prop('disabled'), 'move before button is disabled');
+}
+
+function assertMoveBeforeButtonIsNotDisabled() {
+  var button = find(preferenceMoveBeforeButton);
+  ok(!button.prop('disabled'), 'move before button is not disabled');
+}
+
+function assertMoveAfterButtonIsDisabled() {
+  var button = find(preferenceMoveAfterButton);
+  ok(button.prop('disabled'), 'move after button is disabled');
+}
+
+function assertMoveAfterButtonIsNotDisabled() {
+  var button = find(preferenceMoveAfterButton);
+  ok(!button.prop('disabled'), 'move after button is not disabled');
+}
+
+function assertLiberalsGreenPartyPreferenceIsHighlighted() {
+  var partyPreference = find(liberalGreenPreferenceSeelctor);
+  ok(partyPreference.hasClass(partyPreferenceHighlightClass), 'the highlight class is present');
+}
+
+function assertLiberalsGreenPartyPreferenceIsNotHighlighted() {
+  var partyPreference = find(liberalGreenPreferenceSeelctor);
+  ok(!partyPreference.hasClass(partyPreferenceHighlightClass), 'the highlight class is not present');
+}
+
+function assertPreferenceOrderModalAppears() {
+  var preferenceOrder = find(preferenceOrderModal);
+  ok(preferenceOrder.length, 'the preference order modal appears');
+}
+
+function assertPreferenceOrderModalDoesNotAppear() {
+  var preferenceOrder = find(preferenceOrderModal);
+  ok(!preferenceOrder.length, 'the preference order modal does not appear');
+}
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -70,7 +143,7 @@ module('Integration - Party Preferences', {
   }
 });
 
-test('rearrange preferences that do not effect the donut graph', function() {
+test('drag-n-drop rearrange preferences that do not effect the donut graph', function() {
   expect(44);
 
   visit('/')
@@ -83,7 +156,7 @@ test('rearrange preferences that do not effect the donut graph', function() {
     .then(assertChartDisplay('majorityFirstRound'));
 });
 
-test('rearrange preferences that effect donut graph', function(){
+test('drag-n-drop rearrange preferences that effect donut graph', function(){
   expect(46);
 
   navigateToMajorityRunoff('/')
@@ -94,4 +167,64 @@ test('rearrange preferences that effect donut graph', function(){
     .then(dragFourthPreferencePartyInLiberalGroupToSecondPosition)
     .then(assertPartyWinners(['SD']))
     .then(assertChartDisplay('majorityRunoff'));
+});
+
+test('use arrow buttons to rearrange preferences', function() {
+  expect(53);
+
+  visit('/')
+    .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'G', 'N']))
+    .then(assertPreferenceOrderModalDoesNotAppear)
+    .then(assertLiberalsGreenPartyPreferenceIsNotHighlighted)
+    .then(clickLiberalsGreenPartyPreferenceButton)
+    .then(assertPreferenceOrderModalAppears)
+    .then(assertLiberalsGreenPartyPreferenceIsHighlighted)
+    .then(assertMoveBeforeButtonIsNotDisabled)
+    .then(assertMoveAfterButtonIsNotDisabled)
+    .then(clickMoveBeforeButton)
+    .then(assertLiberalsGreenPartyPreferenceIsHighlighted)
+    .then(assertLiberalGroupsNewPreferences(['SD', 'G', 'C', 'N']))
+    .then(assertMoveBeforeButtonIsNotDisabled)
+    .then(assertMoveAfterButtonIsNotDisabled)
+    .then(clickMoveBeforeButton)
+    .then(assertLiberalsGreenPartyPreferenceIsHighlighted)
+    .then(assertLiberalGroupsNewPreferences(['G', 'SD', 'C', 'N']))
+    .then(assertMoveBeforeButtonIsDisabled)
+    .then(assertMoveAfterButtonIsNotDisabled)
+    .then(clickMoveAfterButton)
+    .then(assertLiberalsGreenPartyPreferenceIsHighlighted)
+    .then(assertLiberalGroupsNewPreferences(['SD', 'G', 'C', 'N']))
+    .then(assertMoveBeforeButtonIsNotDisabled)
+    .then(assertMoveAfterButtonIsNotDisabled)
+    .then(clickMoveAfterButton)
+    .then(assertLiberalsGreenPartyPreferenceIsHighlighted)
+    .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'G', 'N']))
+    .then(assertMoveBeforeButtonIsNotDisabled)
+    .then(assertMoveAfterButtonIsNotDisabled)
+    .then(clickMoveAfterButton)
+    .then(assertLiberalsGreenPartyPreferenceIsHighlighted)
+    .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'N', 'G']))
+    .then(assertMoveBeforeButtonIsNotDisabled)
+    .then(assertMoveAfterButtonIsDisabled)
+    .then(clickPreferenceOrderMask)
+    .then(assertPreferenceOrderModalDoesNotAppear)
+    .then(assertLiberalsGreenPartyPreferenceIsNotHighlighted);
+});
+
+test('when party preference is at beginning of list the previous arrow button is disabled', function() {
+  expect(2);
+
+  visit('/')
+    .then(clickLiberalsSDPartyPreferenceButton)
+    .then(assertMoveBeforeButtonIsDisabled)
+    .then(assertMoveAfterButtonIsNotDisabled);
+});
+
+test('when party preference is at end of list the next arrow button is disabled', function() {
+  expect(2);
+
+  visit('/')
+    .then(clickLiberalsNationalistPartyPreferenceButton)
+    .then(assertMoveBeforeButtonIsNotDisabled)
+    .then(assertMoveAfterButtonIsDisabled);
 });

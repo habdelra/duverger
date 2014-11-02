@@ -242,3 +242,97 @@ test('the incrementVoterAmount action increases voters by 1', function() {
   equal(get(component, 'voters'), 11, 'the voters is correct');
 });
 
+test('when wasClicked action is received set the preferenceIsMoving value', function() {
+  expect(1);
+
+  var component = this.subject({
+    $: function() {
+      return {
+        offset: Ember.K,
+        height: Ember.K,
+        width: Ember.K
+      };
+    },
+    preferenceGroup: {},
+    preferences: [{
+      party: 'teabagger'
+    },{
+      party: 'green'
+    }]
+  });
+
+  var expected = {
+    primaryParty: 'teabagger',
+    party: 'rentIsTooDamnHigh'
+  };
+
+  component.send('wasClicked', 'rentIsTooDamnHigh');
+
+  deepEqual(get(component, 'preferenceIsMoving'), expected, 'the preferenceIsMoving value is correct');
+});
+
+test('when wasClicked action is received, the preferenceOrderStyle is set', function() {
+  expect(1);
+
+  var component = this.subject({
+    $: function() {
+      return {
+        offset: function() {
+          return {
+            top: 100,
+            left: 50
+          };
+        },
+        height: function() {
+          return 200;
+        },
+        width: function() {
+          return 300;
+        }
+      };
+    },
+    preferenceGroup: {}
+  });
+
+  var expected = 'top:205px; left:240px;';
+
+  component.send('wasClicked', 'rentIsTooDamnHigh');
+
+  equal(get(component, 'preferenceOrderStyle'), expected, 'the preferenceOrderStyle value is correct');
+});
+
+test('forward partyAtBeginning action', function() {
+  expect(1);
+
+  var component = this.subject({
+    sendAction: function(actionName) {
+      equal(actionName, 'partyAtBeginning', 'the actionName is correct');
+    }
+  });
+
+  component.send('partyAtBeginning');
+});
+
+test('forward partyAtMiddle action', function() {
+  expect(1);
+
+  var component = this.subject({
+    sendAction: function(actionName) {
+      equal(actionName, 'partyAtMiddle', 'the actionName is correct');
+    }
+  });
+
+  component.send('partyAtMiddle');
+});
+
+test('forward partyAtEnd action', function() {
+  expect(1);
+
+  var component = this.subject({
+    sendAction: function(actionName) {
+      equal(actionName, 'partyAtEnd', 'the actionName is correct');
+    }
+  });
+
+  component.send('partyAtEnd');
+});

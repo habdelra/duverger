@@ -13,6 +13,15 @@
   width: 13px;
 }
 
+%icon-arrow-south-inverted {
+  @extend %icon;
+  background-image: url("../images/south-arrow-white.svg");
+  background-repeat: no-repeat;
+  background-size: 13px auto;
+  height: 10px;
+  width: 13px;
+}
+
 %icon-arrow-east {
   @extend %icon;
   background-image: url("../images/east-arrow.svg");
@@ -22,15 +31,34 @@
   width: 10px;
 }
 
-@mixin icon-arrow($direction) {
-  @if ($direction == "north") {
+%icon-arrow-east-inverted {
+  @extend %icon;
+  background-image: url("../images/east-arrow-white.svg");
+  background-repeat: no-repeat;
+  background-size: auto 13px;
+  height: 13px;
+  width: 10px;
+}
+
+@mixin icon-arrow($direction, $invertedColor) {
+  @if ($direction == "north" and $invertedColor == true) {
+    @extend %icon-arrow-south-inverted;
+    @include transform(rotate(180deg));
+  } @else if ($direction == "north" and $invertedColor != true) {
     @extend %icon-arrow-south;
     @include transform(rotate(180deg));
-  } @else if ($direction == "south") {
+  } @else if ($direction == "south" and $invertedColor == true) {
+    @extend %icon-arrow-south-inverted;
+  } @else if ($direction == "south" and $invertedColor != true) {
     @extend %icon-arrow-south;
-  } @else if ($direction == "east") {
+  } @else if ($direction == "east" and $invertedColor == true) {
+    @extend %icon-arrow-east-inverted;
+  } @else if ($direction == "east" and $invertedColor != true) {
     @extend %icon-arrow-east;
-  } @else if ($direction == "west") {
+  } @else if ($direction == "west" and $invertedColor == true) {
+    @extend %icon-arrow-east-inverted;
+    @include transform(rotate(180deg));
+  } @else if ($direction == "west" and $invertedColor != true) {
     @extend %icon-arrow-east;
     @include transform(rotate(180deg));
   }

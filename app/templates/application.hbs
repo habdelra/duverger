@@ -68,9 +68,15 @@
     </div>
 
     {{#each preferenceGroup in model.preferenceGroups}}
-        {{preference-group preferenceGroup=preferenceGroup totalVoters=totalVoters}}
+        {{preference-group preferenceGroup=preferenceGroup
+                           totalVoters=totalVoters
+                           preferenceMoveDirection=preferenceMoveDirection
+                           preferenceOrderStyle=preferenceOrderStyle
+                           preferenceIsMoving=preferenceIsMoving}}
     {{/each}}
 
     {{outlet}}
   </div>
 </div>
+
+{{partial 'partials/preference-order-modal'}}
