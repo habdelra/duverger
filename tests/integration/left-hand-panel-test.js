@@ -6,8 +6,8 @@ var run = Ember.run;
 
 var leftHandPanelOpenedSelector = '.left-hand-panel.opened';
 var leftHandPanelClosedSelector = '.left-hand-panel.closed';
-var duvergerLogoSelector = '.left-hand-panel .duverger-logo';
-var descriptionSelector = '.left-hand-panel .description';
+var duvergerLogoSelector = '.left-hand-panel .sprite-duverger';
+var descriptionSelector = '.left-hand-panel .tab-content-about .description';
 var toggleButtonSelector = '.toggle-btn';
 
 function assertLHPOpen() {
