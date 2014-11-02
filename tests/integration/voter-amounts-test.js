@@ -37,6 +37,29 @@ function clickRunoffButton() {
   return click(runoffSelector);
 }
 
+function pressLeftArrow() {
+  return pressKeyCode(37);
+}
+
+function pressUpArrow() {
+  return pressKeyCode(38);
+}
+
+function pressRightArrow() {
+  return pressKeyCode(39);
+}
+
+function pressDownArrow() {
+  return pressKeyCode(40);
+}
+
+function pressKeyCode(keyCode) {
+  var press = $.Event("keydown");
+  press.ctrlKey = false;
+  press.which = keyCode;
+  return $(liberalVoterAmountSelector).trigger(press);
+}
+
 function assertTie() {
   var electionOutcome = find(tieSelector);
   ok(electionOutcome.text().trim().indexOf('Unresolveable Tie') > -1, 'Tie message displayed');
@@ -242,4 +265,32 @@ test('display total votes cast', function() {
       nationalist: 10
     }))
     .then(assertTotalVotesCount(70));
+});
+
+test('up and right arrow increments voter count', function() {
+  expect(2);
+
+  visit('/')
+    .then(pressUpArrow)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 11, 'the voter amount is correct');
+    })
+    .then(pressRightArrow)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 12, 'the voter amount is correct');
+    });
+});
+
+test('down and left arrow decrements voter count', function() {
+  expect(2);
+
+  visit('/')
+    .then(pressDownArrow)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 9, 'the voter amount is correct');
+    })
+    .then(pressLeftArrow)
+    .then(function() {
+      equal(find(liberalVoterAmountSelector).val(), 8, 'the voter amount is correct');
+    });
 });
