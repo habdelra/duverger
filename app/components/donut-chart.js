@@ -83,6 +83,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       .attr("cy", 0)
       .attr("r", innerRadius)
       .style({ 'stroke': 'white', 'stroke-width': '4px'})
+      .attr("opacity", 0.35)
       .attr("fill", "#edebe0");
 
     svg.datum(data).selectAll("path")
@@ -297,7 +298,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
 
     valueLabels.enter().append("svg:text")
       .attr("class", "value vote-percentage")
-      .style('background', 'white')
+      .attr("fill", "#777777")
       .attr("transform", function(d) {
         return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (outerRadius+textOffset) +
           "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (outerRadius+textOffset) + ")";
