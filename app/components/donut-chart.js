@@ -152,7 +152,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
         var val = fn(t);
         var x = Math.cos(val) * (outerRadius+textOffset) + backgroundHorizontalCenterOffset;
         var y = Math.sin(val) * (outerRadius+textOffset) + backgroundVerticalCenterOffset;
-        if (val > 0 && val < Math.PI ) {
+        if (val > 0 && val < Math.PI + 0.01 ) {
           y += 15 - backgroundHeight/1.5;
         } else {
           y -= 7 + backgroundHeight/1.5;
@@ -186,7 +186,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
         var val = fn(t);
         var x = Math.cos(val) * (outerRadius+textOffset) + backgroundHorizontalCenterOffset;
         var y = Math.sin(val) * (outerRadius+textOffset) + backgroundVerticalCenterOffset;
-        if (val > 0 && val < Math.PI ) {
+        if (val > 0 && val < Math.PI + 0.01 ) {
           y += 15 - backgroundHeight/1.5;
         } else {
           y -= 7 + backgroundHeight/1.5;
@@ -277,7 +277,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     var valueLabels = svg.selectAll("text.value")
       .data(pie(data))
       .attr("dy", function(d){
-        if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+        if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.501 ) {
           return 15;
         } else {
           return -7;
@@ -303,7 +303,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
           "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (outerRadius+textOffset) + ")";
       })
       .attr("dy", function(d){
-        if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+        if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.501 ) {
           return 15;
         } else {
           return -7;
