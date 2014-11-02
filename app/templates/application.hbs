@@ -14,8 +14,8 @@
 
     <div class="percentage-votes header--election--secondary">
       <span class="percentage-votes__label">Percentage of Votes</span>
+      <span class="election-round">{{runoffOrdinal}} Round</span>
       <div class="percentage-votes__value">
-        {{runoffOrdinal}} Round
 
         {{#if requiresRunoff}}
          <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
@@ -58,13 +58,13 @@
 
     <div class="preference-group-header header--election--secondary">
       <span class="secondary--voter-count">Number of Voters</span>
-      <ul class="party-preference-header">
-        <li>1st choice</li>
-        <li>2nd</li>
-        <li>3rd</li>
-        <li>4th</li>
-        <li>5th</li>
-      </ul>
+      <div class="party-preference-header">
+        <span class="title">1st choice</span>
+        <span class="title">2nd</span>
+        <span class="title">3rd</span>
+        <span class="title">4th</span>
+        <span class="title">5th</span>
+      </div>
     </div>
 
     {{#each preferenceGroup in model.preferenceGroups}}

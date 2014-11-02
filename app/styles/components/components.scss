@@ -71,15 +71,19 @@
 // Secondary header
 .header--election--secondary {
   text-transform: uppercase;
-  line-height: grid-height(2);
+  line-height: grid-height(3);
   color: $conservative-color;
   border-bottom: 1px solid $border-color;
   border-top: 1px solid $border-color;
   padding: grid-height(1) 0 grid-height(1) $grid-padding-unit;
   margin: 0 0 grid-height(1);
 
-  >*, .party-preference-header li {
+  >* {
     display: inline-block;
+  }
+
+  .election-round {
+    margin-left: 30px;
   }
 
   .secondary--voter-count {
@@ -88,15 +92,15 @@
     width: grid-width(2);
   }
 
-  .party-preference-header li {
+  .party-preference-header .title {
     @extend %election-header-style;
-    width: grid-width(1);
     letter-spacing: -.08em;
     text-align: center;
+    padding: 0 13px;
 
     &:first-child {
-      width: grid-width(1)+$grid-padding-unit;
-      margin-left: $grid-padding-unit;
+      padding: 0;
+      margin-left: $grid-padding-unit - 2;
       text-align: left;
     }
     &:last-child {
@@ -110,9 +114,14 @@
   }
 
   .election-nav-btn {
-    background: $border-color;
+    background: white;
     @extend %election-header-style;
-    border: none;
+    @extend %font-family-standard;
+    border: 1px solid $border-color;
+    height: grid-height(3);
+    box-shadow: 0 2px $border-color;
+    padding: 0 10px;
+    min-width: 163px;
   }
 }
 
@@ -149,6 +158,7 @@
 
   .vote-input {
     @extend %font-large;
+    @extend %font-family-standard;
     color: $text-color;
     font-weight: 600;
     padding: grid-height(1) 0;
@@ -172,11 +182,17 @@
 
 // Draggable party preferences
 .preference-group {
-  margin-bottom: 20px;
+  margin-bottom: grid-height(2);
+  border-bottom: 1px solid white;
+  padding-bottom: grid-height(1);
   font-size: 0; //hack to remove inline block spaces
   white-space: nowrap; //make sure inline preference items never break to a new line
   > * {
     @extend %font-medium;
+  }
+
+  &:last-of-type {
+    border-bottom-color: transparent;
   }
 
   .party-preference {
@@ -207,6 +223,7 @@
         content: "";
         display: block;
         border: 10px solid black;
+        margin: 1px 1px 0 0;
         border-bottom: 10px solid transparent;
         border-left: 10px solid transparent;
         position: absolute;
@@ -398,6 +415,7 @@
 
     .select-formula-button {
       @extend %election-header-style;
+      @extend %font-family-standard;
       width: 100%;
       text-align: left;
       height: grid-height(5);

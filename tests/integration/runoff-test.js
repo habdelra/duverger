@@ -9,7 +9,7 @@ var originalRandomFunction;
 var runoffSelector = '.election-nav-btn';
 var electionOutcomeSelector = '.party-winner';
 var electionRoundButton = '.election-nav-btn';
-var runoffMessageSelector = '.percentage-votes__value';
+var runoffMessageSelector = '.election-round';
 
 function assertChartDisplay(chartType) {
   return function() {
