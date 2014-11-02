@@ -3,7 +3,7 @@
 
   &:hover {
     cursor: pointer;
-    background-color: mix(#000, $color, 10%);
+    background-color: $color;
   }
 }
 
@@ -45,6 +45,7 @@
     display: block;
 
     &.formula__label {
+      overflow: hidden;
       padding: 1px 0;
     }
 
@@ -91,7 +92,6 @@
     @extend %election-header-style;
     width: grid-width(1);
     letter-spacing: -.08em;
-    margin-right: 2px;
     text-align: center;
 
     &:first-child {
@@ -134,8 +134,10 @@
 
   .voter-amount-btn {
     &.decrease, &.increase {
+      width: 25px;
       height: grid-height(5);
-      @include simple-hover-state($background-color-secondary);
+      background-position: center center;
+      @include simple-hover-state(white);
     }
     &.decrease {
       @include icon-arrow(west);
@@ -146,10 +148,11 @@
   }
 
   .vote-input {
-    @extend %font-largest;
+    @extend %font-large;
+    color: $text-color;
     font-weight: 600;
     padding: grid-height(1) 0;
-    width: grid-width(2) - 20;
+    width: grid-width(2) - 40;
     line-height: grid-height(3);
     height: grid-height(5);
     text-align: center;
@@ -293,7 +296,7 @@
     @include grid-height(5);
     @include transition-property(width);
     display: inline-block;
-    width: 2;
+    width: 2px;
     vertical-align: top;
 
     &.can-accept-drop {
@@ -352,9 +355,13 @@
   @extend %font-family-standard;
 
   .arrow {
-    margin-left: 30px;
+    margin-left: 20px;
     @include icon-arrow(south);
   }
+}
+
+.vote-percentage {
+  @extend %font-medium;
 }
 
 .selected-formula {
