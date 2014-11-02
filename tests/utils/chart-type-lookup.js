@@ -39,7 +39,7 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '5%', '21%', '11%', '16%', '47%' ]
+    text: [ '5.3%', '21.1%', '10.5%', '15.8%', '47.4%' ]
   },
   majorityRunoffSD45: {
     colors: [
@@ -49,7 +49,7 @@ var chartDefinitions = {
       '#FB5258',
       '#FB5258'
     ],
-    text: [ '5%', '21%', '11%', '16%', '47%' ]
+    text: [ '5.3%', '21.1%', '10.5%', '15.8%', '47.4%' ]
   },
   majorityFirstRoundSD80: {
     colors: [
@@ -59,7 +59,7 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '4%', '15%', '8%', '12%', '62%' ]
+    text: [ '3.8%', '15.4%', '7.7%', '11.5%', '61.5%' ]
   },
   majorityRunoffPreferenceChangeSD45: {
     colors: [
@@ -69,7 +69,7 @@ var chartDefinitions = {
       '#FB5258',
       '#FB5258'
     ],
-    text: [ '5%', '21%', '11%', '16%', '47%' ]
+    text: [ '5.3%', '21.1%', '10.5%', '15.8%', '47.4%' ]
   },
   majorityRunoffSD30L0N0G0C30: {
     colors: [
@@ -99,7 +99,7 @@ var chartDefinitions = {
       '#46C8B3',
       '#FB5258'
     ],
-    text: [ '5%', '21%', '11%', '16%', '47%' ]
+    text: [ '5.3%', '21.1%', '10.5%', '15.8%', '47.4%' ]
   },
   pluralitySD30L0N0G0C30: {
     colors: [

@@ -40,11 +40,11 @@ test('percentage returns the percentage of total voters that the preference grou
     voters: 104
   });
 
-  equal(get(component, 'percentage'), 10, 'the correct percentage is returned');
+  equal(get(component, 'percentage'), 10.4, 'the correct percentage is returned');
 
   set(component, 'voters', 105);
 
-  equal(get(component, 'percentage'), 11, 'the correct percentage is returned');
+  equal(get(component, 'percentage'), 10.5, 'the correct percentage is returned');
 });
 
 test('votersDisplay key/value computed get returns voters', function(){

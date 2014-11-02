@@ -195,11 +195,11 @@ test('clicking on the voter amount decrease button decrases the voter amount by 
       equal(find(liberalVoterAmountSelector).val(), 5, 'the voter amount is correct');
     })
     .then(assertPercentages({
-      socialDemocrat: '53%',
-      liberal: '5%',
-      nationalist: '16%',
-      green: '21%',
-      conservative: '5%'
+      socialDemocrat: '52.6%',
+      liberal: '5.3%',
+      nationalist: '15.8%',
+      green: '21.1%',
+      conservative: '5.3%'
     }));
 });
 
