@@ -44,6 +44,10 @@
     border-top: 1px solid transparent;
     display: block;
 
+    &.formula__label {
+      padding: 1px 0;
+    }
+
     &.menu-displayed {
       background: white;
       border: 1px solid $text-color;
@@ -341,9 +345,16 @@
 .toggle-formula-list-button {
   border: none;
   background-color: transparent;
-  margin-left: 30px;
   vertical-align: middle;
-  @include icon-arrow(south);
+  height: grid-height(3);
+  width: 100%;
+  @extend %election-header-style;
+  @extend %font-family-standard;
+
+  .arrow {
+    margin-left: 30px;
+    @include icon-arrow(south);
+  }
 }
 
 .selected-formula {
@@ -364,6 +375,7 @@
   .formula-item {
     padding-left: 6px;
     border-top: 1px dotted $text-color;
+    margin-top: -1px;
 
     &:first-of-type {
       border-bottom: none;
@@ -381,8 +393,8 @@
       @extend %election-header-style;
       width: 100%;
       text-align: left;
-      height: grid-height(6);
-      line-height: grid-height(6);
+      height: grid-height(5);
+      line-height: grid-height(5);
       border: none;
       background: none;
     }

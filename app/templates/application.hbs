@@ -40,7 +40,9 @@
       </div>
 
       <div class="formula header--election--dropdown">
-        <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>Formula Applied: <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Select formula</button></div>
+        <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>
+          <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Formula Applied: <span class="arrow">Select formula</span></button>
+        </div>
         <div class="selected-formula">{{model.formulaName}}</div>
         {{#if showFormulaList}}
           <ul class="formula-selector">
