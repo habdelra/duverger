@@ -102,7 +102,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
 
   updateAnnotations: function() {
     var _this = this;
-    var backgroundWidth = 50;
+    var backgroundWidth = 60;
     var backgroundHeight = 20;
     var backgroundHorizontalCenterOffset = 5;
     var backgroundVerticalCenterOffset = -2;
@@ -292,7 +292,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
         }
       })
       .text(function(d){
-        var percentage = Math.round((d.value/overallVoteTotal)*100);
+        var percentage = Math.floor((d.value/overallVoteTotal)*1000 + 0.5) / 10;
         return percentage + "%";
       });
 
@@ -318,7 +318,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
         }
       })
       .text(function(d){
-        var percentage = Math.round((d.value/overallVoteTotal)*100);
+        var percentage = Math.floor((d.value/overallVoteTotal)*1000 + 0.5) / 10;
         return percentage + "%";
       });
 

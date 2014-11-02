@@ -29,7 +29,7 @@ export default Ember.Component.extend({
   percentage: computed('voters', 'totalVoters', function() {
     var voters = get(this, 'voters');
     var totalVoters = get(this, 'totalVoters');
-    return Math.floor(( voters / totalVoters ) * 100 + 0.5);
+    return Math.floor(( voters / totalVoters ) * 1000 + 0.5) / 10;
   }),
 
   primaryPreference: computed('preferences', function() {
