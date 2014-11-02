@@ -25,13 +25,21 @@
     <path fill="none" stroke-miterlimit="10" d="M4.4,35.7V4.9c0,0,0.7-3.9,6.7-3.9"/>
     <line fill="none" stroke-miterlimit="10" x1="11.5" y1="15.3" x2="0" y2="15.3"/>
   </g>
-  <svg id="icon-team">
+  <g id="icon-team">
     <g>
       <circle fill="none" stroke-miterlimit="10" cx="14.2" cy="30.8" r="13.2"/>
       <circle fill="none" stroke-miterlimit="10" cx="54.4" cy="30.8" r="13.2"/>
       <path fill="none"   stroke-miterlimit="10" d="M27.3,30.8c0,0,7-7,13.9,0"/>
-      <path fill="none"   stroke-miterlimit="10" d="M1.4,25.3l9.3-20.9c0,0,3.9-2.9,10.2-3.4"       <path fill="none" s stroke-width="2" stroke-miterlimit="10" d="M65.9,25.3l6.8-19.9c0,0,3.9-2.9,10.2-3.4"/>
+      <path fill="none"   stroke-miterlimit="10" d="M1.4,25.3l9.3-20.9c0,0,3.9-2.9,10.2-3.4"   />    
+      <path fill="none"   stroke-width="2" stroke-miterlimit="10" d="M65.9,25.3l6.8-19.9c0,0,3.9-2.9,10.2-3.4"/>
     </g>
-  </svg>
-
+  </g>
+  <g id="icon-duverger">
+      <path fill="#F6DA3C" d="M146.928,151.22c0,31.771-25.752,57.521-57.523,57.521c-31.773,0.01-57.521-25.751-57.521-57.521
+        c0-31.765,25.748-57.515,57.521-57.522C121.176,93.697,146.928,119.455,146.928,151.22z"/>
+      <path fill="#EF555A" d="M48.732,110.548l40.672,40.672l40.672-40.672c-10.406-10.41-24.786-16.851-40.672-16.851
+        C73.52,93.697,59.137,100.138,48.732,110.548z"/>
+      <path fill="#52C0AE" d="M89.404,81.375c19.252-0.002,36.717,7.832,49.369,20.478l12.449-12.445L61.82,0L0,61.82l40.037,40.036
+        C52.686,89.207,70.15,81.373,89.404,81.375z"/>
+  </g>
 </svg>

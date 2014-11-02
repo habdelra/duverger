@@ -16,10 +16,16 @@ $font-size-small: 12px;
 $font-size-medium: 15px;
 $font-size-large: 21px;
 $font-size-largest: 30px;
+$font-size-maximum: 45px;
 
 %font-family-standard {
   font-family: 'source_sans_prosemibold', Helvetica, Arial, sans-serif;
   font-weight: 600;
+}
+
+%font-maximum {
+  font-size: $font-size-maximum;
+  line-height: 40px;
 }
 
 %font-largest {

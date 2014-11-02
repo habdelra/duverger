@@ -1,12 +1,11 @@
 $vertical-grid-unit: 10px;
 $grid-padding-unit: 16px;
 $border-box-sizing: true;
-
+$column-width: 47px;
+$gutter-width: 16px;
 
 
 @mixin grid-width($units){
-  $column-width: 47px;
-  $gutter-width: 16px;
   @if $units > 1 {
       $gutter-amount: $units - 1;
       width: $column-width * $units + $gutter-amount * $gutter-width;
