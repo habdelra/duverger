@@ -449,7 +449,6 @@ $lhp-thumb-padding: 10px;
 
   &.closed, &.closed .tabs .tab-content {
     left: -$lhp-width;
-    @include transition-property(left);
   }
 
   .project-name {
@@ -488,7 +487,7 @@ $lhp-thumb-padding: 10px;
       left: -9999px;
     }
 
-    label {
+    .tab-label {
       @include transition(background-color 0.2s ease-in-out);
       @extend %font-size-small;
       display: block;
@@ -509,6 +508,7 @@ $lhp-thumb-padding: 10px;
 
     .tab-content{
       @extend %font-size-medium;
+      @include transition-property(left);
       line-height: normal;
       z-index: 2;
       display: none;
@@ -524,17 +524,21 @@ $lhp-thumb-padding: 10px;
     }
 
     //Show or hide section based on whether tab is checked
-    [id^="tab"]:checked + label {
+    [id^="tab"]:checked + label.tab-label {
       background-color: darken($lhp-background-color, 15);
     }
     [id^="tab"]:checked ~ [id^="tab-content"] {
-      display: flex;
+      display: block;
     }
 
     .tab-content-about {
       $duverger-icon-width: 75px;
       $duverger-icon-height: 104px;
       text-align: left;
+
+      .tab-header {
+        display: flex;
+      }
 
       .sprite-duverger {
         flex-grow: 0;

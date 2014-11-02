@@ -25,7 +25,7 @@ function assertDuvergerLogoPresent() {
 }
 
 function assertDuvergerDescriptionPresent() {
-  equal(find(descriptionSelector).text().trim(), 'Duverger is an instructional tool for exploring the relationship between what voters want, different types of electoral system, and the outcomes of legislative elections.', 'Duverger description is present');
+  equal(find(descriptionSelector).text().trim(), 'Duverger is an instructional tool for exploring the relationship between different types of electoral systems, what voters want, and the outcomes of legislative elections.', 'Duverger description is present');
 }
 
 function clickToggleButton() {
