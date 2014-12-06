@@ -521,6 +521,7 @@ $lhp-thumb-padding: 10px;
       left: 0;
       bottom: $lhp-thumb-height*2 + 8px;
       width: $lhp-width;
+      @include transition-property(left);
     }
 
     //Show or hide section based on whether tab is checked
