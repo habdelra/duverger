@@ -438,7 +438,7 @@ $lhp-thumb-padding: 10px;
 
 .left-hand-panel {
   background-color: $lhp-background-color;
-  color: $text-color-light;
+  color: $text-color-lhp;
   width: $lhp-width;
   position: absolute;
   top: 0;
@@ -555,7 +555,7 @@ $lhp-thumb-padding: 10px;
       .content {
         @extend %font-small;
         flex-grow: 1;
-        -webkit-flex-grox: 1;
+        -webkit-flex-grow: 1;
       }
 
       .project-name {
@@ -600,6 +600,111 @@ $lhp-thumb-padding: 10px;
       outline: none;
       text-transform: uppercase;
       display: block;
+    }
+
+    .tab-parameters {
+      .tab-content {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .header--global--parameters {
+        font-size: 20px;
+        font-weight: normal;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+
+      table {
+        width: 100%;
+        border-spacing: 0;
+
+        th, td {
+          text-align: left;
+          font-weight: normal;
+          line-height: 16px;
+        }
+
+        th {
+          padding: 10px 10px 10px 20px;
+        }
+
+        thead tr {
+          background-color: #333333;
+
+          th {
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .table--parameters {
+        margin-bottom: 30px;
+
+        td {
+          padding: 10px 0px 10px 20px;
+        }
+
+        th:first-child, td:first-child {
+          width: 60%;
+        }
+
+        th:last-child, td:last-child {
+          width: 40%;
+        }
+
+        tbody tr:nth-child(odd) {
+          background-color: #3f3f3f;
+        }
+
+        tbody tr:nth-child(even) {
+          background-color: #393939;
+        }
+
+        .parameter {
+          display: block;
+          text-transform: uppercase;
+        }
+
+        .description {
+          font-size: 10px;
+          color: #AAAAAA;
+        }
+      }
+
+      .table--parties {
+        tbody tr {
+          background-color: #3f3f3f;
+        }
+
+        td {
+          padding: 5px 10px 5px 20px;
+        }
+
+        th:first-child, td:first-child {
+          width: 50%;
+        }
+
+        th:last-child, td:last-child {
+          width: 50%;
+        }
+
+        td:last-child span {
+          display: block;
+          width: 70%;
+          padding: 4px;
+          text-align: center;
+          text-transform: uppercase;
+          color: $text-color-light;
+        }
+
+        .social-democrat { background: $social-democrat-color; }
+        .liberal { background: $liberal-color; }
+        .nationalist { background: $nationalist-color; }
+        .green { background: $green-color; }
+        .conservative { background: $conservative-color; }
+
+      }
     }
   }
 }
