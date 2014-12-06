@@ -118,13 +118,18 @@ test('dragEnd sets isDragging to false and sends dragEnded action', function() {
 test('click sets isMoving to true and sends an action with party', function() {
   expect(3);
 
+  var actionCount = 0;
+
   var component = this.subject({
     model: {},
     party: 'teabagger',
     isMoving: false,
     sendAction: function(actionName, actionValue) {
-      equal(actionName, 'wasClicked', 'the action name is correct');
-      equal(actionValue, 'teabagger', 'the action value is correct');
+      actionCount++;
+      if (actionCount === 1) {
+        equal(actionName, 'wasClicked', 'the action name is correct');
+        equal(actionValue, 'teabagger', 'the action value is correct');
+      }
     }
   });
 
@@ -165,6 +170,26 @@ test('click fires the partyAtEnd action when model.index is equal to the prefere
       actionCount++;
       if (actionCount === 2) {
         equal(action, 'partyAtEnd', 'the action name is correct');
+      }
+    }
+  });
+
+  component.click();
+});
+
+test('click fires the partyAtMiddle action when model.index is between preferencesCount and 1', function() {
+  expect(1);
+  var actionCount = 0;
+
+  var component = this.subject({
+    model: {
+      index: 3
+    },
+    preferencesCount: 6,
+    sendAction: function(action) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(action, 'partyAtMiddle', 'the action name is correct');
       }
     }
   });

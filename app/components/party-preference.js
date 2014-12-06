@@ -38,6 +38,8 @@ export default Ember.Component.extend({
       this.sendAction('partyAtBeginning');
     } else if (partyIndex === (preferencesCount - 1)) {
       this.sendAction('partyAtEnd');
+    } else {
+      this.sendAction('partyAtMiddle');
     }
   },
 
