@@ -530,6 +530,7 @@ $lhp-thumb-padding: 10px;
 
       &:checked ~ [id^="tab-content"] {
         //Show or hide section based on whether tab is checked
+        display: -webkit-flex;
         display: flex;
       }
     }
@@ -540,6 +541,9 @@ $lhp-thumb-padding: 10px;
       text-align: left;
 
       .sprite-duverger {
+        -webkit-flex-grow: 0;
+        -webkit-flex-shrink: 0;
+        -webkit-flex-basis: $duverger-icon-width;
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: $duverger-icon-width;
@@ -550,6 +554,7 @@ $lhp-thumb-padding: 10px;
       .content {
         @extend %font-small;
         flex-grow: 1;
+        -webkit-flex-grox: 1;
       }
 
       .project-name {
