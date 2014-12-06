@@ -26,7 +26,7 @@
       Parameters
     </label>
     <div id="tab-content2" class="tab-content">
-      <header class="header--global--parameters">Global Parameters</header>
+      <header class="tab-header header--global-parameters">Global Parameters</header>
 
       <table class="table--parameters">
         <thead>
@@ -56,7 +56,7 @@
               <span class="parameter">Legislative size</span>
               <span class="description">Number of seats in the legislature</span>
             </td>
-            <td>10</td>
+            <td>1</td>
           </tr>
 
           <tr>
@@ -109,7 +109,7 @@
       </table>
     </div>
   </li>
-  <li class="tab tab-formulae">
+  <li class="tab tab-formulas">
     <input type="radio" name="tabs" id="tab3" />
     <label for="tab3">
       <svg role="img" title="Formulas" class="icon sprite-icon-formulas" viewBox="0 0 54.6 39.6">
@@ -117,8 +117,31 @@
       </svg>
       Formulas
     </label>
+
     <div id="tab-content3" class="tab-content">
-      FORMULAE
+      <header class="tab-header header--formulas">Formulas</header>
+
+      <div class="formulas--block formulas--majority-runoff">
+        <header class="formulas--header header--majority-runoff">Majority Runoff</header>
+        <ul class="items">
+          <li class="item">Typically used with a district magnitude of 1.</li>
+          <li class="item">Each voter casts one vote for one party.</li>
+          <li class="item">If a party receives more than half the votes, that party wins the seat(s) for the district.</li>
+          <li class="item">If no party receives more than half the votes, a runoff election is held between the top two parties.</li>
+          <li class="item">Ties are resolved by lot.</li>
+        </ul>
+      </div>
+
+      <div class="formulas--block formulas--plurality">
+        <header class="formulas--header header--plurality">Plurality</header>
+        <ul class="items">
+          <li class="item">(aka “first past the post”, “winner take all”)</li>
+          <li class="item">Typically used with a district magnitude of 1 (“SMD plurality”).</li>
+          <li class="item">Each voter casts one vote for one party.</li>
+          <li class="item">The party with the greatest number of votes wins the seat(s) for the district.</li>
+          <li class="item">Ties are resolved by lot.</li>
+        </ul>
+      </div>
     </div>
   </li>
   <li class="tab tab-team">
