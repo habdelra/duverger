@@ -114,3 +114,302 @@ test('dragEnd sets isDragging to false and sends dragEnded action', function() {
   component.dragEnd();
   ok(!get(component, 'isDragging'), 'isDragging is false');
 });
+
+test('click sets isMoving to true and sends an action with party', function() {
+  expect(3);
+
+  var component = this.subject({
+    model: {},
+    party: 'teabagger',
+    isMoving: false,
+    sendAction: function(actionName, actionValue) {
+      equal(actionName, 'wasClicked', 'the action name is correct');
+      equal(actionValue, 'teabagger', 'the action value is correct');
+    }
+  });
+
+  component.click();
+
+  ok(get(component, 'isMoving'), 'isMoving is set to true');
+});
+
+test('click fires the partyAtBeginning action when model.index is 1', function() {
+  expect(1);
+  var actionCount = 0;
+
+  var component = this.subject({
+    model: {
+      index: 1
+    },
+    sendAction: function(action) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(action, 'partyAtBeginning', 'the action name is correct');
+      }
+    }
+  });
+
+  component.click();
+});
+
+test('click fires the partyAtEnd action when model.index is equal to the preferencesCount', function() {
+  expect(1);
+  var actionCount = 0;
+
+  var component = this.subject({
+    model: {
+      index: 5
+    },
+    preferencesCount: 6,
+    sendAction: function(action) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(action, 'partyAtEnd', 'the action name is correct');
+      }
+    }
+  });
+
+  component.click();
+});
+
+test('afterPreferencesIsMovingChanged sets isMoving to false when preferenceIsMoving is falsy', function() {
+  expect(2);
+
+  var component = this.subject({
+    isMoving: true,
+    preferenceIsMoving: true
+  });
+
+  ok(get(component, 'isMoving'), 'isMoving is true');
+
+  set(component, 'preferenceIsMoving', false);
+
+  ok(!get(component, 'isMoving'), 'isMoving is false');
+});
+
+test('draggable is set to the string `true` when isFirstPreference is false, and set to string `false` when isFirstPreference is true', function() {
+  expect(2);
+
+  var component = this.subject({
+    isFirstPreference: true
+  });
+
+  equal(get(component, 'draggable'), 'false', 'draggable is set to string `false`');
+
+  set(component, 'isFirstPreference', false);
+
+  equal(get(component, 'draggable'), 'true', 'draggable is set to string `true`');
+});
+
+test('on initialize set isMoving to true when the party is the same as the preferenceIsMoving.party', function() {
+  expect(1);
+
+  var component = this.subject({
+    model: {
+      party: 'teabagger',
+    },
+    preferenceIsMoving: {
+      party: 'teabagger'
+    }
+  });
+
+  ok(get(component, 'isMoving'), 'isMoving is set to true');
+});
+
+test('on initialize set isMoving to false when the party is not the same as the preferenceIsMoving.party', function() {
+  expect(1);
+
+  var component = this.subject({
+    model: {
+      party: 'green',
+    },
+    preferenceIsMoving: {
+      party: 'teabagger'
+    }
+  });
+
+  ok(!get(component, 'isMoving'), 'isMoving is set to false');
+});
+
+test('when preferenceMoveDirection is set to `previous` and isMoving is true send a reorder action', function() {
+  expect(3);
+
+  var actionCount = 0;
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 3
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      actionCount++;
+      if (actionCount === 1) {
+        equal(actionName, 'reorder', 'the action name is correct');
+        deepEqual(actionValue, expected, 'the action value is correct');
+      }
+    }
+  });
+
+  var expected = {
+    partyIndex: 3,
+    dropZoneIndex: 2
+  };
+
+  set(component, 'preferenceMoveDirection', 'previous');
+
+  equal(get(component, 'preferenceMoveDirection'), null, 'the preferenceMoveDirection is set to `null`');
+});
+
+test('when preferenceMoveDirection is set to `after` and isMoving is true send a reorder action', function() {
+  expect(3);
+
+  var actionCount = 0;
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 3
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      actionCount++;
+      if (actionCount === 1) {
+        equal(actionName, 'reorder', 'the action name is correct');
+        deepEqual(actionValue, expected, 'the action value is correct');
+      }
+    }
+  });
+
+  var expected = {
+    partyIndex: 3,
+    dropZoneIndex: 5
+  };
+
+  set(component, 'preferenceMoveDirection', 'after');
+
+  equal(get(component, 'preferenceMoveDirection'), null, 'the preferenceMoveDirection is set to `null`');
+});
+
+test('when preferenceMoveDirection is set to `previous` and the party index is 1 dont fire an action', function() {
+  expect(1);
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 1
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      ok(false, 'no action is fired');
+    }
+  });
+
+  set(component, 'preferenceMoveDirection', 'previous');
+
+  equal(get(component, 'preferenceMoveDirection'), null, 'the preferenceMoveDirection is set to `null`');
+});
+
+test('when preferenceMoveDirection is set to `after` and the party index is the 1 less than the preferencesCount dont fire an action', function() {
+  expect(1);
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 4
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      ok(false, 'no action is fired');
+    }
+  });
+
+  set(component, 'preferenceMoveDirection', 'after');
+
+  equal(get(component, 'preferenceMoveDirection'), null, 'the preferenceMoveDirection is set to `null`');
+});
+
+test('when preferenceMoveDirection changes and the current component is not the component that is moving do not fire an action', function() {
+  expect(1);
+
+  var component = this.subject({
+    model: {
+      party: 'teabagger',
+      index: 3
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      ok(false, 'no action is fired');
+    }
+  });
+
+  set(component, 'preferenceMoveDirection', 'after');
+
+  equal(get(component, 'preferenceMoveDirection'), null, 'the preferenceMoveDirection is set to `null`');
+});
+
+test('when the preferenceDirection changes and the new position is at the beginning fire the partyAtBeginning action', function() {
+  expect(1);
+
+  var actionCount = 0;
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 2
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(actionName, 'partyAtBeginning', 'the action name is correct');
+      }
+    }
+  });
+
+  set(component, 'preferenceMoveDirection', 'previous');
+});
+
+test('when the preferenceDirection changes and the new position is at the end fire the partyAtEnd action', function() {
+  expect(1);
+
+  var actionCount = 0;
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 3
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(actionName, 'partyAtEnd', 'the action name is correct');
+      }
+    }
+  });
+
+  set(component, 'preferenceMoveDirection', 'after');
+});
+
+test('when the preferenceDirection changes and the new position is in the middle fire the partyAtMiddle action', function() {
+  expect(1);
+
+  var actionCount = 0;
+
+  var component = this.subject({
+    isMoving: true,
+    model: {
+      index: 2
+    },
+    preferencesCount: 5,
+    sendAction: function(actionName, actionValue) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(actionName, 'partyAtMiddle', 'the action name is correct');
+      }
+    }
+  });
+
+  set(component, 'preferenceMoveDirection', 'after');
+});

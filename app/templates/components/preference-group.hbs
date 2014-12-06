@@ -6,9 +6,11 @@
   <div class="preference-group-percentage">{{percentage}}% of population</div>
 </div>
 
-
-
 {{#each partyPreference in preferenceGroup.preferences}}
-  {{party-preference model=partyPreference primaryPreference=primaryPreference}}
+  {{party-preference model=partyPreference
+                     primaryPreference=primaryPreference
+                     preferencesCount=preferenceGroup.preferences.length
+                     preferenceIsMoving=preferenceIsMoving
+                     preferenceMoveDirection=preferenceMoveDirection}}
   {{party-drop-zone model=partyPreference isDragging=isDragging primaryPreference=primaryPreference}}
 {{/each}}

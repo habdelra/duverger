@@ -4,19 +4,87 @@ import partyLookup from '../utils/party-lookup';
 var get = Ember.get;
 var set = Ember.set;
 var computed = Ember.computed;
+var on = Ember.on;
 var alias = computed.alias;
+var observer = Ember.observer;
+
+var preferenceMoveMap = {
+  previous: -1,
+  after: 2
+};
 
 export default Ember.Component.extend({
   dragStarted: 'dragStarted',
   dragEnded: 'dragEnded',
+  wasClicked: 'wasClicked',
+  reorder: 'reorder',
+  partyAtBeginning: 'partyAtBeginning',
+  partyAtEnd: 'partyAtEnd',
+  partyAtMiddle: 'partyAtMiddle',
 
-  classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', ':party-preference', 'party'],
+  classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', 'isMoving:moving', ':party-preference', 'party'],
   attributeBindings: ['draggable'],
   party: alias('model.party'),
+
+  click: function() {
+    var party = get(this, 'party');
+    var partyIndex = get(this, 'model.index');
+    var preferencesCount = get(this, 'preferencesCount');
+
+    set(this, 'isMoving', true);
+    this.sendAction('wasClicked', party);
+
+    if(partyIndex === 1) {
+      this.sendAction('partyAtBeginning');
+    } else if (partyIndex === (preferencesCount - 1)) {
+      this.sendAction('partyAtEnd');
+    }
+  },
+
+  afterPreferenceIsMovingChanged: observer('preferenceIsMoving', function() {
+    var preferenceIsMoving = get(this, 'preferenceIsMoving');
+
+    if (!preferenceIsMoving) {
+      set(this, 'isMoving', false);
+    }
+  }),
 
   draggable: computed('isFirstPreference', function() {
     var isFirstPreference = !get(this, 'isFirstPreference');
     return isFirstPreference + '';
+  }),
+
+  initialize: on('init', function() {
+    var movingParty = get(this, 'preferenceIsMoving.party');
+    var party = get(this, 'party');
+
+    set(this, 'isMoving', movingParty === party);
+  }),
+
+  afterPreferenceMoveDirectionChanged: observer('preferenceMoveDirection', 'isMoving', function() {
+    var preferenceMoveDirection = get(this, 'preferenceMoveDirection');
+    var isMoving = get(this, 'isMoving');
+    var partyIndex = get(this, 'model.index');
+    var preferencesCount = get(this, 'preferencesCount');
+
+    if (isMoving && preferenceMoveDirection) {
+      var dropZoneIndex = partyIndex + preferenceMoveMap[preferenceMoveDirection];
+      if (dropZoneIndex > 0 && dropZoneIndex <= preferencesCount) {
+        this.sendAction('reorder', {
+          partyIndex: partyIndex,
+          dropZoneIndex: dropZoneIndex
+        });
+
+        if (dropZoneIndex === 1) {
+          this.sendAction('partyAtBeginning');
+        } else if (dropZoneIndex === preferencesCount) {
+          this.sendAction('partyAtEnd');
+        } else {
+          this.sendAction('partyAtMiddle');
+        }
+      }
+    }
+    set(this, 'preferenceMoveDirection', null);
   }),
 
   partyName: computed('party', function(){

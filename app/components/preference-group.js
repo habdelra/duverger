@@ -9,6 +9,10 @@ var not = computed.not;
 
 export default Ember.Component.extend({
   recalculateElectionOutcome: 'recalculateElectionOutcome',
+  partyAtBeginning: 'partyAtBeginning',
+  partyAtEnd: 'partyAtEnd',
+  partyAtMiddle: 'partyAtMiddle',
+
   classNameBindings: [':preference-group', 'primaryPreferenceParty'],
 
   voters: alias('preferenceGroup.voters'),
@@ -61,6 +65,18 @@ export default Ember.Component.extend({
         set(this, 'voters', --voters);
       }
     },
+    wasClicked: function(party) {
+      var primaryParty = get(this, 'preferences.firstObject.party');
+      var offset = this.$().offset();
+      var height = this.$().height();
+      var width =  this.$().width();
+      var top = offset.top + (height / 2) + 5;
+      var left = offset.left + (width / 2) + 40;
+      var style = 'top:' + top + 'px; left:' + left + 'px;';
+
+      set(this, 'preferenceIsMoving', { primaryParty: primaryParty, party: party });
+      set(this, 'preferenceOrderStyle', style);
+    },
     dragStarted: function() {
       set(this, 'isDragging', true);
     },
@@ -82,6 +98,18 @@ export default Ember.Component.extend({
       preferences.endPropertyChanges();
 
       this.sendAction('recalculateElectionOutcome');
+    },
+
+    partyAtBeginning: function() {
+      this.sendAction('partyAtBeginning');
+    },
+
+    partyAtMiddle: function() {
+      this.sendAction('partyAtMiddle');
+    },
+
+    partyAtEnd: function() {
+      this.sendAction('partyAtEnd');
     }
   }
 });

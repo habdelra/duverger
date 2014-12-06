@@ -1,0 +1,5 @@
+{{#ic-modal id="preference-order-modal" mainStyle=preferenceOrderStyle on-close='preferenceDoneMoving'}}
+  {{#ic-modal-title}}{{/ic-modal-title}}
+  <button class="preference-order-btn move-before" {{bind-attr disabled=preferencePreviousButtonDisabled}} {{action 'movePreferenceBefore'}}>Move Previous</button>
+  <button class="preference-order-btn move-after" {{bind-attr disabled=preferenceNextButtonDisabled}} {{action 'movePreferenceAfter'}}>Move After</button>
+{{/ic-modal}}

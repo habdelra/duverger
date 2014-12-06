@@ -13,8 +13,14 @@
   color: $text-color-secondary;
 }
 
+* {
+  outline: none;
+}
+
+
 button {
   cursor: pointer;
+  @extend %font-family-standard;
 }
 
 // Election Headers
@@ -46,7 +52,7 @@ button {
     }
 
     &.menu-displayed {
-      background: white;
+      background: $text-color-light;
       border: 1px solid $text-color;
       border-bottom-width: 0;
     }
@@ -110,14 +116,18 @@ button {
   }
 
   .election-nav-btn {
-    background: white;
+    background: $text-color-light;
     @extend %election-header-style;
-    @extend %font-family-standard;
     border: 1px solid $border-color;
     height: grid-height(3);
     box-shadow: 0 2px $border-color;
     padding: 0 10px;
     min-width: 170px;
+    @include transition (box-shadow 0.1s ease-in-out);
+
+    &:active {
+      box-shadow: 0 2px transparent;
+    }
   }
 }
 
@@ -142,13 +152,13 @@ button {
       width: 25px;
       height: grid-height(5);
       background-position: center center;
-      @include simple-hover-state(white);
+      @include simple-hover-state($text-color-light);
     }
     &.decrease {
-      @include icon-arrow(west);
+      @include icon-arrow(west, false);
     }
     &.increase {
-      @include icon-arrow(east);
+      @include icon-arrow(east, false);
     }
   }
 
@@ -176,10 +186,54 @@ button {
   }
 }
 
+// party preference order modal
+#preference-order-modal {
+  background-color: transparent;
+
+  .ic-modal-close {
+    display: none;
+  }
+
+  ic-modal-title {
+    display: none;
+  }
+  ic-modal-main {
+    height: grid-height(5);
+    display: inline-block;
+    border-radius: 0;
+    border: none;
+    background-color: $text-color;
+    padding: 5px;
+    margin: 0px;
+  }
+
+  .preference-order-btn {
+    background: $conservative-color;
+    border: none;
+    &:active {
+      background-color: darken($conservative-color, 10);
+      @include transition (background-color 0.1s ease-in-out);
+    }
+
+    &.move-before, &.move-after {
+      background-position: center center;
+      width: 40px;
+      height: 40px;
+      stroke: white;
+    }
+    &.move-before {
+      @include icon-arrow(west, true);
+    }
+    &.move-after {
+      @include icon-arrow(east, true);
+    }
+  }
+}
+
 // Draggable party preferences
 .preference-group {
   margin-bottom: grid-height(2);
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid $text-color-light;
   padding-bottom: grid-height(1);
   font-size: 0; //hack to remove inline block spaces
   white-space: nowrap; //make sure inline preference items never break to a new line
@@ -197,7 +251,6 @@ button {
     vertical-align: top;
     text-align: center;
     background: $text-color-light;
-    padding: grid-height(1) 0;
     width: grid-width(1);
     height: grid-height(5);
 
@@ -211,8 +264,15 @@ button {
 
     .secondary-party-name {
       @extend %font-large;
-      @include vertical-align;
+    }
+
+    .ic-modal-trigger {
       display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: none;
+      @include vertical-align;
     }
 
     &:after {
@@ -248,17 +308,17 @@ button {
     }
 
     &.first-preference {
-      color: $text-color-light;
       text-align: left;
       white-space: normal;
       width: grid-width(1)+$grid-padding-unit;
 
       .party-name {
         @extend %font-large;
+        @include vertical-align;
+        color: $text-color-light;
         display: inline-block;
         width: 100%;
         text-align: center;
-        @include vertical-align;
       }
 
       .vote-input-container {
@@ -365,11 +425,10 @@ button {
   height: grid-height(3);
   width: 100%;
   @extend %election-header-style;
-  @extend %font-family-standard;
 
   .arrow {
     margin-left: 20px;
-    @include icon-arrow(south);
+    @include icon-arrow(south, false);
   }
 }
 
@@ -388,7 +447,7 @@ button {
   top: grid-height(3);
   position: absolute;
   z-index: 1;
-  background-color: white;
+  background-color: $text-color-light;
   border: 1px solid $text-color;
   border-top-width: 0;
 
@@ -405,13 +464,12 @@ button {
       background: $text-color;
 
       .select-formula-button {
-        color: white;
+        color: $text-color-light;
       }
     }
 
     .select-formula-button {
       @extend %election-header-style;
-      @extend %font-family-standard;
       width: 100%;
       text-align: left;
       height: grid-height(5);
