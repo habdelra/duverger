@@ -9,11 +9,14 @@
   </g>
   <g id="icon-parameters">
     <g>
-      <line class="st0" x1="5.6" y1="0" x2="5.6" y2="47"/>
+      <line class="st0" x1="5.6" y1="0" x2="5.6" y2="10"/>
+      <line class="st0" x1="5.6" y1="19" x2="5.6" y2="47"/>
       <circle class="st0" cx="6" cy="13.8" r="5"/>
-      <line class="st0" x1="25.6" y1="0" x2="25.6" y2="47"/>
+      <line class="st0" x1="25.6" y1="0" x2="25.6" y2="29"/>
+      <line class="st0" x1="25.6" y1="38" x2="25.6" y2="47"/>
       <circle class="st0" cx="26" cy="32.8" r="5"/>
-      <line class="st0" x1="46.6" y1="0" x2="46.6" y2="47"/>
+      <line class="st0" x1="46.6" y1="0" x2="46.6" y2="14"/>
+      <line class="st0" x1="46.6" y1="23" x2="46.6" y2="47"/>
       <circle class="st0" cx="47" cy="19.8" r="5"/>
     </g>
   </g>

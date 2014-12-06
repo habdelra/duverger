@@ -471,10 +471,6 @@ $lhp-thumb-padding: 10px;
       float: left;
       width: 120px;
       position: relative;
-
-      &:hover {
-        background-color: darken($text-color, 8);
-      }
     }
 
     .icon {
@@ -524,12 +520,20 @@ $lhp-thumb-padding: 10px;
       @include transition-property(left);
     }
 
-    //Show or hide section based on whether tab is checked
-    [id^="tab"]:checked + label {
-      background-color: darken($lhp-background-color, 15);
-    }
-    [id^="tab"]:checked ~ [id^="tab-content"] {
-      display: flex;
+    [id^="tab"] {
+      &+label:hover {
+        cursor: pointer;
+      }
+
+      &+label:hover, &:checked+label {
+        background-color: darken($lhp-background-color, 15);
+      }
+
+      &:checked ~ [id^="tab-content"] {
+        //Show or hide section based on whether tab is checked
+        display: -webkit-flex;
+        display: flex;
+      }
     }
 
     .tab-content-about {
@@ -538,6 +542,9 @@ $lhp-thumb-padding: 10px;
       text-align: left;
 
       .sprite-duverger {
+        -webkit-flex-grow: 0;
+        -webkit-flex-shrink: 0;
+        -webkit-flex-basis: $duverger-icon-width;
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: $duverger-icon-width;
@@ -548,6 +555,7 @@ $lhp-thumb-padding: 10px;
       .content {
         @extend %font-small;
         flex-grow: 1;
+        -webkit-flex-grox: 1;
       }
 
       .project-name {
@@ -573,6 +581,7 @@ $lhp-thumb-padding: 10px;
 
     .tab-info {
       border-radius: 0 36px 36px 0;
+      width: 80px;
       padding: 0;
       height: 100%;
       position: absolute;
@@ -581,7 +590,7 @@ $lhp-thumb-padding: 10px;
     }
 
     .toggle-btn {
-      @extend %font-medium;
+      text-indent: -6px;
       display: block;
       height: 60px;
       width: 100%;
@@ -591,10 +600,6 @@ $lhp-thumb-padding: 10px;
       outline: none;
       text-transform: uppercase;
       display: block;
-
-      &:hover {
-        cursor: pointer;
-      }
     }
   }
 }
