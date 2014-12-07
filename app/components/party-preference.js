@@ -31,6 +31,8 @@ export default Ember.Component.extend({
     var partyIndex = get(this, 'model.index');
     var preferencesCount = get(this, 'preferencesCount');
 
+    if (!partyIndex) { return; }
+
     set(this, 'isMoving', true);
     this.sendAction('wasClicked', party);
 
