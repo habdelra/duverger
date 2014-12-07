@@ -74,6 +74,7 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
 
     partyAtBeginning: function() {
       set(this, 'preferencePreviousButtonDisabled', true);
+      set(this, 'preferenceNextButtonDisabled', false);
     },
 
     partyAtMiddle: function() {
@@ -83,6 +84,7 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
 
     partyAtEnd: function() {
       set(this, 'preferenceNextButtonDisabled', true);
+      set(this, 'preferencePreviousButtonDisabled', false);
     }
   }
 });

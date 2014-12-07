@@ -220,28 +220,32 @@ test('movePreferenceAfter action sets preferenceMoveDirection to `after`', funct
   equal(get(controller, 'preferenceMoveDirection'), 'after', 'the preferenceMoveDirection is correct');
 });
 
-test('partyAtBeginning action sets the preferencePreviousButtonDisabled to true', function() {
-  expect(1);
+test('partyAtBeginning action sets the preferencePreviousButtonDisabled to true and preferenceNextButtonDisabled to false', function() {
+  expect(2);
 
   var controller = this.subject({
-    content: {}
+    preferenceNextButtonDisabled: true,
+    preferencePreviousButtonDisabled: false
   });
 
   controller.send('partyAtBeginning');
 
   ok(get(controller, 'preferencePreviousButtonDisabled'), 'preferencePreviousButtonDisabled set to true');
+  ok(!get(controller, 'preferenceNextButtonDisabled'), 'preferenceNextButtonDisabled set to false');
 });
 
-test('partyAtEnd action sets the preferenceNextButtonDisabled to true', function() {
-  expect(1);
+test('partyAtEnd action sets the preferenceNextButtonDisabled to true and preferencePreviousButtonDisabled to false', function() {
+  expect(2);
 
   var controller = this.subject({
-    content: {}
+    preferenceNextButtonDisabled: false,
+    preferencePreviousButtonDisabled: true
   });
 
   controller.send('partyAtEnd');
 
   ok(get(controller, 'preferenceNextButtonDisabled'), 'preferenceNextButtonDisabled set to true');
+  ok(!get(controller, 'preferencePreviousButtonDisabled'), 'preferencePreviousButtonDisabled set to false');
 });
 
 test('partyAtMiddle action set preferenceNextButtonDisabled and preferencePreviousButtonDisabled to false', function() {
