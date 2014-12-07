@@ -603,3 +603,124 @@ $lhp-thumb-padding: 10px;
     }
   }
 }
+
+// ---------------------------------------
+// Team Styles
+// ---------------------------------------
+.tab-team {
+  .tab-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
+
+  h3 {
+    @extend %font-large;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 100%;
+    margin: 20px 0 26px;
+
+    a {
+      color: $nationalist-color;
+      text-decoration: none;
+    }
+  }
+
+  .team-member {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 112px;
+    margin: 0 0 0 19px;
+    height: 195px;
+
+    .team-member-photo {
+      position: relative;
+      margin: 0 0 10px 0;
+    }
+
+    .team-member-twitter {
+      @extend font-small;
+      @include transition(background-color, .2s);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      line-height: 110px;
+      opacity: 0;
+      text-decoration: none;
+      z-index: 90;
+      color: $text-color;
+      letter-spacing: -.08em;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    img {
+      display: block;
+    }
+
+    .team-name, .team-title {
+      @extend %font-small;
+      display: block;
+      line-height: normal;
+    }
+
+    .team-name {
+      text-transform: uppercase;
+    }
+
+    .team-title {
+      color: #dcd8c3;
+    }
+  }
+
+  @mixin team-member-hover($color) {
+    .team-member-photo:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 80;
+      background-color: rgba($color, .6);
+    }
+
+    &:hover .team-member-photo:before {
+      background-color: rgba($color, 1);
+    }
+  }
+
+  .team-member1, .team-member6, .team-member9 {
+      @include team-member-hover($nationalist-color);
+  }
+
+  .team-member2, .team-member3 {
+      @include team-member-hover($liberal-color);
+  }
+
+  .team-member4, .team-member8 {
+      @include team-member-hover($green-color);
+  }
+
+  .team-member5, .team-member7 {
+      @include team-member-hover($social-democrat-color);
+  }
+
+  .support-callout {
+    display: block;
+    text-align: right;
+    color: #dcd8c3;
+    width: 100%;
+    margin: 30px 0 0 0;
+
+    a {
+      color: $nationalist-color;
+      text-decoration: none;
+    }
+  }
+}
