@@ -16,6 +16,13 @@ ic.modal.ModalComponent.reopen({
     this.set('mainStyle', null);
   }),
 
+  /*
+   * added mouseDown event for touch devices
+   */
+  closeOnClick: function(event) {
+    if (event.target !== this.get('element')) { return; }
+    this.close();
+  }.on('click', 'touchStart')
 });
 
 ic.modal.ModalTriggerComponent.reopen({

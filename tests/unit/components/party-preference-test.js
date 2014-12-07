@@ -438,3 +438,15 @@ test('when the preferenceDirection changes and the new position is in the middle
 
   set(component, 'preferenceMoveDirection', 'after');
 });
+
+test('the touchStart method invokes the click event', function() {
+  expect(1);
+
+  var component = this.subject({
+    click: function() {
+      ok(true, 'the click() method was invoked');
+    }
+  });
+
+  component.touchStart();
+});
