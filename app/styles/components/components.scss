@@ -660,17 +660,17 @@ $lhp-thumb-padding: 10px;
       display: block;
     }
 
+    .tab-header {
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
     .tab-parameters {
       .tab-content {
         -webkit-flex-direction: column;
         flex-direction: column;
-      }
-
-      .header--global--parameters {
-        font-size: 20px;
-        font-weight: normal;
-        margin-bottom: 30px;
-        text-align: left;
       }
 
       table {
@@ -761,7 +761,50 @@ $lhp-thumb-padding: 10px;
         .nationalist { background: $nationalist-color; }
         .green { background: $green-color; }
         .conservative { background: $conservative-color; }
+      }
+    }
 
+    .tab-formulas {
+      .tab-content {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .formulas--block {
+        border: solid 1px #333333;
+        background-color: #3F3F3F;
+        text-align: left;
+        font-weight: normal;
+        color: #CCCCCC;
+        line-height: 18px;
+
+        .formulas--header {
+          text-transform: uppercase;
+          background-color: #333333;
+          padding: 5px 5px 5px 20px;
+          font-size: 14px;
+        }
+
+        .items {
+          margin: 8px 10px 8px 40px;
+
+          .item {
+            text-indent: -18px;
+            padding: 3px 0;
+          }
+
+          .item:before {
+            color: #46C8B3;
+            content: "\2022";
+            font-size: 24px;
+            padding-right: 10px;
+            position: relative;
+            top: 3px;
+          }
+        }
+      }
+      .formulas--majority-runoff {
+        margin-bottom: 30px;
       }
     }
   }
