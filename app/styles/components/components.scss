@@ -189,6 +189,7 @@ button {
 // party preference order modal
 #preference-order-modal {
   background-color: transparent;
+  z-index: 2;
 
   .ic-modal-close {
     display: none;
