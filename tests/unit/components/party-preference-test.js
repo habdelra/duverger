@@ -121,8 +121,10 @@ test('click sets isMoving to true and sends an action with party', function() {
   var actionCount = 0;
 
   var component = this.subject({
-    model: {},
-    party: 'teabagger',
+    model: {
+      party: 'teabagger',
+      index: 3
+    },
     isMoving: false,
     sendAction: function(actionName, actionValue) {
       actionCount++;
@@ -136,6 +138,21 @@ test('click sets isMoving to true and sends an action with party', function() {
   component.click();
 
   ok(get(component, 'isMoving'), 'isMoving is set to true');
+});
+
+test('click does not set isMoving to true when it model.index is 0', function() {
+  expect(1);
+
+  var component = this.subject({
+    model: {
+      party: 'teabagger',
+      index: 0
+    }
+  });
+
+  component.click();
+
+  ok(!get(component, 'isMoving'), 'isMoving is false');
 });
 
 test('click fires the partyAtBeginning action when model.index is 1', function() {
