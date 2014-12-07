@@ -43,6 +43,10 @@ export default Ember.Component.extend({
     }
   },
 
+  touchStart: function() {
+    this.click();
+  },
+
   afterPreferenceIsMovingChanged: observer('preferenceIsMoving', function() {
     var preferenceIsMoving = get(this, 'preferenceIsMoving');
 

@@ -211,8 +211,9 @@ button {
   .preference-order-btn {
     background: $conservative-color;
     border: none;
-    @include transition(background .1s ease-in);
+    @include transition(background-color .1s ease-in);
     &:active {
+      @include transition(background-color .1s ease-in);
       background-color: darken($conservative-color, 10);
     }
     &[disabled] {
