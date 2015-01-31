@@ -679,6 +679,7 @@ $lhp-thumb-padding: 10px;
       font-weight: normal;
       margin-bottom: 30px;
       text-align: left;
+      color: $text-color-light;
     }
 
     .tab-parameters {
@@ -690,6 +691,11 @@ $lhp-thumb-padding: 10px;
       table {
         width: 100%;
         border-spacing: 0;
+        color: $text-color-light;
+
+        th {
+          color: $background-color;
+        }
 
         th, td {
           text-align: left;
@@ -712,6 +718,7 @@ $lhp-thumb-padding: 10px;
 
       .table--parameters {
         margin-bottom: 30px;
+        border: 1px solid $text-color;
 
         td {
           padding: 10px 0px 10px 20px;
@@ -723,6 +730,10 @@ $lhp-thumb-padding: 10px;
 
         th:last-child, td:last-child {
           width: 40%;
+        }
+
+        td.value {
+          vertical-align: middle;
         }
 
         tbody tr:nth-child(odd) {
@@ -740,17 +751,23 @@ $lhp-thumb-padding: 10px;
 
         .description {
           font-size: 10px;
-          color: #AAAAAA;
+          color: $background-color;
         }
       }
 
       .table--parties {
+        border: 1px solid $text-color;
+
         tbody tr {
           background-color: #3f3f3f;
         }
 
         td {
-          padding: 5px 10px 5px 20px;
+          padding: 0 10px 10px 20px;
+        }
+
+        tr:first-child td {
+          padding-top: 10px;
         }
 
         th:first-child, td:first-child {
