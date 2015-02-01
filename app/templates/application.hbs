@@ -28,9 +28,13 @@
         </div>
       </div>
 
-      {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-        {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-      {{/donut-chart}}
+      {{#if totalVoters}}
+        {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+          {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+        {{/donut-chart}}
+      {{else}}
+        {{unknown-result}}
+      {{/if}}
     </div>
 
     <div class="election-settings">
