@@ -54,10 +54,6 @@
       color: $text-color;
       letter-spacing: -.08em;
       color: $text-color;
-
-      &:hover {
-        opacity: 1;
-      }
     }
 
     img {
@@ -68,6 +64,7 @@
       @extend %font-small;
       display: block;
       line-height: normal;
+      width: 110px;
     }
 
     .team-name {
@@ -81,6 +78,7 @@
 
   @mixin team-member-hover($color) {
     .team-member-photo:before {
+      @include transition(background-color, .4s);
       content: "";
       position: absolute;
       top: 0;
@@ -91,8 +89,11 @@
       background-color: rgba($color, .6);
     }
 
-    &:hover .team-member-photo:before {
+    .team-member-photo:hover:before {
       background-color: rgba($color, 1);
+    }
+    .team-member-twitter:hover {
+      opacity: 1;
     }
   }
 
@@ -117,10 +118,12 @@
     text-align: right;
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 27px;
+    left: 27px;
     text-align: center;
     color: #dcd8c3;
-    width: 100%;
+    border-top: 1px solid $text-color;
+    height: 25px;
 
     a {
       color: $nationalist-color;
