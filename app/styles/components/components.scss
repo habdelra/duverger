@@ -66,6 +66,10 @@ button {
     @extend %font-large;
     color: $conservative-color;
     text-align: center;
+
+    &.invalid {
+      color: $orange-color;
+    }
   }
 }
 
@@ -177,9 +181,17 @@ button {
     margin: 0 0 grid-height(2);
   }
 
+ .invalid .vote-input {
+   color: $orange-color;
+ }
+
   .preference-group-percentage {
     @extend %election-header-style;
     font-weight: 600;
+
+    &.invalid {
+      visibility: hidden;
+    }
   }
 
   >* {
@@ -444,10 +456,11 @@ button {
 //Unknown Result Message
 .unknown-result {
   @extend %font-medium-large;
+  max-width: 350px;
   color: $text-color-light;
   background-color: $orange-color;
   padding: 15px 30px;
-  margin: 200px 30px 0;
+  margin: 200px auto 0;
   text-align: center;
   text-transform: uppercase;
 }
