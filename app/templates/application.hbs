@@ -41,7 +41,11 @@
       <div class="election-settings__overview">
         <div class="total-voters header--election">
           <div class="total-voters__label header--election__label">Total Voters</div>
-          <div class="total-voters__value header--election__value">{{totalVoters}}</div>
+          {{#if totalVoters}}
+            <div class="total-voters__value header--election__value">{{totalVoters}}</div>
+          {{else}}
+            <div class="total-voters__value invalid header--election__value">0</div>
+          {{/if}}
         </div>
 
         <div class="formula header--election--dropdown">

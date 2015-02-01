@@ -1,9 +1,9 @@
 <div class="voter-count">
   <a class="voter-amount-btn decrease" {{action 'decrementVoterAmount'}} {{bind-attr disabled=hasNoVoters}}>decrease voter amount</a>
-  <span class="vote-input-container">{{vote-input class='vote-input' value=votersDisplay maxlength="4"}}</span>
+  <span {{bind-attr class=":vote-input-container totalVoters::invalid"}}>{{vote-input class='vote-input' value=votersDisplay maxlength="4"}}</span>
   <a class="voter-amount-btn increase" {{action 'incrementVoterAmount'}}>increase voter amount</a>
 
-  <div class="preference-group-percentage">{{percentage}}% of population</div>
+  <div class="preference-group-percentage" {{bind-attr class=":preference-group-percentage totalVoters::invalid"}}>{{percentage}}% of population</div>
 </div>
 
 {{#each partyPreference in preferenceGroup.preferences}}
