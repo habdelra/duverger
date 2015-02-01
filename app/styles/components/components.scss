@@ -524,7 +524,7 @@ $lhp-thumb-padding: 10px;
   background-color: $lhp-background-color;
   color: $text-color-lhp;
   width: $lhp-width;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -618,6 +618,21 @@ $lhp-thumb-padding: 10px;
         display: -webkit-flex;
         display: flex;
       }
+
+      .tab-inner {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        align-content: -webkit-flex-start;
+        align-content: flex-start;
+        justify-content: -webkit-space-between;
+        justify-content: space-between;
+        overflow: auto;
+        border-bottom: 1px solid $text-color;
+      }
     }
 
     .tab-content-about {
@@ -693,6 +708,9 @@ $lhp-thumb-padding: 10px;
       margin-bottom: 30px;
       text-align: left;
       color: $text-color-light;
+      -webkit-align-self: flex-start;
+      align-self: flex-start;
+      width: 100%;
     }
 
     .tab-parameters {
@@ -883,7 +901,7 @@ $lhp-thumb-padding: 10px;
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: 112px;
-    margin: 0 0 0 19px;
+    // margin: 0 10px;
     height: 195px;
 
     .team-member-photo {
@@ -905,6 +923,7 @@ $lhp-thumb-padding: 10px;
       z-index: 90;
       color: $text-color;
       letter-spacing: -.08em;
+      color: $text-color;
 
       &:hover {
         opacity: 1;
