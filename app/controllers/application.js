@@ -60,8 +60,13 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
       set(this, 'currentRunoff', 0);
     },
 
+    preferenceStartedMoving: function() {
+      set(this, 'showPreferenceOrderControl', true);
+    },
+
     preferenceDoneMoving: function() {
       set(this, 'preferenceIsMoving', null);
+      set(this, 'showPreferenceOrderControl', false);
     },
 
     movePreferenceBefore: function() {

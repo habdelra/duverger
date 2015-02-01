@@ -61,6 +61,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     var arc = get(this, 'arc');
     this._current = i(0);
     return function(t) {
+      if (typeof arc !== 'function') { return; }
       return arc(i(t));
     };
   },
@@ -111,7 +112,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     var outerRadius = get(this, 'outerRadius');
     var overallVoteTotal = get(this, 'overallVoteTotal');
     var svg = d3.select(get(this, 'element')).select('g');
-    var lines = svg.selectAll("line").data(pie(data));
+    var lines = svg.selectAll("line").data(pie(data || []));
 
     var textTween = function(d, i) {
       var a;
@@ -211,7 +212,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     var afterTextTween = function(d, i) {
       var preferenceGroupsAmount = get(_this, 'voterSummary.length');
       if (i === preferenceGroupsAmount - 1) {
-        set(_this, 'oldPieData', pie(data));
+        set(_this, 'oldPieData', pie(data || []));
       }
     };
 
@@ -233,7 +234,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     lines.exit().remove();
 
     var defs = svg.selectAll("defs")
-      .data(pie(data));
+      .data(pie(data || []));
     defs.enter().append("defs");
     defs.exit().remove();
 
@@ -251,7 +252,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       .attr("r", 3);
     }
 
-    var textBackground = svg.selectAll('rect').data(pie(data));
+    var textBackground = svg.selectAll('rect').data(pie(data || []));
     textBackground.enter().append('rect')
       .attr('width', backgroundWidth)
       .attr('height', backgroundHeight)
@@ -263,7 +264,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       .attrTween("transform", textBackgroundTween);
     textBackground.exit().remove();
 
-    var partyIndicator = svg.selectAll('polygon').data(pie(data));
+    var partyIndicator = svg.selectAll('polygon').data(pie(data || []));
     partyIndicator.enter().append('polygon')
       .attr("fill", function(d) {
         return partyLookup(Ember.keys(d.data), 'color');
@@ -276,7 +277,7 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     partyIndicator.exit().remove();
 
     var valueLabels = svg.selectAll("text.value")
-      .data(pie(data))
+      .data(pie(data || []))
       .attr("dy", function(d){
         if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.501 ) {
           return 15;
@@ -342,11 +343,13 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
       var arc = get(_this, 'arc');
       this._current = i(0);
       return function(t) {
+        if (typeof arc !== 'function') { return; }
+
         return arc(i(t));
       };
     };
 
-    path = path.data(pie(data)); // compute the new angles
+    path = path.data(pie(data || [])); // compute the new angles
     path.transition().duration(transitionDurationMs)
       .attr("fill", function(d) {
         return partyLookup(votedFor[Ember.keys(d.data)], 'color');

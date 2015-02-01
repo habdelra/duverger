@@ -184,16 +184,42 @@ test('toggleFormulaList action toggles showFormulaList property', function() {
   ok(!get(controller, 'showFormulaList'), 'the value of showFormulaList is correct');
 });
 
+test('preferenceStartedMoving action sets showPreferenceOrderControl to true', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {}
+  });
+
+  controller.send('preferenceStartedMoving');
+
+  ok(get(controller, 'showPreferenceOrderControl'), 'showPreferenceOrderControl is set correctly');
+});
+
 test('preferenceDoneMoving action sets preferenceIsMoving to null', function() {
   expect(1);
 
   var controller = this.subject({
+    content: {},
     preferenceIsMoving: {}
   });
 
   controller.send('preferenceDoneMoving');
 
   equal(get(controller, 'preferenceIsMoving'), null, 'preferenceIsMoving is set to null');
+});
+
+test('preferenceDoneMoving action sets showPreferenceOrderControl to false', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {},
+    showPreferenceOrderControl: true
+  });
+
+  controller.send('preferenceDoneMoving');
+
+  ok(!get(controller, 'showPreferenceOrderControl'), 'showPreferenceOrderControl is set correctly');
 });
 
 test('movePreferenceBefore action sets preferenceMoveDirection to `previous`', function() {
