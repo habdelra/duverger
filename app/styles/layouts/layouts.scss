@@ -22,11 +22,14 @@ body, html {
   position: absolute;
   width: 100%;
   padding-right: grid-width(7) + grid-width(2);
+  z-index: 10;
 }
 
 // Right section that contains the
 // Primary election settings
 .election-settings {
+  position: relative;
+  z-index: 20;
   width: grid-width(7);
   float: right;
   padding: grid-height(2) 0;
