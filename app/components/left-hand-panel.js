@@ -39,6 +39,14 @@ export default Ember.Component.extend({
       }
 
       set(this, 'slideNumber', (get(this, 'slideNumber') - 1));
+    },
+
+    gotoSlide: function(newSlideNumber) {
+      if (newSlideNumber < 0 || newSlideNumber > 4) {
+        return;
+      }
+
+      set(this, 'slideNumber', newSlideNumber);
     }
   }
 });
