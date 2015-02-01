@@ -640,7 +640,6 @@ $lhp-thumb-padding: 10px;
         -webkit-justify-content: space-between;
         justify-content: space-between;
         overflow: auto;
-        border-bottom: 1px solid $text-color;
       }
     }
 
@@ -962,6 +961,7 @@ $lhp-thumb-padding: 10px;
 
   @mixin team-member-hover($color) {
     .team-member-photo:before {
+      @include transition(background-color, .2s);
       content: "";
       position: absolute;
       top: 0;
@@ -972,7 +972,7 @@ $lhp-thumb-padding: 10px;
       background-color: rgba($color, .6);
     }
 
-    &:hover .team-member-photo:before {
+    .team-member-photo:hover:before {
       background-color: rgba($color, 1);
     }
   }
@@ -998,10 +998,11 @@ $lhp-thumb-padding: 10px;
     text-align: right;
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 27px;
+    left: 27px;
     text-align: center;
     color: #dcd8c3;
-    width: 100%;
+    border-top: 1px solid $text-color;
 
     a {
       color: $nationalist-color;
