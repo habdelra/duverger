@@ -1,14 +1,27 @@
+body, html {
+  height: 100%;
+
+  >.ember-view {
+    height: 100%;
+  }
+}
+
 // Container
 #main {
-  width: grid-width(16);
+  width: 100%;
+  height: 100%;
+  min-width: grid-width(16);
+  min-width: 1024px;
+  position: relative;
 }
 
 // Left section that contains the pie chart
 // and election results
 .election-outcome {
-  width: grid-width(9);
-  float: left;
   padding: grid-height(2) grid-width(1);
+  position: absolute;
+  width: 100%;
+  padding-right: grid-width(7) + grid-width(2);
 }
 
 // Right section that contains the
@@ -19,6 +32,7 @@
   padding: grid-height(2) 0;
   background: $background-color-secondary;
   border-left: 1px solid $border-color;
+  height: 100%;
 
   .election-settings__overview {
     padding: 0 $grid-padding-unit 0;
@@ -31,8 +45,10 @@
 
 // Donut Chart
 .donut-chart {
-  margin-bottom: 50px;
+  margin: 0 auto 50px auto;
   position: relative;
+  width: 500px;
+  margin: 0 auto;
 }
 
 .donut-hole {
