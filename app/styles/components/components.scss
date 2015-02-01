@@ -94,13 +94,11 @@ button {
 
   .secondary--voter-count {
     @extend %election-header-style;
-    letter-spacing: -.08em;
     width: grid-width(2);
   }
 
   .party-preference-header .title {
     @extend %election-header-style;
-    letter-spacing: -.08em;
     text-align: center;
     padding: 0 13px;
 
@@ -182,7 +180,6 @@ button {
   .preference-group-percentage {
     @extend %election-header-style;
     font-weight: 600;
-    letter-spacing: -.08em;
   }
 
   >* {
@@ -284,6 +281,7 @@ button {
 
     .secondary-party-name {
       @extend %font-large;
+      color: $text-color;
     }
 
     .ic-modal-trigger {
