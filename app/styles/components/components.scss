@@ -628,7 +628,7 @@ $lhp-thumb-padding: 10px;
         flex-wrap: wrap;
         align-content: -webkit-flex-start;
         align-content: flex-start;
-        justify-content: -webkit-space-between;
+        -webkit-justify-content: space-between;
         justify-content: space-between;
         overflow: auto;
         border-bottom: 1px solid $text-color;
@@ -985,9 +985,12 @@ $lhp-thumb-padding: 10px;
   .support-callout {
     display: block;
     text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: center;
     color: #dcd8c3;
     width: 100%;
-    margin: 30px 0 0 0;
 
     a {
       color: $nationalist-color;
