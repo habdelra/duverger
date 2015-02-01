@@ -560,8 +560,9 @@ $lhp-thumb-padding: 10px;
     @include transition-property(left);
   }
 
-  .project-name {
-    @extend %font-largest;
+  .project-name .sprite-duverger-text{
+    height: 77px;
+    width: 228px;
   }
 
   .tabs {
@@ -690,7 +691,7 @@ $lhp-thumb-padding: 10px;
       .project-name {
         @extend %font-maximum;
         text-transform: uppercase;
-        margin: 28px 0;
+        margin: 22px 0;
       }
     }
 
