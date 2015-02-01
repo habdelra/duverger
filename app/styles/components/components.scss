@@ -687,6 +687,7 @@ $lhp-thumb-padding: 10px;
     }
 
     .tab-header {
+      color: $text-color-light;
       font-size: 20px;
       font-weight: normal;
       margin-bottom: 30px;
@@ -822,6 +823,7 @@ $lhp-thumb-padding: 10px;
         line-height: 18px;
 
         .formulas--header {
+          color: $text-color-light;
           text-transform: uppercase;
           background-color: #333333;
           padding: 5px 5px 5px 20px;
@@ -830,6 +832,7 @@ $lhp-thumb-padding: 10px;
 
         .items {
           margin: 8px 10px 8px 40px;
+          color: $background-color;
 
           .item {
             text-indent: -18px;
