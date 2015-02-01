@@ -107,3 +107,44 @@ test('decrementSlideNumber doesnt decrement if first slide', function() {
   equal(get(component, 'slideNumber'), 0, 'slide number is still 0');
 });
 
+test('gotoSlide changes the slideNumber properly', function() {
+  expect(5);
+
+  var component = this.subject();
+
+  equal(get(component, 'slideNumber'), 0, 'slideNumber is 0');
+
+  component.send('gotoSlide', 1);
+  equal(get(component, 'slideNumber'), 1, 'slideNumber is 1');
+
+  component.send('gotoSlide', 2);
+  equal(get(component, 'slideNumber'), 2, 'slideNumber is 2');
+
+  component.send('gotoSlide', 3);
+  equal(get(component, 'slideNumber'), 3, 'slideNumber is 3');
+
+  component.send('gotoSlide', 4);
+  equal(get(component, 'slideNumber'), 4, 'slideNumber is 4');
+});
+
+test('gotoSlide doesnt change the slideNumber if slide number is invalid', function() {
+  expect(5);
+
+  var component = this.subject();
+
+  equal(get(component, 'slideNumber'), 0, 'slideNumber is 0');
+
+  component.send('gotoSlide', 5);
+  equal(get(component, 'slideNumber'), 0, 'slideNumber is still 0');
+
+  component.send('gotoSlide', -1);
+  equal(get(component, 'slideNumber'), 0, 'slideNumber is still 0');
+
+  component.send('gotoSlide', 999);
+  equal(get(component, 'slideNumber'), 0, 'slideNumber is still 0');
+
+  component.send('gotoSlide', -1000);
+  equal(get(component, 'slideNumber'), 0, 'slideNumber is still 0');
+});
+
+
