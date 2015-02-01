@@ -14,6 +14,7 @@
 
 $font-size-small: 12px;
 $font-size-medium: 15px;
+$font-size-medium-large: 17px;
 $font-size-large: 21px;
 $font-size-largest: 30px;
 $font-size-maximum: 45px;
@@ -34,6 +35,10 @@ $font-size-maximum: 45px;
 
 %font-large {
   font-size: $font-size-large;
+}
+
+%font-medium-large {
+  font-size: $font-size-medium-large;
 }
 
 %font-medium {

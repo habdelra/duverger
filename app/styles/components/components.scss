@@ -441,6 +441,17 @@ button {
   margin-bottom: 10px;
 }
 
+//Unknown Result Message
+.unknown-result {
+  @extend %font-medium-large;
+  color: $text-color-light;
+  background-color: $orange-color;
+  padding: 15px 30px;
+  margin: 200px 30px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 // Forumula drop down
 .toggle-formula-list-button {
   border: none;

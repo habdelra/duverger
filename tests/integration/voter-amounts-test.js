@@ -18,6 +18,8 @@ var decreaseLiberalVoterSelector = '.preference-group.liberal .voter-amount-btn.
 var liberalVoterAmountSelector = '.preference-group.liberal .vote-input';
 var percentageSelector = '.preference-group-percentage';
 var totalVotersValueSelector = '.total-voters__value';
+var unknownMessageSelector = '.unknown-result';
+var donutSelector = '.donut-chart';
 
 function assertChartDisplay(chartType) {
   return function() {
@@ -108,8 +110,8 @@ function dragFourthPreferencePartyInLiberalGroupToSecondPosition() {
       },
       getData: function() {
         return '{ "index": 3, "party": "green" }';
-      }
     }
+      }
   });
 }
 
@@ -119,6 +121,26 @@ function assertTotalVotesCount(voteCount) {
   return function() {
     equal(totalVoters.text().trim(), voteCount, 'total vote count is ' + voteCount);
   };
+}
+
+function assertDonutPresent() {
+  var donut = find(donutSelector);
+  ok(donut.length, 'donut chart is present');
+}
+
+function assertDonutNotPresent() {
+  var donut = find(donutSelector);
+  ok(!donut.length, 'donut chart is not present');
+}
+
+function assertUnknownMessagePresent() {
+  var unknownMessage = find(unknownMessageSelector);
+  ok(unknownMessage.length, 'unknown message is present');
+}
+
+function assertUnknownMessageNotPresent() {
+  var unknownMessage = find(unknownMessageSelector);
+  ok(!unknownMessage.length, 'unknown message is not present');
 }
 
 module('Integration - Voter Amounts', {
@@ -153,6 +175,36 @@ test('changing the voter amount updates the chart in primary election and result
     .then(setVoterAmounts({ socialDemocrat: 45 }))
     .then(assertChartDisplay('majorityFirstRoundSD45'))
     .then(assertPartyWinners(['SD', 'G']));
+});
+
+test('setting the voter amounts for all the parties to 0 displays the unknown result message', function() {
+  expect(4);
+
+  visit('/')
+    .then(assertDonutPresent)
+    .then(assertUnknownMessageNotPresent)
+    .then(setVoterAmounts({ socialDemocrat: 0,
+                            liberal: 0,
+                            nationalist: 0,
+                            green: 0,
+                            conservative: 0 }))
+    .then(assertDonutNotPresent)
+    .then(assertUnknownMessagePresent);
+});
+
+test('setting the voter amounts for all the parties to ༼ ༎ຶ ෴ ༎ຶ༽ displays the unknown result message', function() {
+  expect(4);
+
+  visit('/')
+    .then(assertDonutPresent)
+    .then(assertUnknownMessageNotPresent)
+    .then(setVoterAmounts({ socialDemocrat: '༼ ༎ຶ ෴ ༎ຶ༽',
+                            liberal: 'ヽ༼ ಠ益ಠ ༽ﾉ',
+                            nationalist: '༼ ͒ ̶ ͒༽',
+                            green: '༼⍨༽',
+                            conservative: '༼•͟ ͜ •༽' }))
+    .then(assertDonutNotPresent)
+    .then(assertUnknownMessagePresent);
 });
 
 test('changing the voter amount updates the chart in primary election and does not result in runoff election', function() {
