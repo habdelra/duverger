@@ -19,11 +19,11 @@
         <div class="percentage-votes__value">
 
           {{#if requiresRunoff}}
-           <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
+           <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View 2nd Round</button>
           {{/if}}
 
           {{#if currentRunoff}}
-            <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Results</button>
+            <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View 1st Round</button>
           {{/if}}
         </div>
       </div>

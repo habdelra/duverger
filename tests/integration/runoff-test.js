@@ -67,13 +67,13 @@ test('switch from first round test to runoff and back', function() {
   visit('/')
     .then(assertRunoffNumber('1st'))
     .then(assertPartyWinners(['SD', 'G']))
-    .then(assertElectionNavigationButton('View Runoff Results'))
+    .then(assertElectionNavigationButton('View 2nd Round'))
     .then(clickRunoffButton)
     .then(assertRunoffNumber('2nd'))
     .then(assertPartyWinners(['SD']))
-    .then(assertElectionNavigationButton('View Original Results'))
+    .then(assertElectionNavigationButton('View 1st Round'))
     .then(clickRunoffButton)
     .then(assertRunoffNumber('1st'))
     .then(assertPartyWinners(['SD', 'G']))
-    .then(assertElectionNavigationButton('View Runoff Results'));
+    .then(assertElectionNavigationButton('View 2nd Round'));
 });
