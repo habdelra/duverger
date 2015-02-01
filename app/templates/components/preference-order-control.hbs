@@ -1,0 +1,6 @@
+{{#if showPreferenceOrderControl}}
+  <div class="preference-order" {{bind-attr style=positionStyle}}>
+    <button class="preference-order-btn move-before" {{bind-attr disabled=preferencePreviousButtonDisabled}} {{action 'movePreferenceBefore'}}>Move Previous</button>
+    <button class="preference-order-btn move-after" {{bind-attr disabled=preferenceNextButtonDisabled}} {{action 'movePreferenceAfter'}}>Move After</button>
+  </div>
+{{/if}}

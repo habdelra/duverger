@@ -12,11 +12,11 @@ var electionOutcomeSelector = '.party-winner';
 var liberalSDPreferenceButtonSelector = '.preference-group.liberal .party-preference.socialDemocrat button';
 var liberalNationalistPreferenceButtonSelector = '.preference-group.liberal .party-preference.nationalist button';
 var liberalGreenPreferenceButtonSelector = '.preference-group.liberal .party-preference.green button';
-var liberalGreenPreferenceSeelctor = '.preference-group.liberal .party-preference.green';
+var liberalGreenPreferenceSelector = '.preference-group.liberal .party-preference.green';
 var preferenceOrderMask = '#preference-order-modal';
 var preferenceOrderModal = '#preference-order-modal ic-modal-main';
-var preferenceMoveBeforeButton = '#preference-order-modal .move-before';
-var preferenceMoveAfterButton = '#preference-order-modal .move-after';
+var preferenceMoveBeforeButton = '.move-before';
+var preferenceMoveAfterButton = '.move-after';
 var partyPreferenceHighlightClass = 'moving';
 
 function clickPreferenceOrderMask() {
@@ -64,12 +64,12 @@ function assertMoveAfterButtonIsNotDisabled() {
 }
 
 function assertLiberalsGreenPartyPreferenceIsHighlighted() {
-  var partyPreference = find(liberalGreenPreferenceSeelctor);
+  var partyPreference = find(liberalGreenPreferenceSelector);
   ok(partyPreference.hasClass(partyPreferenceHighlightClass), 'the highlight class is present');
 }
 
 function assertLiberalsGreenPartyPreferenceIsNotHighlighted() {
-  var partyPreference = find(liberalGreenPreferenceSeelctor);
+  var partyPreference = find(liberalGreenPreferenceSelector);
   ok(!partyPreference.hasClass(partyPreferenceHighlightClass), 'the highlight class is not present');
 }
 

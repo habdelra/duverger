@@ -21,33 +21,11 @@ export default Ember.Component.extend({
   partyAtBeginning: 'partyAtBeginning',
   partyAtEnd: 'partyAtEnd',
   partyAtMiddle: 'partyAtMiddle',
+  preferenceDoneMoving: 'preferenceDoneMoving',
 
   classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', 'isMoving:moving', ':party-preference', 'party'],
   attributeBindings: ['draggable'],
   party: alias('model.party'),
-
-  click: function() {
-    var party = get(this, 'party');
-    var partyIndex = get(this, 'model.index');
-    var preferencesCount = get(this, 'preferencesCount');
-
-    if (!partyIndex) { return; }
-
-    set(this, 'isMoving', true);
-    this.sendAction('wasClicked', party);
-
-    if(partyIndex === 1) {
-      this.sendAction('partyAtBeginning');
-    } else if (partyIndex === (preferencesCount - 1)) {
-      this.sendAction('partyAtEnd');
-    } else {
-      this.sendAction('partyAtMiddle');
-    }
-  },
-
-  touchStart: function() {
-    this.click();
-  },
 
   afterPreferenceIsMovingChanged: observer('preferenceIsMoving', function() {
     var preferenceIsMoving = get(this, 'preferenceIsMoving');
@@ -137,5 +115,34 @@ export default Ember.Component.extend({
   dragEnd: function() {
     set(this, 'isDragging', false);
     this.sendAction('dragEnded');
+  },
+  actions: {
+    preferenceClicked: function() {
+      var isActive = get(this, 'isActive');
+      if (isActive) {
+        set(this, 'isActive', false);
+        this.sendAction('preferenceDoneMoving');
+        return;
+      } else {
+        set(this, 'isActive', true);
+      }
+
+      var party = get(this, 'party');
+      var partyIndex = get(this, 'model.index');
+      var preferencesCount = get(this, 'preferencesCount');
+
+      if (!partyIndex) { return; }
+
+      set(this, 'isMoving', true);
+      this.sendAction('wasClicked', party);
+
+      if(partyIndex === 1) {
+        this.sendAction('partyAtBeginning');
+      } else if (partyIndex === (preferencesCount - 1)) {
+        this.sendAction('partyAtEnd');
+      } else {
+        this.sendAction('partyAtMiddle');
+      }
+    }
   }
 });

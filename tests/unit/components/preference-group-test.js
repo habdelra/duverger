@@ -242,6 +242,25 @@ test('the incrementVoterAmount action increases voters by 1', function() {
   equal(get(component, 'voters'), 11, 'the voters is correct');
 });
 
+test('when wasClicked action is recieved the `preferenceStartedMoving` action is fired', function() {
+  expect(1);
+
+  var component = this.subject({
+    $: function() {
+      return {
+        offset: Ember.K,
+        height: Ember.K,
+        width: Ember.K
+      };
+    },
+    sendAction: function(actionName) {
+      equal(actionName, 'preferenceStartedMoving', 'preferenceStartedMoving action was fired');
+    }
+  });
+
+  component.send('wasClicked');
+});
+
 test('when wasClicked action is received set the preferenceIsMoving value', function() {
   expect(1);
 
@@ -299,6 +318,18 @@ test('when wasClicked action is received, the preferenceOrderStyle is set', func
   component.send('wasClicked', 'rentIsTooDamnHigh');
 
   equal(get(component, 'preferenceOrderStyle'), expected, 'the preferenceOrderStyle value is correct');
+});
+
+test('preferenceDoneMoving action forwards the action', function() {
+  expect(1);
+
+  var component = this.subject({
+    sendAction: function(actionName) {
+      equal(actionName, 'preferenceDoneMoving', 'the preferenceDoneMoving action was fired');
+    }
+  });
+
+  component.send('preferenceDoneMoving');
 });
 
 test('forward partyAtBeginning action', function() {

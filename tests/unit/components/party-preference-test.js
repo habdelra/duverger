@@ -115,105 +115,6 @@ test('dragEnd sets isDragging to false and sends dragEnded action', function() {
   ok(!get(component, 'isDragging'), 'isDragging is false');
 });
 
-test('click sets isMoving to true and sends an action with party', function() {
-  expect(3);
-
-  var actionCount = 0;
-
-  var component = this.subject({
-    model: {
-      party: 'teabagger',
-      index: 3
-    },
-    isMoving: false,
-    sendAction: function(actionName, actionValue) {
-      actionCount++;
-      if (actionCount === 1) {
-        equal(actionName, 'wasClicked', 'the action name is correct');
-        equal(actionValue, 'teabagger', 'the action value is correct');
-      }
-    }
-  });
-
-  component.click();
-
-  ok(get(component, 'isMoving'), 'isMoving is set to true');
-});
-
-test('click does not set isMoving to true when it model.index is 0', function() {
-  expect(1);
-
-  var component = this.subject({
-    model: {
-      party: 'teabagger',
-      index: 0
-    }
-  });
-
-  component.click();
-
-  ok(!get(component, 'isMoving'), 'isMoving is false');
-});
-
-test('click fires the partyAtBeginning action when model.index is 1', function() {
-  expect(1);
-  var actionCount = 0;
-
-  var component = this.subject({
-    model: {
-      index: 1
-    },
-    sendAction: function(action) {
-      actionCount++;
-      if (actionCount === 2) {
-        equal(action, 'partyAtBeginning', 'the action name is correct');
-      }
-    }
-  });
-
-  component.click();
-});
-
-test('click fires the partyAtEnd action when model.index is equal to the preferencesCount', function() {
-  expect(1);
-  var actionCount = 0;
-
-  var component = this.subject({
-    model: {
-      index: 5
-    },
-    preferencesCount: 6,
-    sendAction: function(action) {
-      actionCount++;
-      if (actionCount === 2) {
-        equal(action, 'partyAtEnd', 'the action name is correct');
-      }
-    }
-  });
-
-  component.click();
-});
-
-test('click fires the partyAtMiddle action when model.index is between preferencesCount and 1', function() {
-  expect(1);
-  var actionCount = 0;
-
-  var component = this.subject({
-    model: {
-      index: 3
-    },
-    preferencesCount: 6,
-    sendAction: function(action) {
-      actionCount++;
-      if (actionCount === 2) {
-        equal(action, 'partyAtMiddle', 'the action name is correct');
-      }
-    }
-  });
-
-  component.click();
-});
-
 test('afterPreferencesIsMovingChanged sets isMoving to false when preferenceIsMoving is falsy', function() {
   expect(2);
 
@@ -456,14 +357,132 @@ test('when the preferenceDirection changes and the new position is in the middle
   set(component, 'preferenceMoveDirection', 'after');
 });
 
-test('the touchStart method invokes the click event', function() {
+test('preferenceClicked action toggles the value of isActive', function() {
+  expect(2);
+  var component = this.subject({
+    isActive: false
+  });
+
+  component.send('preferenceClicked');
+  ok(get(component, 'isActive'), 'isActive is set correctly');
+
+  component.send('preferenceClicked');
+  ok(!get(component, 'isActive'), 'isActive is set correctly');
+});
+
+test('preferenceClicked action sends the action preferenceDoneMoving when isActive is true', function() {
   expect(1);
 
   var component = this.subject({
-    click: function() {
-      ok(true, 'the click() method was invoked');
+    isActive: true,
+    sendAction: function(actionName) {
+      equal(actionName, 'preferenceDoneMoving', 'the preferenceDoneMoving action is fired');
     }
   });
 
-  component.touchStart();
+  component.send('preferenceClicked');
+});
+
+test('preferenceClicked action sets isMoving to true and sends an action with party', function() {
+  expect(3);
+
+  var actionCount = 0;
+
+  var component = this.subject({
+    _window: { navigator: { platform: 'iPad' } },
+    model: {
+      party: 'teabagger',
+      index: 3
+    },
+    isMoving: false,
+    sendAction: function(actionName, actionValue) {
+      actionCount++;
+      if (actionCount === 1) {
+        equal(actionName, 'wasClicked', 'the action name is correct');
+        equal(actionValue, 'teabagger', 'the action value is correct');
+      }
+    }
+  });
+
+  component.send('preferenceClicked');
+
+  ok(get(component, 'isMoving'), 'isMoving is set to true');
+});
+
+test('preferenceClicked action does not set isMoving to true when it model.index is 0', function() {
+  expect(1);
+
+  var component = this.subject({
+    _window: { navigator: { platform: 'iPad' } },
+    model: {
+      party: 'teabagger',
+      index: 0
+    }
+  });
+
+  component.send('preferenceClicked');
+
+  ok(!get(component, 'isMoving'), 'isMoving is false');
+});
+
+test('preferenceClicked action fires the partyAtBeginning action when model.index is 1', function() {
+  expect(1);
+  var actionCount = 0;
+
+  var component = this.subject({
+    _window: { navigator: { platform: 'iPad' } },
+    model: {
+      index: 1
+    },
+    sendAction: function(action) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(action, 'partyAtBeginning', 'the action name is correct');
+      }
+    }
+  });
+
+  component.send('preferenceClicked');
+});
+
+test('preferenceClicked action fires the partyAtEnd action when model.index is equal to the preferencesCount', function() {
+  expect(1);
+  var actionCount = 0;
+
+  var component = this.subject({
+    _window: { navigator: { platform: 'iPad' } },
+    model: {
+      index: 5
+    },
+    preferencesCount: 6,
+    sendAction: function(action) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(action, 'partyAtEnd', 'the action name is correct');
+      }
+    }
+  });
+
+  component.send('preferenceClicked');
+});
+
+test('preferenceClicked action fires the partyAtMiddle action when model.index is between preferencesCount and 1', function() {
+  expect(1);
+  var actionCount = 0;
+
+  var component = this.subject({
+    _window: { navigator: { platform: 'iPad' } },
+    model: {
+      index: 3
+    },
+    preferencesCount: 6,
+    sendAction: function(action) {
+      actionCount++;
+      if (actionCount === 2) {
+        equal(action, 'partyAtMiddle', 'the action name is correct');
+      }
+    }
+  });
+
+  component.send('preferenceClicked');
 });

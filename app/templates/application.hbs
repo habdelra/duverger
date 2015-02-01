@@ -1,82 +1,88 @@
 {{left-hand-panel}}
 
-<div id="main">
-  <div class="election-outcome">
-    {{!
-      The following variable is available too (replace []'s with {}'s):
+<div class="application-wrapper">
+  <div id="main">
+    <div class="election-outcome">
+      {{!
+        The following variable is available too (replace []'s with {}'s):
 
-      District [[model.districtNumber]]
-    }}
-    <div class="district header--election">
-      <div class="district__label header--election__label">District</div>
-      <div class="district__value header--election__value">{{model.districtNumber}}</div>
-    </div>
-
-    <div class="percentage-votes header--election--secondary">
-      <span class="percentage-votes__label">Percentage of Votes</span>
-      <span class="election-round">{{runoffOrdinal}} Round</span>
-      <div class="percentage-votes__value">
-
-        {{#if requiresRunoff}}
-         <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
-        {{/if}}
-
-        {{#if currentRunoff}}
-          <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Results</button>
-        {{/if}}
-      </div>
-    </div>
-
-    {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-      {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-    {{/donut-chart}}
-  </div>
-
-  <div class="election-settings">
-    <div class="election-settings__overview">
-      <div class="total-voters header--election">
-        <div class="total-voters__label header--election__label">Total Voters</div>
-        <div class="total-voters__value header--election__value">{{totalVoters}}</div>
+        District [[model.districtNumber]]
+      }}
+      <div class="district header--election">
+        <div class="district__label header--election__label">District</div>
+        <div class="district__value header--election__value">{{model.districtNumber}}</div>
       </div>
 
-      <div class="formula header--election--dropdown">
-        <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>
-          <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Formula Applied: <span class="arrow">Select formula</span></button>
+      <div class="percentage-votes header--election--secondary">
+        <span class="percentage-votes__label">Percentage of Votes</span>
+        <span class="election-round">{{runoffOrdinal}} Round</span>
+        <div class="percentage-votes__value">
+
+          {{#if requiresRunoff}}
+           <button class="election-nav-btn view-runoff" {{action 'viewRunoffElection'}}>View Runoff Results</button>
+          {{/if}}
+
+          {{#if currentRunoff}}
+            <button class="election-nav-btn view-original" {{action 'viewOriginalElection'}}>View Original Results</button>
+          {{/if}}
         </div>
-        <div class="selected-formula">{{model.formulaName}}</div>
-        {{#if showFormulaList}}
-          <ul class="formula-selector">
-            {{#each formula in model.formulae}}
-              <li class="formula-item">
-                <button {{action 'useFormula' formula}} class="select-formula-button">{{formula.display}}</button>
-              </li>
-            {{/each}}
-          </ul>
-        {{/if}}
       </div>
+
+      {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+        {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+      {{/donut-chart}}
     </div>
 
-    <div class="preference-group-header header--election--secondary">
-      <span class="secondary--voter-count">Number of Voters</span>
-      <div class="party-preference-header">
-        <span class="title">1st choice</span>
-        <span class="title">2nd</span>
-        <span class="title">3rd</span>
-        <span class="title">4th</span>
-        <span class="title">5th</span>
+    <div class="election-settings">
+      <div class="election-settings__overview">
+        <div class="total-voters header--election">
+          <div class="total-voters__label header--election__label">Total Voters</div>
+          <div class="total-voters__value header--election__value">{{totalVoters}}</div>
+        </div>
+
+        <div class="formula header--election--dropdown">
+          <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>
+            <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Formula Applied: <span class="arrow">Select formula</span></button>
+          </div>
+          <div class="selected-formula">{{model.formulaName}}</div>
+          {{#if showFormulaList}}
+            <ul class="formula-selector">
+              {{#each formula in model.formulae}}
+                <li class="formula-item">
+                  <button {{action 'useFormula' formula}} class="select-formula-button">{{formula.display}}</button>
+                </li>
+              {{/each}}
+            </ul>
+          {{/if}}
+        </div>
       </div>
+
+      <div class="preference-group-header header--election--secondary">
+        <span class="secondary--voter-count">Number of Voters</span>
+        <div class="party-preference-header">
+          <span class="title">1st choice</span>
+          <span class="title">2nd</span>
+          <span class="title">3rd</span>
+          <span class="title">4th</span>
+          <span class="title">5th</span>
+        </div>
+      </div>
+
+      {{#each preferenceGroup in model.preferenceGroups}}
+          {{preference-group preferenceGroup=preferenceGroup
+                             totalVoters=totalVoters
+                             preferenceMoveDirection=preferenceMoveDirection
+                             preferenceOrderStyle=preferenceOrderStyle
+                             preferenceIsMoving=preferenceIsMoving}}
+      {{/each}}
+
+      {{outlet}}
     </div>
-
-    {{#each preferenceGroup in model.preferenceGroups}}
-        {{preference-group preferenceGroup=preferenceGroup
-                           totalVoters=totalVoters
-                           preferenceMoveDirection=preferenceMoveDirection
-                           preferenceOrderStyle=preferenceOrderStyle
-                           preferenceIsMoving=preferenceIsMoving}}
-    {{/each}}
-
-    {{outlet}}
   </div>
-</div>
 
-{{partial 'partials/preference-order-modal'}}
+  {{partial 'partials/preference-order-mask'}}
+  {{preference-order-control showPreferenceOrderControl=showPreferenceOrderControl
+                             positionStyle=preferenceOrderStyle
+                             preferencePreviousButtonDisabled=preferencePreviousButtonDisabled
+                             preferenceNextButtonDisabled=preferenceNextButtonDisabled}}
+</div>
