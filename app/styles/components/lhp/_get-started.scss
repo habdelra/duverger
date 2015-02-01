@@ -25,6 +25,7 @@
   .slideshow-number {
     @extend %font-largest;
     line-height: 30px;
+    color: $background-color;
   }
 
   .slideshow-header .duverger-logo {
@@ -56,12 +57,14 @@
 
   .header-content-header {
     @extend %font-medium;
+    color: $text-color-light;
     display: block;
     margin-bottom: 6px;
   }
 
   .header-content-body {
     @extend %font-small;
+    color: $background-color;
   }
 
   &.slideshow {
