@@ -837,6 +837,8 @@ $lhp-thumb-padding: 10px;
         font-weight: normal;
         color: #CCCCCC;
         line-height: 18px;
+        -webkit-flex: none;
+        flex: none;
 
         .formulas--header {
           color: $text-color-light;
