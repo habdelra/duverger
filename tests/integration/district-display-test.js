@@ -1,7 +1,7 @@
 import startApp        from '../helpers/start-app';
 import Ember           from 'ember';
 
-var App, assertChart;
+var App, assertChart, navigateToMajority;
 var run = Ember.run;
 var originalRandomFunction;
 
@@ -12,7 +12,8 @@ var partyPreferenceSelector = '.party-preference';
 var formulaValueSelector = '.formula__value option';
 var districtValueSelector = '.district__value';
 var donutSvgSelector = '.donut-chart svg';
-var electionOutcomeSelector = '.party-winner.runoff';
+var electionRunoffOutcomeSelector = '.party-winner.runoff';
+var electionOutcomeSelector = '.party-winner';
 var selectedFormulaSelector = '.selected-formula';
 
 function assertChartDisplay(chartType) {
@@ -21,10 +22,23 @@ function assertChartDisplay(chartType) {
   };
 }
 
-function assertElectionOutcome() {
+function assertPluralityElectionOutcome() {
+  var expectedWinners = ['SD'];
+  var expectedWinnerClasses = ['socialDemocrat'];
+  var outcome = find(electionOutcomeSelector);
+  equal(outcome.length, 1, 'there is 1 election winner');
+
+  for (var i = 0; i < outcome.length; i++) {
+    var winner = find(outcome[i]);
+    equal(winner.text().trim(), expectedWinners[i], 'the correct winner is displayed');
+    ok(winner.hasClass(expectedWinnerClasses[i]), 'the class is correct');
+  }
+}
+
+function assertMajorityElectionOutcome() {
   var expectedWinners = ['SD', 'G'];
   var expectedWinnerClasses = ['socialDemocrat', 'green'];
-  var outcome = find(electionOutcomeSelector);
+  var outcome = find(electionRunoffOutcomeSelector);
   equal(outcome.length, 2, 'there are 2 election winners');
 
   for (var i = 0; i < outcome.length; i++) {
@@ -36,7 +50,7 @@ function assertElectionOutcome() {
 
 function assertDefaultFormulaSelected() {
   var formula = find(selectedFormulaSelector);
-  equal(formula.text(), 'majority');
+  equal(formula.text(), 'plurality');
 }
 
 function assertDistrictDisplayed() {
@@ -97,6 +111,7 @@ module('Integration - District Display', {
   setup: function() {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
+    navigateToMajority = App.testHelpers.navigateToMajority;
     originalRandomFunction = Math.random;
     //need to fake randomness so that we can make deterministic assertions in the tests
     Math.random = function() {
@@ -150,8 +165,15 @@ test('assert donut graph is displayed', function(){
 });
 
 test('initial election results are displayed', function(){
-  expect(5);
+  expect(3);
 
   visit('/')
-    .then(assertElectionOutcome);
+    .then(assertPluralityElectionOutcome);
+});
+
+test('majority election results are displayed', function(){
+  expect(5);
+
+  navigateToMajority('/')
+    .then(assertMajorityElectionOutcome);
 });

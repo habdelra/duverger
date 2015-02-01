@@ -1,4 +1,3 @@
-
 import Ember from 'ember';
 
 var registerAsyncHelper = Ember.Test.registerAsyncHelper;
@@ -19,13 +18,13 @@ registerAsyncHelper('navigateToMajorityRunoff', function(app, districtUrl) {
   var click = app.testHelpers.click;
 
   return visit(districtUrl)
-    .then(selectFromDropDown(0))
+    .then(selectFromDropDown(1))
     .then(function() {
       return click(runoffSelector);
     });
 });
 
-registerAsyncHelper('navigateToPlurality', function(app, districtUrl) {
+registerAsyncHelper('navigateToMajority', function(app, districtUrl) {
   var click = app.testHelpers.click;
 
   return visit(districtUrl)

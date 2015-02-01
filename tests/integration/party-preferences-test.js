@@ -1,7 +1,7 @@
 import startApp        from '../helpers/start-app';
 import Ember           from 'ember';
 
-var App, assertChart, navigateToMajorityRunoff;
+var App, assertChart, navigateToMajorityRunoff, navigateToMajority;
 var run = Ember.run;
 
 var originalRandomFunction;
@@ -130,6 +130,7 @@ module('Integration - Party Preferences', {
   setup: function() {
     App = startApp();
     navigateToMajorityRunoff = App.testHelpers.navigateToMajorityRunoff;
+    navigateToMajority = App.testHelpers.navigateToMajority;
     assertChart = App.testHelpers.assertChart;
     originalRandomFunction = Math.random;
     //need to fake randomness so that we can make deterministic assertions in the tests
@@ -146,7 +147,7 @@ module('Integration - Party Preferences', {
 test('drag-n-drop rearrange preferences that do not effect the donut graph', function() {
   expect(44);
 
-  visit('/')
+  navigateToMajority('/')
     .then(assertChartDisplay('majorityFirstRound'))
     .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'G', 'N']))
     .then(assertPartyWinners(['SD', 'G']))
@@ -172,7 +173,7 @@ test('drag-n-drop rearrange preferences that effect donut graph', function(){
 test('use arrow buttons to rearrange preferences', function() {
   expect(53);
 
-  visit('/')
+  navigateToMajority('/')
     .then(assertLiberalGroupsNewPreferences(['SD', 'C', 'G', 'N']))
     .then(assertPreferenceOrderModalDoesNotAppear)
     .then(assertLiberalsGreenPartyPreferenceIsNotHighlighted)
@@ -214,7 +215,7 @@ test('use arrow buttons to rearrange preferences', function() {
 test('when party preference is at beginning of list the previous arrow button is disabled', function() {
   expect(2);
 
-  visit('/')
+  navigateToMajority('/')
     .then(clickLiberalsSDPartyPreferenceButton)
     .then(assertMoveBeforeButtonIsDisabled)
     .then(assertMoveAfterButtonIsNotDisabled);
@@ -223,7 +224,7 @@ test('when party preference is at beginning of list the previous arrow button is
 test('when party preference is at end of list the next arrow button is disabled', function() {
   expect(2);
 
-  visit('/')
+  navigateToMajority('/')
     .then(clickLiberalsNationalistPartyPreferenceButton)
     .then(assertMoveBeforeButtonIsNotDisabled)
     .then(assertMoveAfterButtonIsDisabled);

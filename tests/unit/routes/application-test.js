@@ -8,7 +8,7 @@ test('it returns a district model', function(){
   expect(1);
 
   var expectedModel = {
-    formulaName: 'majority',
+    formulaName: 'plurality',
     districtNumber: 1,
     districtName: 'District 1',
     formulae: [{
