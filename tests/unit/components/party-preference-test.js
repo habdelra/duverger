@@ -357,39 +357,6 @@ test('when the preferenceDirection changes and the new position is in the middle
   set(component, 'preferenceMoveDirection', 'after');
 });
 
-test('preferenceClicked action does not toggle the value of isActive when on desktop', function() {
-  expect(1);
-  var component = this.subject({
-    isActive: false
-  });
-
-  component.send('preferenceClicked');
-  ok(!get(component, 'isActive'), 'isActive is set correctly');
-});
-
-test('preferenceClicked action does not send the action preferenceDoneMoving when on desktop', function() {
-  expect(0);
-
-  var component = this.subject({
-    isActive: true,
-    sendAction: function() {
-      ok(false, 'no action was fired');
-    }
-  });
-
-  component.send('preferenceClicked');
-});
-
-moduleForComponent('party-preference', 'component:party-preference iPad', {
-  setup: function() {
-    window._gooches = { navigator: { platform: 'iPad' } };
-  },
-
-  teardown: function() {
-    window._gooches = undefined;
-  }
-});
-
 test('preferenceClicked action toggles the value of isActive', function() {
   expect(2);
   var component = this.subject({

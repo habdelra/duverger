@@ -129,7 +129,6 @@ function assertLiberalGroupsNewPreferences(expectedOrder) {
 module('Integration - Party Preferences', {
   setup: function() {
     App = startApp();
-    window._gooches = { navigator: { platform: 'iPad' } };
     navigateToMajorityRunoff = App.testHelpers.navigateToMajorityRunoff;
     assertChart = App.testHelpers.assertChart;
     originalRandomFunction = Math.random;
@@ -139,7 +138,6 @@ module('Integration - Party Preferences', {
     };
   },
   teardown: function() {
-    window._gooches = undefined;
     Math.random = originalRandomFunction;
     run(App, 'destroy');
   }

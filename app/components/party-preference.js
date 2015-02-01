@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import partyLookup from '../utils/party-lookup';
-import { isTablet } from '../utils/client-info';
 
 var get = Ember.get;
 var set = Ember.set;
@@ -27,7 +26,6 @@ export default Ember.Component.extend({
   classNameBindings: ['isFirstPreference:first-preference', 'isDragging:dragging', 'isMoving:moving', ':party-preference', 'party'],
   attributeBindings: ['draggable'],
   party: alias('model.party'),
-  _window: window._gooches,
 
   afterPreferenceIsMovingChanged: observer('preferenceIsMoving', function() {
     var preferenceIsMoving = get(this, 'preferenceIsMoving');
@@ -120,8 +118,6 @@ export default Ember.Component.extend({
   },
   actions: {
     preferenceClicked: function() {
-      if (!isTablet(window._gooches)) { return; }
-
       var isActive = get(this, 'isActive');
       if (isActive) {
         set(this, 'isActive', false);
