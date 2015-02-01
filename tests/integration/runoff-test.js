@@ -1,7 +1,7 @@
 import startApp        from '../helpers/start-app';
 import Ember           from 'ember';
 
-var App, assertChart;
+var App, assertChart, navigateToMajority;
 var run = Ember.run;
 
 var originalRandomFunction;
@@ -49,6 +49,7 @@ module('Integration - Runoffs', {
   setup: function() {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
+    navigateToMajority = App.testHelpers.navigateToMajority;
     originalRandomFunction = Math.random;
     //need to fake randomness so that we can make deterministic assertions in the tests
     Math.random = function() {
@@ -64,7 +65,7 @@ module('Integration - Runoffs', {
 test('switch from first round test to runoff and back', function() {
   expect(14);
 
-  visit('/')
+  navigateToMajority('/')
     .then(assertRunoffNumber('1st'))
     .then(assertPartyWinners(['SD', 'G']))
     .then(assertElectionNavigationButton('View 2nd Round'))

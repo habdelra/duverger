@@ -11,7 +11,7 @@ export default Ember.Route.extend({
   },
 
   model: function() {
-    var formulaName = 'majority';
+    var formulaName = 'plurality';
     var data = this._getFixtureData();
 
     return {

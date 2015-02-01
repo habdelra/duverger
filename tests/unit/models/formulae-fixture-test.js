@@ -8,11 +8,11 @@ test('the initial formulae model data is correct', function(){
 
   var expected = {
     formulae: [{
-      value: 'majority',
-      display: 'Majority'
-    },{
       value: 'plurality',
       display: 'Plurality'
+    },{
+      value: 'majority',
+      display: 'Majority'
     }],
   };
 

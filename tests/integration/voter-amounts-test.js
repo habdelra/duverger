@@ -1,7 +1,7 @@
 import startApp        from '../helpers/start-app';
 import Ember           from 'ember';
 
-var App, assertChart, navigateToMajorityRunoff, navigateToPlurality;
+var App, assertChart, navigateToMajorityRunoff, navigateToMajority;
 var run = Ember.run;
 var keys = Ember.keys;
 
@@ -126,7 +126,7 @@ module('Integration - Voter Amounts', {
     App = startApp();
     assertChart = App.testHelpers.assertChart;
     navigateToMajorityRunoff = App.testHelpers.navigateToMajorityRunoff;
-    navigateToPlurality = App.testHelpers.navigateToPlurality;
+    navigateToMajority = App.testHelpers.navigateToMajority;
     originalRandomFunction = Math.random;
     //need to fake randomness so that we can make deterministic assertions in the tests
     Math.random = function() {
@@ -142,7 +142,7 @@ module('Integration - Voter Amounts', {
 test('changing the voter amount updates the chart in primary election and results in runoff election', function() {
   expect(22);
 
-  visit('/')
+  navigateToMajority('/')
     .then(assertPercentages({
       socialDemocrat: '50%',
       liberal: '10%',
@@ -158,7 +158,7 @@ test('changing the voter amount updates the chart in primary election and result
 test('changing the voter amount updates the chart in primary election and does not result in runoff election', function() {
   expect(16);
 
-  visit('/')
+  navigateToMajority('/')
     .then(setVoterAmounts({ socialDemocrat: 80 }))
     .then(assertChartDisplay('majorityFirstRoundSD80'))
     .then(assertPartyWinners(['SD']));
@@ -197,7 +197,6 @@ test('changing the voter amount updates the chart using the plurality formula', 
   expect(16);
 
   visit('/')
-    .then(navigateToPlurality)
     .then(setVoterAmounts({ socialDemocrat: 45 }))
     .then(assertChartDisplay('pluralitySD45'))
     .then(assertPartyWinners(['SD']));
@@ -205,7 +204,8 @@ test('changing the voter amount updates the chart using the plurality formula', 
 
 test('clicking on the voter amount decrease button decrases the voter amount by one', function() {
   expect(7);
-  visit('/')
+
+  navigateToMajority('/')
     .then(clickDecreaseVoterAmount)
     .then(function() {
       equal(find(liberalVoterAmountSelector).val(), 9, 'the voter amount is correct');
@@ -226,8 +226,9 @@ test('clicking on the voter amount decrease button decrases the voter amount by 
     }));
 });
 
-test('clicking on the voter amount incrase button increases the voter amount by one', function(){
+test('clicking on the voter amount increase button increases the voter amount by one', function(){
   expect(1);
+
   visit('/')
     .then(clickIncreaseVoterAmount)
     .then(function() {
@@ -237,6 +238,7 @@ test('clicking on the voter amount incrase button increases the voter amount by 
 
 test('when the voter amount is zero, decrease button is disabled', function() {
   expect(2);
+
   visit('/')
     .then(setVoterAmounts({
       liberal: 0

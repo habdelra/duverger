@@ -47,6 +47,11 @@ function assertElectionNavButtonExists() {
   ok(button.length, 'election navigation button exists');
 }
 
+function assertElectionNavButtonDoesntExist() {
+  var button = find(electionRoundButton);
+  ok(!button.length, 'election navigation button doesnt exist');
+}
+
 function assertElectionNavButtonDoesNotExist() {
   var button = find(electionRoundButton);
   ok(!button.length, 'election navigation button doesnt exist');
@@ -78,20 +83,22 @@ module('Integration - Formula', {
   }
 });
 
-test('switch from majority to plurality and black', function() {
-  expect(36);
+test('switch from plurality to majority and black', function() {
+  expect(38);
 
   visit('/')
     .then(assertDropDownIsHidden)
     .then(showFormulaList)
     .then(assertDropDownIsVisible)
+    .then(assertElectionNavButtonDoesntExist)
     .then(selectFromDropDown(1))
-    .then(assertChartDisplay('plurality'))
-    .then(assertPartyWinners(['SD']))
-    .then(showFormulaList)
-    .then(selectFromDropDown(0))
     .then(assertChartDisplay('majorityFirstRound'))
     .then(assertPartyWinners(['SD', 'G']))
-    .then(assertElectionNavButtonExists);
+    .then(assertElectionNavButtonExists)
+    .then(showFormulaList)
+    .then(selectFromDropDown(0))
+    .then(assertChartDisplay('plurality'))
+    .then(assertElectionNavButtonDoesntExist)
+    .then(assertPartyWinners(['SD']));
 });
 
