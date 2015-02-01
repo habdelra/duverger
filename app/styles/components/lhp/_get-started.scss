@@ -1,0 +1,330 @@
+// get-started slideshow in the Left Hand Panel
+//
+// ---------------------------------------
+.get-started {
+  $slideshow-height: 330px !default;
+  $slideshow-width: 394px !default;
+  height: 330px;
+  line-height: normal;
+  position: relative;
+
+  .slides {
+    box-shadow: 0 0 0 1px $text-color;
+    background: rgba($text-color, .3);
+    margin: 0 0  18px 0;
+  }
+
+  .slideshow-header {
+    //Show or hide section based on whether tab is checked
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-grox: 1;
+    flex-grow: 1;
+  }
+
+  .slideshow-number {
+    @extend %font-largest;
+    line-height: 30px;
+  }
+
+  .slideshow-header .duverger-logo {
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -webkit-flex-basis: 64px;
+    flex-basis: 64px;
+    margin: 0 25px 0 0;
+  }
+
+  .duverger-logo {
+    width: 64px;
+    height: 60px;
+    background: $text-color;
+    text-align: center;
+    padding: 13px 0;
+
+    .sprite-duverger-monotone {
+      height: 32px;
+      fill: #dcd8c3;
+    }
+  }
+
+  .header-content {
+    padding: 10px 10px 0 0;
+  }
+
+  .header-content-header {
+    @extend %font-medium;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .header-content-body {
+    @extend %font-small;
+  }
+
+  &.slideshow {
+    position: relative;
+
+    &:before {
+      @include transition (all .2s);
+      content: "";
+      display: block;
+      background: url("/images/about-duverger@2x.png") no-repeat;
+      background-size: 359px 500px;
+      background-position: -281px -12px;
+      width: 78px;
+      height: 112px;
+      position: absolute;
+      top: 110px;
+      left: 170px;
+      z-index: 400;
+    }
+
+    &.slide0-visible {
+      &:before {
+        opacity: 0;
+      }
+
+      .slideshow-link.slide0 {
+        background: $text-color;
+      }
+    }
+
+    &.slide1-visible {
+      &:before {
+        top: 158px;
+        left: 251px;
+      }
+
+      .slideshow-link.slide1 {
+        background: $text-color;
+      }
+    }
+
+    &.slide2-visible {
+      &:before {
+        top: 178px;
+        left: 231px;
+      }
+
+      .slideshow-link.slide2 {
+        background: $text-color;
+      }
+    }
+
+    &.slide3-visible {
+      &:before {
+        top: 200px;
+        left: 210px;
+      }
+
+      .slideshow-link.slide3 {
+        background: $text-color;
+      }
+    }
+    
+    &.slide4-visible {
+      &:before {
+        top: 152px;
+        left: 272px;
+      }
+
+      .slideshow-link.slide4 {
+        background: $text-color;
+      }
+    }
+  }
+
+  .slideshow-media {
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      background: url("/images/about-duverger@2x.png") no-repeat;
+      background-size: 359px 500px;
+      height: 100px;
+      position: relative;
+    }
+  }
+
+  .slides {
+    @include transition (text-indent .3s);
+    width: $slideshow-width;
+    height: $slideshow-height;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0; //inline-block space hack
+  }
+
+  .slideshow-slide {
+    display: inline-block;
+    width: $slideshow-width;
+    @extend %font-small;
+    width: $slideshow-width;
+    white-space: normal;
+    text-indent: 0;
+    vertical-align: top;
+    z-index: 300;
+  }
+
+  .slideshow-media {
+    background-color: $background-color;
+    margin: 0 auto;
+  }
+
+  //individual slide media styles
+  .slide0-media {
+    height: 204px;
+    width: 280px;
+    margin: 25px auto 0 auto;
+
+    &:after {
+      height: 200px;
+      width: 280px;
+    }
+  }
+
+  .slide1-media {
+    width: 238px;
+    height: 119px;
+    margin: 50px auto 0 auto;
+
+    &:after {
+      height: 65px;
+      width: 193px;
+      background-position: 0 -199px;
+      position: relative;
+      left: 20px;
+      top: 20px;
+    }
+  }
+
+  .slide2-media {
+    height: 120px;
+    width: 158px;
+    margin: 40px auto 0 auto;
+
+    &:after {
+      height: 80px;
+      width: 121px;
+      background-position: 0 -272px;
+      position: relative;
+      left: 20px;
+      top: 20px;
+    }
+  }
+
+  .slide3-media {
+    height: 140px;
+    width: 303px;
+    margin: 30px auto 0 auto;
+
+    &:after {
+      height: 103px;
+      width: 303px;
+      background-position: 0 -356px;
+      position: relative;
+      top: 10px;
+    }
+  }
+
+  .slide4-media {
+    height: 139px;
+    width: 303px;
+    margin: 30px auto 0 auto;
+
+    &:after {
+      height: 42px;
+      width: 288px;
+      background-position: 0 -460px;
+      position: relative;
+      top: 26px;
+    }
+  }
+
+  .slideshow-nav-links {
+    text-align: center;
+  }
+
+  .slideshow-navigation {
+    @include transition (background-color .2s);
+    position: absolute;
+    top: -1px;
+    height: $slideshow-height + 2;
+    text-indent: 0;
+
+    .sprite-arrow {
+      @extend %vertically-center;
+      stroke: #FFFFFF;
+      stroke-width: 4px;
+      height: 40px;
+      width: 40px;
+    }
+
+    &.disabled {
+      opacity: 0;
+
+      &:hover {
+        cursor: default;
+      }
+    }
+
+    &:hover {
+      background: $text-color;
+      cursor: pointer;
+    }
+  }
+
+  .slideshow-navigation.previous-slide {
+    left: -40px;
+  }
+
+  .slideshow-navigation.next-slide {
+    right: -40px;
+
+    .sprite-arrow {
+      @include transform(rotate(180deg));
+      margin-top: -20px;
+    }
+  }
+
+  .slideshow-nav-links .slideshow-link {
+    display: inline-block;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 15px;
+    width: 15px;
+    border: 1px solid $text-color;
+    border-radius: 50%;
+
+    &:hover {
+      background: $text-color;
+    }
+
+    &.selected {
+      cursor: pointer;
+    }
+  }
+
+  //classes that handle showing/hiding slides
+
+  &.slide0-visible .slides {
+    text-indent: 0;
+  }
+  &.slide1-visible .slides {
+    text-indent: -$slideshow-width; 
+  }
+  &.slide2-visible .slides {
+    text-indent: -$slideshow-width*2;
+  }
+  &.slide3-visible .slides {
+    text-indent: -$slideshow-width*3;
+  }
+  &.slide4-visible .slides {
+    text-indent: -$slideshow-width*4;
+  }
+}

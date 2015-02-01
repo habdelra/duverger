@@ -5,10 +5,18 @@
   transition: $property .1s ease-in-out;
 }
 
-@mixin vertical-align {
+@mixin vertical-align { //deprecated
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+%vertically-center {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); 
 }

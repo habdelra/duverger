@@ -294,6 +294,7 @@ button {
     .secondary-party-name {
       @extend %font-large;
       color: $text-color;
+      @extend %vertically-center;
     }
 
     .ic-modal-trigger {
@@ -316,6 +317,7 @@ button {
         top: 0;
         right: 0;
     }
+
     &.conservative:after {
       border-top-color: $conservative-color;
       border-right-color: $conservative-color;
@@ -672,10 +674,17 @@ $lhp-thumb-padding: 10px;
         margin-right: $gutter-width;
       }
 
-      .content {
+      .content-header {
         @extend %font-small;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-grow: 1;
         flex-grow: 1;
         -webkit-flex-grow: 1;
+      }
+
+      .description {
+        margin: 0 0 30px 0;
       }
 
       .project-name {
@@ -732,294 +741,6 @@ $lhp-thumb-padding: 10px;
       -webkit-align-self: flex-start;
       align-self: flex-start;
       width: 100%;
-    }
-
-    .tab-parameters {
-      .tab-content {
-        -webkit-flex-direction: column;
-        flex-direction: column;
-      }
-
-      table {
-        width: 100%;
-        border-spacing: 0;
-        color: $text-color-light;
-
-        th {
-          color: $background-color;
-        }
-
-        th, td {
-          text-align: left;
-          font-weight: normal;
-          line-height: 16px;
-        }
-
-        th {
-          padding: 10px 10px 10px 20px;
-        }
-
-        thead tr {
-          background-color: #333333;
-
-          th {
-            text-transform: uppercase;
-          }
-        }
-      }
-
-      .table--parameters {
-        margin-bottom: 30px;
-        border: 1px solid $text-color;
-
-        td {
-          padding: 10px 0px 10px 20px;
-        }
-
-        th:first-child, td:first-child {
-          width: 60%;
-        }
-
-        th:last-child, td:last-child {
-          width: 40%;
-        }
-
-        td.value {
-          vertical-align: middle;
-        }
-
-        tbody tr:nth-child(odd) {
-          background-color: #3f3f3f;
-        }
-
-        tbody tr:nth-child(even) {
-          background-color: #393939;
-        }
-
-        .parameter {
-          display: block;
-          text-transform: uppercase;
-        }
-
-        .description {
-          font-size: 10px;
-          color: $background-color;
-        }
-      }
-
-      .table--parties {
-        border: 1px solid $text-color;
-
-        tbody tr {
-          background-color: #3f3f3f;
-        }
-
-        td {
-          padding: 0 10px 10px 20px;
-        }
-
-        tr:first-child td {
-          padding-top: 10px;
-        }
-
-        th:first-child, td:first-child {
-          width: 50%;
-        }
-
-        th:last-child, td:last-child {
-          width: 50%;
-        }
-
-        td:last-child span {
-          display: block;
-          width: 70%;
-          padding: 5px 4px 3px 4px;
-          text-align: center;
-          text-transform: uppercase;
-          color: $text-color-light;
-        }
-
-        .social-democrat { background: $social-democrat-color; }
-        .liberal { background: $liberal-color; }
-        .nationalist { background: $nationalist-color; }
-        .green { background: $green-color; }
-        .conservative { background: $conservative-color; }
-      }
-    }
-
-    .tab-formulas {
-      .tab-content {
-        -webkit-flex-direction: column;
-        flex-direction: column;
-      }
-
-      .formulas--block {
-        border: solid 1px #333333;
-        background-color: #3F3F3F;
-        text-align: left;
-        font-weight: normal;
-        color: #CCCCCC;
-        line-height: 18px;
-        -webkit-flex: none;
-        flex: none;
-
-        .formulas--header {
-          color: $text-color-light;
-          text-transform: uppercase;
-          background-color: #333333;
-          padding: 5px 5px 5px 20px;
-          font-size: 14px;
-        }
-
-        .items {
-          margin: 8px 10px 8px 40px;
-          color: $background-color;
-
-          .item {
-            text-indent: -18px;
-            padding: 3px 0;
-          }
-
-          .item:before {
-            color: #46C8B3;
-            content: "\2022";
-            font-size: 24px;
-            padding-right: 10px;
-            position: relative;
-            top: 3px;
-          }
-        }
-      }
-      .formulas--majority-runoff {
-        margin-bottom: 30px;
-      }
-    }
-  }
-}
-
-// ---------------------------------------
-// Team Styles
-// ---------------------------------------
-.tab-team {
-  .tab-content {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-  }
-
-  h3 {
-    @extend %font-large;
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 100%;
-    margin: 20px 0 26px;
-
-    a {
-      color: $nationalist-color;
-      text-decoration: none;
-    }
-  }
-
-  .team-member {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 112px;
-    // margin: 0 10px;
-    height: 195px;
-
-    .team-member-photo {
-      position: relative;
-      margin: 0 0 10px 0;
-    }
-
-    .team-member-twitter {
-      @extend font-small;
-      @include transition(background-color, .2s);
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      line-height: 110px;
-      opacity: 0;
-      text-decoration: none;
-      z-index: 90;
-      color: $text-color;
-      letter-spacing: -.08em;
-      color: $text-color;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
-
-    img {
-      display: block;
-    }
-
-    .team-name, .team-title {
-      @extend %font-small;
-      display: block;
-      line-height: normal;
-    }
-
-    .team-name {
-      text-transform: uppercase;
-    }
-
-    .team-title {
-      color: #dcd8c3;
-    }
-  }
-
-  @mixin team-member-hover($color) {
-    .team-member-photo:before {
-      @include transition(background-color, .2s);
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      z-index: 80;
-      background-color: rgba($color, .6);
-    }
-
-    .team-member-photo:hover:before {
-      background-color: rgba($color, 1);
-    }
-  }
-
-  .team-member1, .team-member6, .team-member9 {
-      @include team-member-hover($nationalist-color);
-  }
-
-  .team-member2, .team-member3 {
-      @include team-member-hover($liberal-color);
-  }
-
-  .team-member4, .team-member8 {
-      @include team-member-hover($green-color);
-  }
-
-  .team-member5, .team-member7 {
-      @include team-member-hover($social-democrat-color);
-  }
-
-  .support-callout {
-    display: block;
-    text-align: right;
-    position: absolute;
-    bottom: 0;
-    right: 27px;
-    left: 27px;
-    text-align: center;
-    color: #dcd8c3;
-    border-top: 1px solid $text-color;
-
-    a {
-      color: $nationalist-color;
-      text-decoration: none;
     }
   }
 }

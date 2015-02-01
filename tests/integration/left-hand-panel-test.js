@@ -9,6 +9,11 @@ var leftHandPanelClosedSelector = '.left-hand-panel.closed';
 var duvergerLogoSelector = '.left-hand-panel .sprite-duverger';
 var descriptionSelector = '.left-hand-panel .tab-content-about .description';
 var toggleButtonSelector = '.toggle-btn';
+var nextSlideButtonSelector = '.slideshow-nav .next-slide';
+var previousSlideButtonSelector = '.slideshow-nav .previous-slide';
+var nextSlideButtonDisabledSelector = '.slideshow-nav .next-slide.disabled';
+var previousSlideButtonDisabledSelector = '.slideshow-nav .previous-slide.disabled';
+var slideshowNumberSelector = '.slideshow-number';
 
 function assertLHPOpen() {
   equal(find(leftHandPanelOpenedSelector).length, 1, 'left hand panel is open');
@@ -30,6 +35,28 @@ function assertDuvergerDescriptionPresent() {
 
 function clickToggleButton() {
   return click(toggleButtonSelector);
+}
+
+function clickNextSlide() {
+  return click(nextSlideButtonSelector);
+}
+
+function clickPreviousSlide() {
+  return click(previousSlideButtonSelector);
+}
+
+function assertSlideDisplayed(idx) {
+  return function() {
+    ok(find('.slide'+idx+'-visible').length, 'slide ' + idx + ' is displayed');
+  };
+}
+
+function assertNextSlideButtonDisabled() {
+  ok(find(nextSlideButtonDisabledSelector).length, 'next slide button is disabled');
+}
+
+function assertPreviousSlideButtonDisabled() {
+  ok(find(nextSlideButtonDisabledSelector), 'next slide button is disabled');
 }
 
 module('Integration - Left Hand Panel', {
@@ -58,4 +85,29 @@ test('click on toggle causes the left hand panel to toggle', function() {
     .then(assertLHPClosed)
     .then(clickToggleButton)
     .then(assertLHPOpen);
+});
+
+test('slideshow navigation works correctly', function() {
+  expect(11);
+
+  visit('/')
+    .then(assertSlideDisplayed(0))
+    .then(clickNextSlide)
+    .then(assertSlideDisplayed(1))
+    .then(clickNextSlide)
+    .then(assertSlideDisplayed(2))
+    .then(clickNextSlide)
+    .then(assertSlideDisplayed(3))
+    .then(clickNextSlide)
+    .then(assertSlideDisplayed(4))
+    .then(assertNextSlideButtonDisabled)
+    .then(clickPreviousSlide)
+    .then(assertSlideDisplayed(3))
+    .then(clickPreviousSlide)
+    .then(assertSlideDisplayed(2))
+    .then(clickPreviousSlide)
+    .then(assertSlideDisplayed(1))
+    .then(clickPreviousSlide)
+    .then(assertSlideDisplayed(0))
+    .then(assertPreviousSlideButtonDisabled);
 });

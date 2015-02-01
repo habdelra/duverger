@@ -8,12 +8,101 @@
       Duverger
     </label>
     <div id="tab-content1" class="tab-content tab-content-about">
-      <svg role="img" title="Duverger" class="sprite-duverger" viewBox="0 0 151.2 208.7">
-        <use xlink:href="svg/spritemap.svg#icon-duverger"></use>
-      </svg>
       <div class="content">
-        <h2 class="project-name">Project Duverger</h2>
-        <p class="description">Duverger is an instructional tool for exploring the relationship between what voters want, different types of electoral systems, and the outcomes of legislative elections.</p>
+        <div class="content-header">
+          <svg role="img" title="Duverger" class="sprite-duverger" viewBox="0 0 151.2 208.7">
+            <use xlink:href="svg/spritemap.svg#icon-duverger"></use>
+          </svg>
+          <div class="content-header-content">
+            <h2 class="project-name">Project Duverger</h2>
+            <p class="description">Duverger is an instructional tool for exploring the relationship between what voters want, different types of electoral systems, and the outcomes of legislative elections.</p>
+          </div>
+        </div>
+        <div {{bind-attr class=':get-started :slideshow visibleSlide'}}>
+          <div class="slides">
+            <div class="slideshow-slide slide0">
+              <div class="slideshow-header">
+                <div class="duverger-logo">
+                  <svg role="img" title="Duverger" class="sprite-duverger-monotone" viewBox="0 0 300 300">
+                    <use xlink:href="svg/spritemap.svg#icon-duverger-monotone"></use>
+                  </svg>
+                </div>
+                <div class="header-content">
+                  <span class="header-content-header">Welcome! Lets get started.</span>
+                  <span class="header-content-body">We will help you initially set up your voting district to give you a brief overview of  the basics.</span>
+                </div>
+              </div>
+              <div class="slideshow-media slide0-media"></div>
+            </div>
+            <div class="slideshow-slide slide1">
+              <div class="slideshow-header">
+                <div class="duverger-logo">
+                  <span class="slideshow-number">1</span>
+                </div>
+                <div class="header-content">
+                  <span class="header-content-header">Set the district’s electoral formula to determine how votes are calculated</span>
+                  <span class="header-content-body">Use the drop down to choose which formula to use: Majority, Plurality, PR. </span>
+                </div>
+              </div>
+              <div class="slideshow-media slide1-media"></div>
+            </div>
+            <div class="slideshow-slide slide2">
+              <div class="slideshow-header">
+                <div class="duverger-logo">
+                  <span class="slideshow-number">2</span>
+                </div>
+                <div class="header-content">
+                  <span class="header-content-header">Set the number of votes cast by voters in a preference group.</span>
+                  <span class="header-content-body">You can click the arrows on either side of the votes cast box to decrease/increase the number.  Or you can tap / click into the box and enter a number.</span>
+                </div>
+              </div>
+              <div class="slideshow-media slide2-media"></div>
+            </div>
+            <div class="slideshow-slide slide3">
+              <div class="slideshow-header">
+                <div class="duverger-logo">
+                  <span class="slideshow-number">3</span>
+                </div>
+                <div class="header-content">
+                  <span class="header-content-header">Set the number of votes cast by voters in a preference group.</span>
+                  <span class="header-content-body">You can click the arrows on either side of the votes cast box to decrease/increase the number.  Or you can tap / click into the box and enter a number.</span>
+                </div>
+              </div>
+              <div class="slideshow-media slide3-media"></div>
+            </div>
+            <div class="slideshow-slide slide4">
+              <div class="slideshow-header">
+                <div class="duverger-logo">
+                  <span class="slideshow-number">4</span>
+                </div>
+                <div class="header-content">
+                  <span class="header-content-header">View Results</span>
+                  <span class="header-content-body">View the results of the election in the donut chart on the left-hand side.  In a majority with run-off, view the run-off results by clicking/tapping on the run-off button.</span>
+                </div>
+              </div>
+              <div class="slideshow-media slide4-media"></div>
+            </div>
+          </div>
+          <div class="slideshow-nav">
+            <a {{action 'decrementSlideNumber'}} {{bind-attr class=":slideshow-navigation :previous-slide isFirstSlide:disabled"}}>
+              <svg role="img" title="Duverger" class="sprite-arrow" viewBox="0 0 300 300">
+                <use xlink:href="svg/spritemap.svg#arrow"></use>
+              </svg>
+            </a>
+            <a {{action 'incrementSlideNumber'}} {{bind-attr class=":slideshow-navigation :next-slide isLastSlide:disabled"}}>
+              <svg role="img" title="Duverger" class="sprite-arrow" viewBox="0 0 300 300">
+                <use xlink:href="svg/spritemap.svg#arrow"></use>
+              </svg>
+            </a>
+            <div class="slideshow-nav-links">
+              <a href="javascript:void(0)" class="slideshow-link slide0">Slide 0</a>
+              <a href="javascript:void(0)" class="slideshow-link slide1">Slide 1</a>
+              <a href="javascript:void(0)" class="slideshow-link slide2">Slide 2</a>
+              <a href="javascript:void(0)" class="slideshow-link slide3">Slide 3</a>
+              <a href="javascript:void(0)" class="slideshow-link slide4">Slide 4</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </li>

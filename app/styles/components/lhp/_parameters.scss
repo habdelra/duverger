@@ -1,0 +1,125 @@
+// Parameters tab in the Left Hand Panel
+//
+// ---------------------------------------
+
+.tab-parameters {
+  .tab-content {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    color: $text-color-light;
+    text-align: left;
+    line-height: 16px;
+
+    th, td {
+      text-align: left;
+      font-weight: normal;
+      line-height: 16px;
+    }
+
+    th {
+      padding: 10px 10px 10px 20px;
+      color: $background-color;
+      text-transform: uppercase;
+    }
+
+    thead tr {
+      background-color: #333333;
+      th {
+        thead tr {
+          background-color: #333333;
+
+          th {
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+
+  .table--parameters {
+    margin-bottom: 30px;
+    border: 1px solid $text-color;
+
+    td {
+      padding: 10px 0px 10px 20px;
+    }
+
+    th:first-child, td:first-child {
+      width: 60%;
+    }
+
+    th:last-child, td:last-child {
+      width: 40%;
+    }
+
+    td.value {
+      vertical-align: middle;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #3f3f3f;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #393939;
+    }
+
+    .parameter {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .description {
+      font-size: 10px;
+      color: $background-color;
+    }
+  }
+
+  .description {
+    font-size: 10px;
+    color: $background-color;
+  }
+
+  .table--parties {
+    tbody tr {
+      background-color: #3f3f3f;
+      border: 1px solid $text-color;
+    }
+
+    td {
+      padding: 5px 10px 5px 20px;
+    }
+
+    th:first-child, td:first-child {
+      width: 50%;
+    }
+
+    th:last-child, td:last-child {
+      width: 50%;
+    }
+    
+    tr:first-child td {
+      padding-top: 10px;
+    }
+
+    td:last-child span {
+      display: block;
+      width: 70%;
+      padding: 4px;
+      text-align: center;
+      text-transform: uppercase;
+      color: $text-color-light;
+    }
+
+    .social-democrat { background: $social-democrat-color; }
+    .liberal { background: $liberal-color; }
+    .nationalist { background: $nationalist-color; }
+    .green { background: $green-color; }
+    .conservative { background: $conservative-color; }
+  }
+}
