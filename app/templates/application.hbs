@@ -30,7 +30,7 @@
 
       {{#if totalVoters}}
         {{#donut-chart diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
-          {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff}}
+          {{donut-hole diameter=model.diameter electionOutcome=electionOutcome currentRunoff=currentRunoff visibleCoinTossIndex=visibleCoinTossIndex}}
         {{/donut-chart}}
       {{else}}
         {{unknown-result}}
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  {{partial 'partials/preference-order-mask'}}
+  {{partial 'partials/modal-mask'}}
   {{preference-order-control showPreferenceOrderControl=showPreferenceOrderControl
                              positionStyle=preferenceOrderStyle
                              preferencePreviousButtonDisabled=preferencePreviousButtonDisabled

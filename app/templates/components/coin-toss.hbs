@@ -1,0 +1,17 @@
+{{#if showCoinToss}}
+  <div class="coin-toss-panel">
+    <div class="coin-toss-heading">Tie Results</div>
+    <ul>
+      {{#each party in parties}}
+      <li {{bind-attr class=":coin-toss-party party.isWinner:winner"}}>
+        {{#if party.isWinner}}
+          <span class="hidden-text">coin toss winner</span>
+        {{/if}}
+        <div class="coin-wrapper">
+          <div {{bind-attr class="party.name :party-winner party.isWinner:coin-toss-winner:coin-toss-participant"}}>{{party.abbreviation}}</div>
+        </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

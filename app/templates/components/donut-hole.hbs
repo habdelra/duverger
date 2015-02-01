@@ -1,6 +1,16 @@
 <div {{bind-attr class=":election-outcome__results" }}>
   <div class="final-seats">Final Seats</div>
   {{#each party in displayParties}}
-    <div {{bind-attr class="hasWinner::runoff party.name :party-winner"}}> {{party.abbreviation}}</div>
+    <div class="coin-wrapper">
+      {{#if coinTossHappened}}
+        {{#ic-modal-trigger controls="modal" on-toggle="showCoinToss" classNameBindings=":ic-modal-trigger hasWinner::runoff party.name :party-winner coinTossHappened:coin-toss"}}
+          <span>{{party.abbreviation}}</span>
+        {{/ic-modal-trigger}}
+        {{partial 'partials/coin-stack'}}
+        {{coin-toss electionOutcome=electionOutcome currentRunoff=currentRunoff visibleCoinTossIndex=visibleCoinTossIndex index=party.index}}
+      {{else}}
+        <div {{bind-attr class="hasWinner::runoff party.name :party-winner coinTossHappened:coin-toss"}}>{{party.abbreviation}}</div>
+      {{/if}}
+    </div>
   {{/each}}
  </div>

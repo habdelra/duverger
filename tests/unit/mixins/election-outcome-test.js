@@ -95,10 +95,12 @@ test('displayParties retuns an array of objects that has display properties for 
     name: 'green',
     fullName: 'Green',
     abbreviation: 'G',
+    index: 0,
     color: '#BBDF2A'
   },{
     name: 'nationalist',
     abbreviation: 'N',
+    index: 1,
     fullName: 'Nationalist',
     color: '#46C8B3'
   }];
@@ -190,4 +192,90 @@ test('runoffOrdinal returns the english ordinal string based on the currentRunof
   set(object, 'currentRunoff', 3);
 
   equal(get(object, 'runoffOrdinal'), '4th', 'the ordinal value is correct');
+});
+
+test('coinTossWinners returns an array of coin toss winners for the current run-off', function() {
+  expect(1);
+
+  var expected = ['socialDemocrat', 'green'];
+  var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
+    currentRunoff: 1,
+    electionOutcome: [{
+      coinToss: {
+        participants: [],
+        winners: []
+      }
+    }, {
+      coinToss: {
+        participants: ['socialDemocrat', 'green', 'liberal'],
+        winners: expected
+      }
+    }]
+  });
+
+  deepEqual(get(object, 'coinTossWinners'), expected, 'coinTossWinners is correct');
+});
+
+test('coinTossParticipants returns an array of coin toss participants for the current run-off', function() {
+  expect(1);
+
+  var expected = ['socialDemocrat', 'green'];
+  var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
+    currentRunoff: 1,
+    electionOutcome: [{
+      coinToss: {
+        participants: [],
+        winners: []
+      }
+    }, {
+      coinToss: {
+        participants: expected,
+        winners: ['green']
+      }
+    }]
+  });
+
+  deepEqual(get(object, 'coinTossParticipants'), expected, 'coinTossParticipants is correct');
+});
+
+test('coinTossHappened returns a false when a coin toss did not happen in the current run-off', function() {
+  expect(1);
+
+  var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
+    currentRunoff: 1,
+    electionOutcome: [{
+      coinToss: {
+        participants: ['green', 'liberal'],
+        winners: ['green']
+      }
+    }, {
+      coinToss: {
+        participants: [],
+        winners: []
+      }
+    }]
+  });
+
+  ok(!get(object, 'coinTossHappened'), 'coinTossHappened is the correct value');
+});
+
+test('coinTossHappened returns a true when a coin toss did happen in the current run-off', function() {
+  expect(1);
+
+  var object = Ember.Object.createWithMixins(ElectionOutcomeMixin, {
+    currentRunoff: 0,
+    electionOutcome: [{
+      coinToss: {
+        participants: ['green', 'liberal'],
+        winners: ['green']
+      }
+    }, {
+      coinToss: {
+        participants: [],
+        winners: []
+      }
+    }]
+  });
+
+  ok(get(object, 'coinTossHappened'), 'coinTossHappened is the correct value');
 });

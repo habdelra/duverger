@@ -64,9 +64,10 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
       set(this, 'showPreferenceOrderControl', true);
     },
 
-    preferenceDoneMoving: function() {
+    modalDismissed: function() {
       set(this, 'preferenceIsMoving', null);
       set(this, 'showPreferenceOrderControl', false);
+      set(this, 'visibleCoinTossIndex', null);
     },
 
     movePreferenceBefore: function() {
@@ -90,6 +91,10 @@ export default Ember.ObjectController.extend(ElectionOutcomeMixin, {
     partyAtEnd: function() {
       set(this, 'preferenceNextButtonDisabled', true);
       set(this, 'preferencePreviousButtonDisabled', false);
+    },
+
+    showCoinToss: function(index) {
+      set(this, 'visibleCoinTossIndex', index);
     }
   }
 });

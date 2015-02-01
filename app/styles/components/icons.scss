@@ -64,6 +64,13 @@
   }
 }
 
+%icon-ribbon {
+  @extend %icon;
+  background-image: url("../images/first-place-ribbon.svg");
+  background-repeat: no-repeat;
+  background-size: 12px auto;
+}
+
 %stroke-black {
   fill: none;
   stroke: black;

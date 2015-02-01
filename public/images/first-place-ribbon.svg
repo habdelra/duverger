@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px"
+	 height="25px" viewBox="0 0 12 25" enable-background="new 0 0 12 25" xml:space="preserve">
+<symbol  id="keyboard" viewBox="-55.128 -57 111 113">
+	<g>
+		<path fill="#808284" d="M55.872-48c0-4.971-4.034-9-9.01-9h-92.979c-4.977,0-9.01,4.029-9.01,9v94c0,4.971,4.034,9,9.01,9h92.979
+			c4.977,0,9.01-4.029,9.01-9V-48z"/>
+		<path fill="#F7F7F8" d="M55.872-47c0-4.971-4.034-9-9.01-9h-92.979c-4.977,0-9.01,4.029-9.01,9v94c0,4.971,4.034,9,9.01,9h92.979
+			c4.977,0,9.01-4.029,9.01-9V-47z"/>
+	</g>
+</symbol>
+<g id="Background">
+</g>
+<g id="Visual_Design">
+</g>
+<g id="Chart">
+</g>
+<g id="Sliders">
+</g>
+<g id="Annotations">
+	<g id="Tap">
+	</g>
+	<circle fill="#FFFFFF" cx="6" cy="6" r="6"/>
+	<path fill="#FFFFFF" d="M1,13.5c0,0,1.875,1.763,5,1.763s5-1.763,5-1.763v11.458l-5-4.407l-5,4.407V13.5z"/>
+</g>
+<g id="Overlay">
+</g>
+<g id="Grid">
+</g>
+</svg>
