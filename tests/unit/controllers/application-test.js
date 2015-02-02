@@ -196,7 +196,7 @@ test('preferenceStartedMoving action sets showPreferenceOrderControl to true', f
   ok(get(controller, 'showPreferenceOrderControl'), 'showPreferenceOrderControl is set correctly');
 });
 
-test('preferenceDoneMoving action sets preferenceIsMoving to null', function() {
+test('modalDismissed action sets preferenceIsMoving to null', function() {
   expect(1);
 
   var controller = this.subject({
@@ -204,12 +204,25 @@ test('preferenceDoneMoving action sets preferenceIsMoving to null', function() {
     preferenceIsMoving: {}
   });
 
-  controller.send('preferenceDoneMoving');
+  controller.send('modalDismissed');
 
   equal(get(controller, 'preferenceIsMoving'), null, 'preferenceIsMoving is set to null');
 });
 
-test('preferenceDoneMoving action sets showPreferenceOrderControl to false', function() {
+test('modalDismissed action sets visibleCoinTossIndex to null', function() {
+  expect(1);
+
+  var controller = this.subject({
+    content: {},
+    visibleCoinTossIndex: 0
+  });
+
+  controller.send('modalDismissed');
+
+  equal(get(controller, 'visibleCoinTossIndex'), null, 'visibleCoinTossIndex is set correctly');
+});
+
+test('modalDismissed action sets showPreferenceOrderControl to false', function() {
   expect(1);
 
   var controller = this.subject({
@@ -217,7 +230,7 @@ test('preferenceDoneMoving action sets showPreferenceOrderControl to false', fun
     showPreferenceOrderControl: true
   });
 
-  controller.send('preferenceDoneMoving');
+  controller.send('modalDismissed');
 
   ok(!get(controller, 'showPreferenceOrderControl'), 'showPreferenceOrderControl is set correctly');
 });
@@ -286,4 +299,20 @@ test('partyAtMiddle action set preferenceNextButtonDisabled and preferencePrevio
 
   ok(!get(controller, 'preferenceNextButtonDisabled'), 'preferenceNextButtonDisabled is set to false');
   ok(!get(controller, 'preferencePreviousButtonDisabled'), 'preferencePreviousButtonDisabled is set to false');
+});
+
+test('showCointToss action set the visibleCoinTossIndex to the value that was passed in', function() {
+  expect(2);
+
+  var controller = this.subject({
+    visibleCoinTossIndex: 0
+  });
+
+  controller.send('showCoinToss', 1);
+
+  equal(get(controller, 'visibleCoinTossIndex'), 1, 'the visibleCoinTossIndex was set correctly');
+
+  controller.send('showCoinToss', 2);
+
+  equal(get(controller, 'visibleCoinTossIndex'), 2, 'the visibleCoinTossIndex was set correctly');
 });

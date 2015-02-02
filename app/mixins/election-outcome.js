@@ -34,9 +34,10 @@ export default Ember.Mixin.create({
 
   displayParties: computed('winners', function(){
     var winners = get(this, 'winners');
-    return winners.map(function(party){
+    return winners.map(function(party, index){
       return {
         name: party,
+        index: index,
         fullName: partyLookup(party, 'name'),
         abbreviation: partyLookup(party, 'abbreviation'),
         color: partyLookup(party, 'color')
@@ -52,6 +53,18 @@ export default Ember.Mixin.create({
       set(this, 'currentRunoff', currentRunoff);
     }
     return electionOutcome.objectAt(currentRunoff);
+  }),
+
+  coinTossHappened: computed('coinTossParticipants', function() {
+    return !!get(this, 'coinTossParticipants.length');
+  }),
+
+  coinTossParticipants: computed('electionOutcomeForCurrentRunoff.coinToss.participants', function() {
+    return get(this, 'electionOutcomeForCurrentRunoff.coinToss.participants');
+  }),
+
+  coinTossWinners: computed('electionOutcomeForCurrentRunoff.coinToss.winners', function() {
+    return get(this, 'electionOutcomeForCurrentRunoff.coinToss.winners');
   }),
 
   requiresRunoff: computed('runoffs', 'currentRunoff', function() {

@@ -36,3 +36,30 @@ test('style returns the CSS position of the donut hole', function() {
   var expected = 'width:296px; height:296px; left:152px; top:152px;';
   equal(get(component, 'style'), expected, 'the style is correct');
 });
+
+test('showCoinToss action is forwarded with the index of the context', function() {
+  expect(2);
+
+  var context = {
+    $: function() {
+      return {
+        parent: function() {
+          return {
+            index: function() {
+              return 1;
+            }
+          };
+        }
+      };
+    }
+  };
+
+  var component = this.subject({
+    sendAction: function(actionName, index) {
+      equal(actionName, 'showCoinToss', 'the showCoinToss action is fired');
+      equal(index, 0, 'the index is send correctly');
+    }
+  });
+
+  component.send('showCoinToss', context);
+});

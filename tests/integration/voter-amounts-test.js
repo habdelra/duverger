@@ -62,11 +62,6 @@ function pressKeyCode(keyCode) {
   return $(liberalVoterAmountSelector).trigger(press);
 }
 
-function assertTie() {
-  var electionOutcome = find(tieSelector);
-  ok(electionOutcome.text().trim().indexOf('Unresolveable Tie') > -1, 'Tie message displayed');
-}
-
 function assertPartyWinners(partyWinners) {
   return function() {
     var outcome = find(electionOutcomeSelector);

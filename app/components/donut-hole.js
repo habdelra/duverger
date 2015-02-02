@@ -8,8 +8,9 @@ var computed = Ember.computed;
 var donutMargin = chartConstants().donutMargin;
 var donutThickness = chartConstants().donutThickness;
 
-
 export default Ember.Component.extend(ElectionOutcomeMixin, {
+  showCoinToss: 'showCoinToss',
+
   classNames: ['donut-hole'],
   attributeBindings: ['style'],
 
@@ -29,5 +30,11 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     return 'width:' + innerDiameter +
       'px; height:' + innerDiameter +
       'px; left:' + margin + 'px; top:' + margin + 'px;';
-  })
+  }),
+  actions: {
+    showCoinToss: function(context) {
+      var triggerIndex = context.$().parent().index() - 1;
+      this.sendAction('showCoinToss', triggerIndex);
+    }
+  }
 });
