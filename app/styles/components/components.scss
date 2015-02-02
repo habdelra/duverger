@@ -296,7 +296,6 @@ button {
     .secondary-party-name {
       @extend %font-large;
       color: $text-color;
-      @extend %vertically-center;
     }
 
     .ic-modal-trigger {
