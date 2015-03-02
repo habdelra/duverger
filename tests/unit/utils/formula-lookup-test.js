@@ -26,10 +26,7 @@ var voterData = [{
 }];
 
 moduleFor('util:formula-lookup', 'util:formula-lookup', {
-  setup: function(container){
-    container.register('formula:plurality', resolver.resolve('formula:plurality'));
-    container.register('formula:majority', resolver.resolve('formula:majority'));
-  }
+  needs: ['formula:plurality', 'formula:majority']
 });
 
 test('returns plurality formula function', function() {

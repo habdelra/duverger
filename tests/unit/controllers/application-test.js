@@ -5,10 +5,7 @@ var get = Ember.get;
 var set = Ember.set;
 
 moduleFor('controller:application', 'controller:application', {
-  setup: function(container){
-    container.register('formula:plurality', function() { return 'plurality'; });
-    container.register('formula:majority',  function() { return 'majority'; });
-  }
+  needs: ['formula:plurality', 'formula:majority']
 });
 
 test('totalVoters is the sum of all the voters from all the preference groups', function() {
@@ -46,23 +43,6 @@ test('_calculateElectionOutcome returns the election outcome', function() {
 
   var actual = get(controller, '_calculateElectionOutcome');
   equal(actual.call(controller), expectedData, 'the data is correct');
-});
-
-test('formula retrieves the function for formulaName', function(){
-  expect(2);
-
-  var controller = this.subject({
-    content: {},
-    formulaName: 'plurality',
-    container: this.container
-  });
-
-  var actual = get(controller, 'formula');
-  equal(actual.call(controller), 'plurality', 'the formula is correct');
-
-  set(controller, 'formulaName', 'majority');
-  actual = get(controller, 'formula');
-  equal(actual.call(controller), 'majority', 'the formula is correct');
 });
 
 test('when the formula changes, the election is recomputed', function() {
