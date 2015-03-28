@@ -43,9 +43,9 @@ test('winner in first round of elections', function(){
       winners: []
     },
     votedFor: {
-      green: "green",
-      democrat: "democrat",
-      republican: "republican"
+      green: [{"green": 1}],
+      democrat: [{"democrat":48}],
+      republican: [{"republican":51}]
     },
     voterSummary: [{
       green: 1
@@ -91,9 +91,9 @@ test('winner in runoff election', function() {
       winners: []
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'republican'
+      green: [{'green': 9}],
+      democrat: [{'democrat':40}],
+      republican: [{'republican': 41}]
     },
     voterSummary: [{
       green: 9
@@ -109,9 +109,9 @@ test('winner in runoff election', function() {
       winners: []
     },
     votedFor: {
-      green: 'democrat',
-      democrat: 'democrat',
-      republican: 'republican'
+      green: [{'democrat':9}],
+      democrat: [{'democrat':40}],
+      republican: [{'republican': 41}]
     },
     voterSummary: [{
       green: 9
@@ -155,9 +155,9 @@ test('tie for 1st place in first round election', function() {
       winners: []
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'republican'
+      green: [{'green':40}],
+      democrat: [{'democrat':40}],
+      republican: [{'republican': 30}]
     },
     voterSummary: [{
       republican: 30
@@ -173,9 +173,9 @@ test('tie for 1st place in first round election', function() {
       winners: []
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'democrat'
+      green: [{'green':40}],
+      democrat: [{'democrat':40}],
+      republican: [{'democrat':30}]
     },
     voterSummary: [{
       republican: 30
@@ -221,9 +221,9 @@ test('tie for 2nd place in first round election', function() {
       winners: ['green']
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'republican'
+      green: [{'green':30}],
+      democrat: [{'democrat':30}],
+      republican: [{'republican':40}]
     },
     voterSummary: [{
       democrat: 30
@@ -239,9 +239,9 @@ test('tie for 2nd place in first round election', function() {
       winners: []
     },
     votedFor: {
-      green: 'green',
-      democrat: 'green',
-      republican: 'republican'
+      green: [{'green': 30}],
+      democrat: [{'green': 30}],
+      republican: [{'republican': 40}]
     },
     voterSummary: [{
       democrat: 30
@@ -289,9 +289,9 @@ test('3-way tie in first round election', function() {
       winners: ['democrat', 'green']
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'republican'
+      green: [{'green': 30}],
+      democrat: [{'democrat': 30}],
+      republican: [{'republican': 30}]
     },
     voterSummary: [{
       republican: 30
@@ -307,9 +307,9 @@ test('3-way tie in first round election', function() {
       winners: []
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'democrat'
+      green: [{'green': 30}],
+      democrat: [{'democrat': 30}],
+      republican: [{'democrat': 30}]
     },
     voterSummary: [{
       republican: 30
@@ -364,10 +364,10 @@ test('tie in second round election', function() {
       winners: []
     },
     votedFor: {
-      green: 'green',
-      democrat: 'democrat',
-      republican: 'republican',
-      teaparty: 'teaparty'
+      green: [{'green': 10}],
+      democrat: [{'democrat': 30}],
+      republican: [{'republican':30}],
+      teaparty: [{'teaparty': 10}]
     },
     voterSummary: [{
       green: 10
@@ -385,10 +385,10 @@ test('tie in second round election', function() {
       winners: ['democrat']
     },
     votedFor: {
-      green: 'democrat',
-      democrat: 'democrat',
-      republican: 'republican',
-      teaparty: 'republican'
+      green: [{'democrat': 10}],
+      democrat: [{'democrat': 30}],
+      republican: [{'republican':30}],
+      teaparty: [{'republican': 10}]
     },
     voterSummary: [{
       green: 10
@@ -404,4 +404,74 @@ test('tie in second round election', function() {
   var actual = majority(voterData);
   deepEqual(actual, expected, 'the formula is correct');
 });
+
+
+// test('sincerety affects outcomes', function() {
+  // expect(1);
+
+  // var voterData = [{
+    // voters: 40,
+    // preferences: [{
+      // party: 'socialist'
+    // }]
+  // },{
+    // voters: 30,
+    // preferences: [{
+      // party: 'conservative'
+    // }]
+  // },{
+    // voters: 15,
+    // preferences: [{
+      // party: 'green'
+    // }]
+  // },{
+    // voters: 10,
+    // sincerety: 60,
+    // preferences: [{
+      // party: 'liberal'
+    // },{
+      // party: 'green'
+    // },{
+      // party: 'conservative'
+    // },{
+      // party: 'socialist'
+    // },{
+      // party: 'nationalist'
+    // }]
+  // },{
+    // voters: 5,
+    // preferences: [{
+      // party: 'nationalist'
+    // }]
+  // }];
+
+  // var expected = [{
+    // winners: ['socialist'],
+    // coinToss: {
+      // participants: [],
+      // winners: []
+    // },
+    // votedFor: {
+      // green: [{ 'green': 15 }],
+      // liberal: [{'liberal': 6}, { 'conservative': 4 }] ,
+      // conservative: 'conservative',
+      // socialist: 'socialist',
+      // nationalist: 'nationalist'
+    // },
+    // voterSummary: [{
+      // green: 15
+    // },{
+      // liberal: 6
+    // },{
+      // conservative: 34
+    // },{
+      // socialist: 40
+    // },{
+      // nationalist: 5
+    // }]
+  // }];
+
+  // var actual = majority(voterData);
+  // deepEqual(actual, expected, 'the formula is correct');
+// });
 

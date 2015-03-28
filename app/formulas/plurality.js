@@ -63,7 +63,9 @@ export default function(preferenceGroups){
     var summary = {};
     var party = partyTotal.party;
     summary[party] = partyTotal.voters;
-    result.votedFor[party] = party;
+    var votesForParty = {};
+    votesForParty[party] = partyTotal.voters;
+    result.votedFor[party] = [votesForParty];
     return summary;
   });
 

@@ -39,9 +39,9 @@ test('returns plurality formula function', function() {
       winners:[]
     },
     votedFor: {
-      conservative: 'conservative',
-      green: 'green',
-      socialDemocrat: 'socialDemocrat'
+      conservative: [{ 'conservative': 5 }],
+      green: [{ 'green': 4 }],
+      socialDemocrat: [{ 'socialDemocrat': 6 }]
     },
     voterSummary: [{
       green: 4
@@ -69,9 +69,9 @@ test('returns majority formula function', function() {
       winners:[]
     },
     votedFor: {
-      conservative: 'conservative',
-      green: 'green',
-      socialDemocrat: 'socialDemocrat'
+      conservative: [{ 'conservative': 5 }],
+      green: [{ 'green': 4 }],
+      socialDemocrat: [{ 'socialDemocrat': 6 }]
     },
     voterSummary: [{
       green: 4
@@ -87,9 +87,9 @@ test('returns majority formula function', function() {
       winners:[]
     },
     votedFor: {
-      conservative: 'conservative',
-      green: 'socialDemocrat',
-      socialDemocrat: 'socialDemocrat'
+      conservative: [{ 'conservative': 5 }],
+      green: [{ 'socialDemocrat': 4 }],
+      socialDemocrat: [{ 'socialDemocrat': 6 }]
     },
     voterSummary: [{
       green: 4

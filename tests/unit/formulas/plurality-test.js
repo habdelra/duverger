@@ -43,9 +43,9 @@ test('winner in plurality formula', function() {
       winners: []
     },
     votedFor: {
-      green: "green",
-      republican: "republican",
-      democrat: "democrat"
+      green: [{ "green": 5 }],
+      republican: [{ "republican": 10 }],
+      democrat: [{ "democrat": 20 }]
     },
     voterSummary: [{
       green: 5
@@ -87,9 +87,9 @@ test('tie in plurality formula', function() {
       winners: ['democrat']
     },
     votedFor: {
-      green: "green",
-      republican: "republican",
-      democrat: "democrat"
+      green: [{ "green": 5 }],
+      republican: [{ "republican": 20 }],
+      democrat: [{ "democrat": 20 }]
     },
     voterSummary: [{
       green: 5
@@ -114,9 +114,9 @@ test('tie in plurality formula', function() {
       winners: ['republican']
     },
     votedFor: {
-      green: "green",
-      republican: "republican",
-      democrat: "democrat"
+      green: [{ "green": 5 }],
+      republican: [{ "republican": 20 }],
+      democrat: [{ "democrat": 20 }]
     },
     voterSummary: [{
       green: 5

@@ -64,7 +64,9 @@ export default function(preferenceGroups) {
   var generateVoterSummary = function (partyTotal) {
     var summary = {};
     var party = partyTotal.party;
-    votedFor[party] = party; // Putting initial identify votedFor mapping in this loop--so as not use use up an extra iteration
+    var votesForParty = {};
+    votesForParty[party] = partyTotal.voters;
+    votedFor[party] = [votesForParty]; // Putting initial identify votedFor mapping in this loop--so as not use use up an extra iteration
     summary[partyTotal.party] = partyTotal.voters;
     return summary;
   };
@@ -98,7 +100,9 @@ export default function(preferenceGroups) {
         // check to see if the current party preference is one of the parties that has made it to the runoff election
         if (runoffParties.contains(currentPreferredParty)) {
           runoffResults[currentPreferredParty] += preferenceGroup.voters;
-          votedFor[primaryParty] = currentPreferredParty;
+          var votesForParty = {};
+          votesForParty[currentPreferredParty] = preferenceGroup.voters;
+          votedFor[primaryParty] = [votesForParty];
           // stop iterating through the group's party prefernces after adding the groups votes to the tally
           break; //super important to the model that we stop processing the party preferences when we find a match
         }

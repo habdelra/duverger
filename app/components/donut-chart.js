@@ -352,7 +352,8 @@ export default Ember.Component.extend(ElectionOutcomeMixin, {
     path = path.data(pie(data || [])); // compute the new angles
     path.transition().duration(transitionDurationMs)
       .attr("fill", function(d) {
-        return partyLookup(votedFor[Ember.keys(d.data)], 'color');
+        var votedForObj = votedFor[Ember.keys(d.data)];
+        return partyLookup(Ember.keys(votedForObj[0])[0], 'color');
       })
       .attrTween("d", arcTween); // redraw the arcs
 
