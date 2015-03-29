@@ -28,6 +28,10 @@ body, html {
   width: 100%;
   padding-right: grid-width(7) + grid-width(2);
   z-index: 10;
+
+  .header--election--dropdown {
+    float: right;
+  }
 }
 
 // Right section that contains the
@@ -45,10 +49,6 @@ body, html {
 
   .election-settings__overview {
     padding: 0 $grid-padding-unit 0;
-  }
-
-  .header--election--dropdown {
-    float: right;
   }
 }
 
