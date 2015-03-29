@@ -1,0 +1,127 @@
+// Party Preference
+//
+// ---------------------------------------
+// Draggable party preference box
+// ---------------------------------------
+.party-preference {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  text-align: center;
+  background: $text-color-light;
+  width: grid-width(1);
+  height: grid-height(5);
+  @include transition(all .1s ease-in);
+
+  &:hover {
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+    bottom: 4px;
+    @include transition-property(bottom);
+  }
+
+  .secondary-party-name {
+    @extend %font-large;
+    color: $text-color;
+  }
+
+  .ic-modal-trigger {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    @include vertical-align;
+  }
+
+  &:after {
+      content: "";
+      display: block;
+      border: 10px solid black;
+      margin: 1px 1px 0 0;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid transparent;
+      position: absolute;
+      top: 0;
+      right: 0;
+  }
+
+  &.conservative:after {
+    border-top-color: $conservative-color;
+    border-right-color: $conservative-color;
+  }
+  &.green:after {
+    border-top-color: $green-color;
+    border-right-color: $green-color;
+  }
+  &.nationalist:after {
+    border-top-color: $nationalist-color;
+    border-right-color: $nationalist-color;
+  }
+  &.liberal:after {
+    border-top-color: $liberal-color;
+    border-right-color: $liberal-color;
+  }
+  &.socialDemocrat:after {
+    border-top-color: $social-democrat-color;
+    border-right-color: $social-democrat-color;
+  }
+
+  &.first-preference {
+    text-align: left;
+    white-space: normal;
+    width: grid-width(1)+$grid-padding-unit;
+
+    .party-name {
+      @extend %font-large;
+      @include vertical-align;
+      color: $text-color-light;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .vote-input-container {
+      background: $text-field-color;
+      padding: 10px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      .vote-input {
+        @extend %font-medium;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        width: 60px;
+        height: auto;
+        font-weight: 600;
+        color: $text-color-light;
+        text-align: center;
+      }
+
+      .vote-input:focus {
+        outline: none;
+      }
+    }
+
+    &:after { display: none; }
+    &:hover {
+      cursor: auto;
+      bottom: 0;
+    }
+  }
+
+  &.moving {
+    @include transition(all .1s ease-in);
+    box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+  }
+
+  &.dragging {
+    opacity: .4;
+  }
+}

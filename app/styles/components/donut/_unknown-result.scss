@@ -1,0 +1,59 @@
+//Unknown Result Message
+.unknown-result {
+  @extend %font-medium-large;
+  max-width: 350px;
+  color: $text-color-light;
+  background-color: $orange-color;
+  padding: 15px 30px;
+  margin: 200px auto 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.vote-percentage {
+  @extend %font-medium;
+}
+
+.selected-formula {
+  @extend %font-large;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.formula-selector {
+  width: 100%;
+  top: grid-height(3);
+  position: absolute;
+  z-index: 1;
+  background-color: $text-color-light;
+  border: 1px solid $text-color;
+  border-top-width: 0;
+
+  .formula-item {
+    padding-left: 6px;
+    border-top: 1px dotted $text-color;
+    margin-top: -1px;
+
+    &:first-of-type {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $text-color;
+
+      .select-formula-button {
+        color: $text-color-light;
+      }
+    }
+
+    .select-formula-button {
+      @extend %election-header-style;
+      width: 100%;
+      text-align: left;
+      height: grid-height(5);
+      line-height: grid-height(5);
+      border: none;
+      background: none;
+    }
+  }
+}

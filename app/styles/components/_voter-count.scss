@@ -1,0 +1,60 @@
+// Voter Count Box
+//
+// ---------------------------------------
+// Change the amount of voters in a
+// preference group
+// ---------------------------------------
+
+.voter-count {
+  @extend %election-header-style;
+  font-size: 0;
+  font-weight: 100;
+  display: inline-block;
+  padding: 0 $grid-padding-unit;
+  width: grid-width(2)+$grid-padding-unit*2;
+
+  .voter-amount-btn {
+    &.decrease, &.increase {
+      width: 25px;
+      height: grid-height(5);
+      background-position: center center;
+      @include simple-hover-state($text-color-light);
+    }
+    &.decrease {
+      @include icon-arrow(west, false);
+    }
+    &.increase {
+      @include icon-arrow(east, false);
+    }
+  }
+
+  .vote-input {
+    @extend %font-large;
+    @extend %font-family-standard;
+    color: $text-color;
+    font-weight: 600;
+    padding: grid-height(1) 0;
+    width: grid-width(2) - 40;
+    line-height: grid-height(3);
+    height: grid-height(5);
+    text-align: center;
+    margin: 0 0 grid-height(2);
+  }
+
+ .invalid .vote-input {
+   color: $orange-color;
+ }
+
+  .preference-group-percentage {
+    @extend %election-header-style;
+    font-weight: 600;
+
+    &.invalid {
+      visibility: hidden;
+    }
+  }
+
+  >* {
+    vertical-align: top;
+  }
+}

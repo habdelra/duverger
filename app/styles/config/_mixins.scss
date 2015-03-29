@@ -20,3 +20,12 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%); 
 }
+
+@mixin simple-hover-state($color) {
+  @include transition(background-color .1s);
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color;
+  }
+}

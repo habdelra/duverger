@@ -50,3 +50,30 @@ a {
 p {
   line-height: normal;
 }
+
+* {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  @extend %font-family-standard;
+}
+
+// ember IC modal
+#modal {
+  background-color: transparent;
+  z-index: 30;
+
+  .ic-modal-close {
+    display: none;
+  }
+
+  ic-modal-title {
+    display: none;
+  }
+  ic-modal-main {
+    border: none;
+    background: none;
+  }
+}

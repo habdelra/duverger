@@ -1,0 +1,43 @@
+// Preference Group
+//
+// ---------------------------------------
+// Draggable party container
+// ---------------------------------------
+
+.preference-group {
+  margin-bottom: grid-height(2);
+  border-bottom: 1px solid $text-color-light;
+  padding-bottom: grid-height(1);
+  font-size: 0; //hack to remove inline block spaces
+  white-space: nowrap; //make sure inline preference items never break to a new line
+  > * {
+    @extend %font-medium;
+  }
+
+  &:last-of-type {
+    border-bottom-color: transparent;
+  }
+
+  &.socialDemocrat .first-preference{ background: $social-democrat-color; }
+  &.liberal .first-preference{ background: $liberal-color; }
+  &.nationalist .first-preference{ background: $nationalist-color; }
+  &.green .first-preference{ background: $green-color; }
+  &.conservative .first-preference{ background: $conservative-color; }
+
+  .preference-drop-zone {
+    @include grid-height(5);
+    @include transition-property(width);
+    display: inline-block;
+    width: 2px;
+    vertical-align: top;
+
+    &.can-accept-drop {
+      width: 3px;
+    }
+
+    &.accepts-drag {
+      background: $text-field-color;
+      width: 40px;
+    }
+  }
+}
