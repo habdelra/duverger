@@ -54,9 +54,10 @@ Our app is hosted on Heroku. To get started create a Heroku account using your e
 ```
 $ heroku login
 ```
-* 
+
 
 We have two heroku apps setup:
+
 1. `duverger` this is the production application instance. The git remote name for this instance is `production`.
 2. `duverger-staging` this is the staging application instance. The git remove name for this instance is `staging`.
 
