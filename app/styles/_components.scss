@@ -1,0 +1,21 @@
+// Components SCSS
+//
+// ---------------------------------------
+// These are encapsulated elements
+// ideally re-useable
+// ---------------------------------------
+
+@import 'components/icons';
+@import 'components/election-header';
+@import 'components/election-header-secondary';
+@import 'components/party-preference';
+@import 'components/preference-group';
+@import 'components/preference-order';
+@import 'components/voter-count';
+
+//left hand panel
+@import 'components/lhp/lhp';
+
+//donut chart
+@import 'components/donut/party-winner';
+@import 'components/donut/unknown-result';

@@ -1,0 +1,45 @@
+// Preference Order
+//
+// ---------------------------------------
+// Contains Arrows which allow you to
+// increment party preference order
+// ---------------------------------------
+.preference-order {
+  position: absolute;
+  height: grid-height(5);
+  display: inline-block;
+  border-radius: 0;
+  background-color: $text-color;
+  padding: 5px 0 0 5px;
+  width: 92px;
+  margin-top: 7px;
+  z-index: 35;
+
+  .preference-order-btn {
+    background: $conservative-color;
+    border: none;
+    @include transition(background-color .1s ease-in);
+    &:active {
+      @include transition(background-color .1s ease-in);
+      background-color: darken($conservative-color, 10);
+    }
+    &[disabled] {
+      opacity: .4;
+      background-color: $conservative-color;
+      cursor: default;
+    }
+
+    &.move-before, &.move-after {
+      background-position: center center;
+      width: 40px;
+      height: 40px;
+      stroke: white;
+    }
+    &.move-before {
+      @include icon-arrow(west, true);
+    }
+    &.move-after {
+      @include icon-arrow(east, true);
+    }
+  }
+}

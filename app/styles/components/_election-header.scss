@@ -1,0 +1,70 @@
+// Election Headers
+//
+// ---------------------------------------
+// The headers used for main sections
+// in the election screen
+// ---------------------------------------
+
+%election-header-style {
+  @extend %font-small;
+  text-transform: uppercase;
+  color: $text-color-secondary;
+}
+
+// Top level header
+.header--election,
+.header--election--dropdown {
+  display: inline-block;
+  margin: 0 0 grid-height(3);
+  width: grid-width(2);
+
+  .header--election__label {
+    @extend %election-header-style;
+    text-align: center;
+    padding: grid-height(1) 0;
+    margin: 0 0 grid-height(2);
+    border-bottom: 1px solid $border-color;
+    border-top: 1px solid transparent;
+    display: block;
+
+    &.formula__label {
+      overflow: hidden;
+      padding: 1px 0;
+    }
+
+    &.menu-displayed {
+      background: $text-color-light;
+      border: 1px solid $text-color;
+      border-bottom-width: 0;
+    }
+  }
+
+  .header--election__value {
+    @extend %font-large;
+    color: $conservative-color;
+    text-align: center;
+
+    &.invalid {
+      color: $orange-color;
+    }
+  }
+}
+
+.header--election--dropdown {
+  position: relative;
+  width: grid-width(3)+$grid-padding-unit;
+}
+
+.toggle-formula-list-button {
+  border: none;
+  background-color: transparent;
+  vertical-align: middle;
+  height: grid-height(3);
+  width: 100%;
+  @extend %election-header-style;
+
+  .arrow {
+    margin-left: 20px;
+    @include icon-arrow(south, false);
+  }
+}

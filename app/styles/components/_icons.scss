@@ -4,6 +4,21 @@
   background-position: left center;
 }
 
+// Arrow mixin
+//
+// ---------------------------------------
+// Used to generate an SVG arrow facing any
+// cardinal direction
+//
+// icon-arrow($direction, $invertedColor)
+//
+// @params
+//
+// $direction       - (string) direction of arrow, accepts a cardinal direction
+// $invertedColor   - (boolean) arrow is white?
+//
+// ---------------------------------------
+
 %icon-arrow-south {
   @extend %icon;
   background-image: url("../images/south-arrow.svg");
