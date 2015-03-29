@@ -1,24 +1,25 @@
----
 language: node_js
-
 sudo: false
-
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 before_install:
-  - "npm config set spin false"
-  - "npm install -g npm@^2"
-
+- npm config set spin false
+- npm install -g npm@^2
 install:
-  - npm install -g bower
-  - npm install
-  - bower install
-
+- npm install -g bower
+- npm install
+- bower install
 script:
-  - npm test
-
+- npm test
 branches:
   only:
-    - master
+  - master
+deploy:
+  provider: heroku
+  api_key:
+    secure: quU86S7YcvUDhiWod4S2L4vf5C6fav3Br2CP9RBoVx576hgqfnxM/9f5SwklU1bzO2DWjD5KvXl8Ni0ds5kWf2iHalN5YRwK8x0RhSZm0aW6oT1QZssW2QHhSA4E3oaWSP1CAOhWeOA+D+Pxd6deqqhMte5shJxCeQTi8omECKI=
+  app: duverger-staging
+  on:
+    repo: habdelra/duverger
+    branch: auto-heroku-deploy
