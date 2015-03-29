@@ -22,4 +22,4 @@ deploy:
   app: duverger-staging
   on:
     repo: habdelra/duverger
-    branch: auto-heroku-deploy
+    branch: master
