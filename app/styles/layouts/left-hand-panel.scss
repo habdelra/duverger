@@ -146,11 +146,13 @@ $lhp-thumb-padding: 10px;
       }
 
       .description {
-        margin: 0 0 15px 0;
+        margin: 0 -10px 15px 0;
+        color: $background-color;
       }
 
       .feedback {
         margin: 0 0 20px 0;
+        color: $background-color;
       }
 
       .project-name {
