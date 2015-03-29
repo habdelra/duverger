@@ -13,6 +13,22 @@
         <div class="district__value header--election__value">{{model.districtNumber}}</div>
       </div>
 
+      <div class="formula header--election--dropdown">
+        <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>
+          <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Formula Applied: <span class="arrow">Select formula</span></button>
+        </div>
+        <div class="selected-formula">{{model.formulaName}}</div>
+        {{#if showFormulaList}}
+          <ul class="formula-selector">
+            {{#each formula in model.formulae}}
+              <li class="formula-item">
+                <button {{action 'useFormula' formula}} class="select-formula-button">{{formula.display}}</button>
+              </li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </div>
+
       <div class="percentage-votes header--election--secondary">
         <span class="percentage-votes__label">Percentage of Votes</span>
         <span class="election-round">{{runoffOrdinal}} Round</span>
@@ -45,22 +61,6 @@
             <div class="total-voters__value header--election__value">{{totalVoters}}</div>
           {{else}}
             <div class="total-voters__value invalid header--election__value">0</div>
-          {{/if}}
-        </div>
-
-        <div class="formula header--election--dropdown">
-          <div {{bind-attr class=":formula__label :header--election__label showFormulaList:menu-displayed"}}>
-            <button class="toggle-formula-list-button" {{action 'toggleFormulaList'}}>Formula Applied: <span class="arrow">Select formula</span></button>
-          </div>
-          <div class="selected-formula">{{model.formulaName}}</div>
-          {{#if showFormulaList}}
-            <ul class="formula-selector">
-              {{#each formula in model.formulae}}
-                <li class="formula-item">
-                  <button {{action 'useFormula' formula}} class="select-formula-button">{{formula.display}}</button>
-                </li>
-              {{/each}}
-            </ul>
           {{/if}}
         </div>
       </div>
