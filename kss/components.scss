@@ -15,13 +15,13 @@
 // Markup:
 // <div class="preference-group-header header--election--secondary">
 //   <span class="secondary--voter-count">Number of Voters</span>
-//   <ul class="party-preference-header">
-//     <li>1st choice</li>
-//     <li>2nd</li>
-//     <li>3rd</li>
-//     <li>4th</li>
-//     <li>5th</li>
-//   </ul>
+//   <div class="party-preference-header">
+//     <span>1st choice</span>
+//     <span>2nd</span>
+//     <span>3rd</span>
+//     <span>4th</span>
+//     <span>5th</span>
+//   </div>
 // </div>
 //
 // Styleguide 6.2
@@ -39,23 +39,3 @@
 // </div>
 //
 // Styleguide 6.3
-
-// Party Preferences
-//
-// Draggable party preferences
-//
-// Markup:
-// <div class="preference-group socialDemocrat">
-//  <div id="ember378" class="ember-view first-preference party-preference socialDemocrat" draggable="false"><span class="party-name">SD</span></div>
-//  <div id="ember389" class="ember-view preference-drop-zone"></div>
-//  <div id="ember393" class="ember-view party-preference conservative" draggable="true"><span class="secondary-party-name">C</span></div>
-//  <div id="ember394" class="ember-view preference-drop-zone"></div>
-//  <div id="ember398" class="ember-view party-preference green" draggable="true"><span class="secondary-party-name">G</span></div>
-//  <div id="ember399" class="ember-view preference-drop-zone"></div>
-//  <div id="ember403" class="ember-view party-preference nationalist" draggable="true"><span class="secondary-party-name">N</span></div>
-//  <div id="ember404" class="ember-view preference-drop-zone"></div>
-//  <div id="ember408" class="ember-view party-preference liberal" draggable="true"><span class="secondary-party-name">L</span></div>
-//  <div id="ember409" class="ember-view preference-drop-zone"></div>
-// </div>
-//
-// Styleguide 6.4
