@@ -1,8 +1,37 @@
-// Drag and Drop
+// Party Preferences
 //
-// Drag and Drop styles go here.
+// Draggable party preferences
 //
 // Markup:
-// <button class="item-number {$modifiers}">1</button>
+// <div class="preference-group socialDemocrat">
+//  <div class="first-preference party-preference socialDemocrat">
+//    <span class="party-name">SD</span>
+//  </div>
+//  <div class="ember-view preference-drop-zone"></div>
+//  <div class="party-preference conservative">
+//    <button class="preference-button">
+//      <span class="party-name">C</span>
+//    </button>
+//  </div>
+//  <div id="ember394" class="ember-view preference-drop-zone"></div>
+//  <div class="party-preference green">
+//    <button class="preference-button">
+//      <span class="party-name">G</span>
+//    </button>
+//  </div>
+//  <div id="ember399" class="ember-view preference-drop-zone"></div>
+//  <div class="party-preference nationalist">
+//    <button class="preference-button">
+//      <span class="party-name">N</span>
+//    </button>
+//  </div>
+//  <div id="ember404" class="ember-view preference-drop-zone"></div>
+//  <div class="party-preference liberal">
+//    <button class="preference-button">
+//      <span class="party-name">L</span>
+//    </button>
+//  </div>
+//  <div id="ember409" class="ember-view preference-drop-zone"></div>
+// </div>
 //
 // Styleguide 4.1

@@ -11,7 +11,7 @@
     "start": "./node_modules/ember-cli/bin/ember serve --environment=production --port=${PORT}",
     "build": "./node_modules/ember-cli/bin/ember build",
     "test": "./node_modules/ember-cli/bin/ember test",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "./node_modules/bower/bin/bower install && ./make-kss.sh"
   },
   "repository": "",
   "engines": {
